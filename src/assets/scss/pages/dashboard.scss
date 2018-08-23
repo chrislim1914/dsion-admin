@@ -1,0 +1,45 @@
+//---------------
+// dashboard.scss
+//---------------
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  display: flex;
+  align-items: stretch;
+}
+
+#content {
+  min-height: 100vh;
+}
+
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: .5rem;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+
+  ul {
+    li > a {
+      color: black;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+#search, #save-kyc-info, #save-excel {
+  color: #000;
+  background: #e0e0e0;
+}
+
+.debugger {
+  border: 1px solid red;
+}
