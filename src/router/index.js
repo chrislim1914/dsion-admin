@@ -12,6 +12,8 @@ import Signin from '@/components/Signin/Index'
 import Dashboard from '@/components/Dashboard/Index'
 import DashboardMain from '@/components/Dashboard/Main'
 import MembershipManagement from '@/components/Dashboard/MembershipManagement'
+import MemberProfile from '@/components/Dashboard/MemberProfile'
+import DepositManagement from '@/components/Dashboard/DepositManagement'
 
 Vue.use(Router)
 
@@ -36,6 +38,17 @@ export default new Router({
           path: 'membership-management',
           name: 'DashboardMembershipManagement',
           component: MembershipManagement
+        },
+        {
+          path: 'membership-management/view',
+          name: 'DashboardMemberProfile',
+          props: true,
+          component: MemberProfile
+        },
+        {
+          path: 'deposit-management',
+          name: 'DashboardDepositManagement',
+          component: DepositManagement
         }
       ]
     }

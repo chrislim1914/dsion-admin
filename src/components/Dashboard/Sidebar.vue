@@ -37,7 +37,7 @@ export default {
         },
         {
           title: 'Despoit Management',
-          path_name: 'DespoitManagement',
+          path_name: 'DepositManagement',
           link: '/dashboard/deposit-management'
         },
         {
