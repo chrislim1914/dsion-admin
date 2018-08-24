@@ -11,6 +11,7 @@ import Signin from '@/components/Signin/Index'
  */
 import Dashboard from '@/components/Dashboard/Index'
 import DashboardMain from '@/components/Dashboard/Main'
+import MembershipManagement from '@/components/Dashboard/MembershipManagement'
 
 Vue.use(Router)
 
@@ -30,6 +31,11 @@ export default new Router({
           path: '',
           name: 'DashboardMain',
           component: DashboardMain
+        },
+        {
+          path: 'membership-management',
+          name: 'DashboardMembershipManagement',
+          component: MembershipManagement
         }
       ]
     }

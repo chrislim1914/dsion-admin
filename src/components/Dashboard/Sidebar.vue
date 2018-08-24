@@ -27,7 +27,7 @@ export default {
       links: [
         {
           title: 'Dashboard',
-          path_name: 'Dashboard',
+          path_name: 'Main',
           link: '/dashboard'
         },
         {
