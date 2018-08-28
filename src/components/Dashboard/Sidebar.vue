@@ -47,7 +47,7 @@ export default {
         },
         {
           title: 'ICO Management',
-          path_name: 'ICOManagement',
+          path_name: 'IcoManagement',
           link: '/dashboard/ico-management'
         }
       ]
