@@ -11,21 +11,83 @@
       <div class="row justify-content-center mt-3">
         <form class="col-5">
           <div class="form-group">
-            <input type="text" class="form-control" id="user_id" aria-describedby="user_id" placeholder="id placeholder">
+            <input type="email" class="form-control" id="user_id" v-model="email" aria-describedby="email" placeholder="email placeholder">
           </div>
           <div class="form-group">
-            <input type="password" class="form-control" id="password" aria-describedby="password" placeholder="password placeholder">
+            <input type="password" class="form-control" id="password" v-model="password" aria-describedby="password" placeholder="password placeholder">
           </div>
-          <button type="submit" class="btn btn-block">login</button>
+          <a href="#!" class="btn btn-block" @click="signin">login</a>
         </form>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="loading-parent">
+                <loading :active.sync="isLoading"
+                :is-full-page="true"></loading>
+           </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.min.css'
+import {
+  mapState,
+  mapActions
+} from 'vuex'
+
 export default {
-  name: 'Signin'
+  name: 'Signin',
+  components: {
+    Loading
+  },
+  data () {
+    return {
+      email: '',
+      password: '',
+      isLoading: false
+    }
+  },
+  computed: {
+    ...mapState({
+      'responseData': ({users}) => users.responseData
+    })
+  },
+  methods: {
+    ...mapActions([
+      'signinUser'
+    ]),
+
+    signin () {
+      this.isLoading = true
+
+      this.signinUser({
+        email: this.email,
+        password: this.password
+      }).then(() => {
+        this.isLoading = false
+        if (this.responseData.message === 'login ok') {
+          this.$session.start()
+          this.$session.set('jwt', this.responseData.token)
+          this.$router.push({ name: 'DashboardMain' })
+        } else {
+          this.$notify({
+            group: 'signin',
+            title: 'Invalid login',
+            text: 'Neither email or password is invalid.'
+          })
+        }
+      })
+    }
+  },
+  created () {
+    if (this.$session.exists()) {
+      this.$router.push({ name: 'DashboardMain' })
+    }
+  }
 }
 </script>
 

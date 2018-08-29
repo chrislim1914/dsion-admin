@@ -19,6 +19,11 @@ export default {
   name: 'Dashboard',
   components: {
     'dashboard-sidebar': Sidebar
+  },
+  created () {
+    if (!this.$session.exists()) {
+      this.$router.push({ name: 'Signin' })
+    }
   }
 }
 </script>

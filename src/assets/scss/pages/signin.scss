@@ -11,6 +11,15 @@
   background: #E0E0E0;
 }
 
+.loading-parent {
+  position: relative;
+}
+
+.vue-notification {
+  background: #d9534f;
+  border: 3px solid #d9534f;
+}
+
 .debugger {
   border: 1px solid red;
 }

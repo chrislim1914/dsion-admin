@@ -14,16 +14,36 @@
             {{ link.title }}
           </router-link>
         </li>
+        <li class="nav-item my-2" :key="index">
+          <a href="#!" class="btn-block ml-3" @click="signout">
+            Signout
+          </a>
+        </li>
       </ul>
     </div>
+    <div class="loading-parent">
+          <loading :active.sync="isLoading"
+          :is-full-page="true"></loading>
+     </div>
   </nav>
 </template>
 
 <script>
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.min.css'
+import {
+  mapState,
+  mapActions
+} from 'vuex'
+
 export default {
   name: 'DashboardSidebar',
+  components: {
+    Loading
+  },
   data () {
     return {
+      isLoading: false,
       links: [
         {
           title: 'Dashboard',
@@ -53,9 +73,28 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapState({
+      'responseData': ({users}) => users.responseData
+    })
+  },
   methods: {
+    ...mapActions([
+      'logoutUser'
+    ]),
     hasRoute: function (partial) {
       return (this.$route.fullPath === partial)
+    },
+    signout: function () {
+      this.isLoading = true
+
+      this.logoutUser({
+        token: this.$session.get('jwt')
+      }).then(() => {
+        this.isLoading = false
+        this.$session.destroy()
+        this.$router.push('/')
+      })
     }
   }
 }

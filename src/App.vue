@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <notifications group="signin" position="bottom right" />
     <router-view></router-view>
   </div>
 </template>
