@@ -15,8 +15,8 @@
           </router-link>
         </li>
         <li class="nav-item my-2">
-          <a href="#!" class="btn-block ml-3" @click="signout">
-            Signout
+          <a href="#" class="btn-block ml-3" @click="logout">
+            Logout
           </a>
         </li>
       </ul>
@@ -85,7 +85,7 @@ export default {
     hasRoute: function (partial) {
       return (this.$route.fullPath === partial)
     },
-    signout: function () {
+    logout: function (e) {
       this.isLoading = true
 
       this.logoutUser({
@@ -95,6 +95,8 @@ export default {
         this.$session.destroy()
         this.$router.push('/')
       })
+
+      e.preventDefault()
     }
   }
 }

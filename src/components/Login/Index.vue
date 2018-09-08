@@ -2,14 +2,14 @@
   <div id="app-login">
     <div class="container">
       <div class="row mt-5 justify-content-center">
-        <div class="col-5 text-center p-5 border">
+        <div class="col-md-5 text-center py-5 border">
           <h1 class="display-5 font-weight-bold">
             DSION TOKEN
           </h1>
         </div>
       </div>
       <div class="row justify-content-center mt-3">
-        <form class="col-5" @submit.prevent="login">
+        <form class="col-md-5" @submit.prevent="login">
           <div class="form-group">
             <input type="text" class="form-control" id="user_id" v-model="userId" aria-describedby="text" placeholder="user id">
           </div>
