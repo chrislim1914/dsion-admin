@@ -7,6 +7,6 @@ import {
 } from '@/config.js'
 
 export const user = {
-  signin: apiURL + '/login',
+  login: apiURL + '/admin/login',
   logout: apiURL + '/auth/logout'
 }

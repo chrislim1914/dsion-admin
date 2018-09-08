@@ -22,7 +22,7 @@ export default {
   },
   created () {
     if (!this.$session.exists()) {
-      this.$router.push({ name: 'Signin' })
+      this.$router.push({ name: 'Login' })
     }
   }
 }

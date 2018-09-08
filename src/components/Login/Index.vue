@@ -1,5 +1,5 @@
 <template>
-  <div id="app-signin">
+  <div id="app-login">
     <div class="container">
       <div class="row mt-5 justify-content-center">
         <div class="col-5 text-center p-5 border">
@@ -9,14 +9,14 @@
         </div>
       </div>
       <div class="row justify-content-center mt-3">
-        <form class="col-5">
+        <form class="col-5" @submit.prevent="login">
           <div class="form-group">
-            <input type="email" class="form-control" id="user_id" v-model="email" aria-describedby="email" placeholder="email placeholder">
+            <input type="text" class="form-control" id="user_id" v-model="userId" aria-describedby="text" placeholder="user id">
           </div>
           <div class="form-group">
-            <input type="password" class="form-control" id="password" v-model="password" aria-describedby="password" placeholder="password placeholder">
+            <input type="password" class="form-control" id="password" v-model="password" aria-describedby="password" placeholder="password">
           </div>
-          <a href="#!" class="btn btn-block" @click="signin">login</a>
+          <button type="submit" class="btn btn-block">login</button>
         </form>
       </div>
       <div class="row">
@@ -40,13 +40,13 @@ import {
 } from 'vuex'
 
 export default {
-  name: 'Signin',
+  name: 'Login',
   components: {
     Loading
   },
   data () {
     return {
-      email: '',
+      userId: '',
       password: '',
       isLoading: false
     }
@@ -58,14 +58,13 @@ export default {
   },
   methods: {
     ...mapActions([
-      'signinUser'
+      'loginUser'
     ]),
-
-    signin () {
+    login () {
       this.isLoading = true
 
-      this.signinUser({
-        email: this.email,
+      this.loginUser({
+        iduser: this.userId,
         password: this.password
       }).then(() => {
         this.isLoading = false
@@ -75,9 +74,9 @@ export default {
           this.$router.push({ name: 'DashboardMain' })
         } else {
           this.$notify({
-            group: 'signin',
+            group: 'login',
             title: 'Invalid login',
-            text: 'Neither email or password is invalid.'
+            text: 'Invalid user id or password'
           })
         }
       })
@@ -92,5 +91,5 @@ export default {
 </script>
 
 <style lang='scss'>
-  @import 'scss/pages/signin.scss';
+  @import 'scss/pages/login.scss';
 </style>

@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 /**
- * @desc signin import
+ * @desc login import
  */
-import Signin from '@/components/Signin/Index'
+import Login from '@/components/Login/Index'
 
 /**
  * @desc dashboard import
@@ -24,8 +24,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Signin',
-      component: Signin
+      name: 'Login',
+      component: Login
     },
     {
       path: '/dashboard',

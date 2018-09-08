@@ -21,14 +21,14 @@ const state = {
  */
 const actions = {
   /**
-      * Create user
+      * Log in user
       * @param  context
       * @param  payload
       * @return {Promise}
       */
-  signinUser: async (context, payload) => {
+  loginUser: async (context, payload) => {
     try {
-      var resp = await axios.post(user.signin, payload)
+      var resp = await axios.post(user.login, payload)
       context.commit('updateResponseMessage', resp.data)
     } catch (error) {
       context.commit('updateResponseMessage', 'General Error')

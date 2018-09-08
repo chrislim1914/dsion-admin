@@ -14,7 +14,7 @@
             {{ link.title }}
           </router-link>
         </li>
-        <li class="nav-item my-2" :key="index">
+        <li class="nav-item my-2">
           <a href="#!" class="btn-block ml-3" @click="signout">
             Signout
           </a>
