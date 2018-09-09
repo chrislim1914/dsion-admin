@@ -1,23 +1,44 @@
 <template>
   <div id="app-dashboard-depositmanagement">
     <div class="container">
-      <div class="row">
+      <div class="row p-3">
         <div class="col">
           <h5 class="font-weight-bold">
             Deposit management
           </h5>
         </div>
-        <div class="col-2">
-          <input type="text" class="form-control" id="start" placeholder="">
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <input type="text" class="form-control" id="deposit-amount" placeholder="deposit amount/amount of withdrawal">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <input type="text" class="form-control" id="above-below" placeholder="above / below">
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-1">
-          ~
-        </div>
-        <div class="col-2">
-          <input type="text" class="form-control" id="start" placeholder="">
-        </div>
-        <div class="col">
-          <a href="#!" class="btn btn-light">Search</a>
+        <div class="col-6">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <input type="date" class="form-control" id="start-date" placeholder="start date">
+              </div>
+            </div>~
+            <div class="col">
+              <div class="form-group">
+                <input type="date" class="form-control" id="end-date" placeholder="end date">
+              </div>
+            </div>
+            <div class="col">
+              <a href="#!" class="btn btn-block btn-light">Search</a>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row mt-3">

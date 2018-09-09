@@ -16,6 +16,16 @@
   min-height: 100vh;
 }
 
+ul {
+    list-style-type: none !important;
+}
+
+a {
+  &:hover {
+    text-decoration: none !important;
+  }
+}
+
 .sidebar-sticky {
   position: relative;
   top: 0;

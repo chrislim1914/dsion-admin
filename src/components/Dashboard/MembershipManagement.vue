@@ -1,6 +1,6 @@
 <template>
     <div id="app-dashboard-membershipmanagement">
-      <div class="container bg-light p-4">
+      <div class="container p-4">
         <div class="row">
           <div class="col-12">
             <h5 class="font-weight-bold">
@@ -8,38 +8,93 @@
             </h5>
           </div>
         </div>
+
+        <!-- start first filter -->
         <div class="row">
-          <div class="col-2">
-            <select class="custom-select">
-              <option selected>Date of application</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
+          <div class="col">
+            <a href="#!" class="btn btn-light btn-block">View all</a>
           </div>
-          <div class="col-2">
-            <select class="custom-select">
-              <option selected>No entry/approval</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
+          <div class="col">
+            <a href="#!" class="btn btn-light btn-block">Private</a>
           </div>
-          <div class="col-2">
-            <input type="text" class="form-control" id="start" aria-describedby="start" placeholder="placeholder">
+          <div class="col">
+            <a href="#!" class="btn btn-light btn-block">Free 1</a>
           </div>
-          <div class="col-1">
-            <h4 class="text-center">-</h4>
+          <div class="col">
+            <a href="#!" class="btn btn-light btn-block">Free 2</a>
           </div>
-          <div class="col-2">
-            <input type="text" class="form-control" id="start" aria-describedby="start" placeholder="placeholder">
-          </div>
-          <div class="col-3">
-            <a href="#!" class="btn btn-block" id="search">
-              Search
-            </a>
+          <div class="col">
+            <a href="#!" class="btn btn-light btn-block">Public</a>
           </div>
         </div>
+        <!-- end first filter -->
+
+        <!-- start second filter -->
+        <div class="row mt-3">
+          <div class="col">
+            <a href="#!" class="btn btn-light btn-block">View all</a>
+          </div>
+          <div class="col">
+            <a href="#!" class="btn btn-light btn-block">KYC Approved</a>
+          </div>
+          <div class="col">
+            <a href="#!" class="btn btn-light btn-block">KYC in progress</a>
+          </div>
+          <div class="col">
+            <a href="#!" class="btn btn-light btn-block">KYC not entered</a>
+          </div>
+          <div class="col">
+            <a href="#!" class="btn btn-light btn-block">KYC rejection</a>
+          </div>
+        </div>
+        <!-- end second filter -->
+
+        <!-- start third filter -->
+        <div class="row mt-3">
+          <div class="col">
+            <input type="number" class="form-control" id="estimated-amount" placeholder="Estimated amount">
+          </div>
+          <div class="col">
+            <input type="number" class="form-control" id="above-below" placeholder="Above / below">
+          </div>
+          <div class="col">
+            <input type="number" class="form-control" id="eth" placeholder="ETH">
+          </div>
+          <div class="col">
+            <a href="#!" class="btn btn-light btn-block">Search</a>
+          </div>
+        </div>
+        <!-- end third filter -->
+
+        <!-- start fourth filter -->
+        <div class="row mt-3">
+          <div class="col-3">
+            <select class="form-control" id="date-of-application">
+              <option>Date of application</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+          <div class="col-2">
+            <input type="text" class="form-control" id="start-date" placeholder="Start date">
+          </div>
+          <div class="col-1 align-self-center">
+            <h6>~</h6>
+          </div>
+          <div class="col-2">
+            <input type="text" class="form-control" id="end-date" placeholder="End date">
+          </div>
+          <div class="col-2">
+            <input type="text" class="form-control" id="id-search" placeholder="ID search">
+          </div>
+          <div class="col-2">
+            <a href="#!" class="btn btn-light btn-block">Search</a>
+          </div>
+        </div>
+        <!-- end fourth filter -->
+
         <div class="row mt-4">
           <div class="col-6">
             <div class="row">
@@ -50,19 +105,7 @@
               </div>
               <div class="col-5">
                 <a href="#!" class="btn" id="save-excel">
-                  Id information save excel
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-6 text-right">
-            <div class="row justify-content-end">
-              <div class="col-5">
-                <input type="text" class="form-control" id="start" aria-describedby="start" placeholder="id placeholder">
-              </div>
-              <div class="col-4">
-                <a href="#!" class="btn btn-block" id="search">
-                  search
+                  Save list to excel
                 </a>
               </div>
             </div>

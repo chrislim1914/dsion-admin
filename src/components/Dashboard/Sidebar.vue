@@ -2,11 +2,9 @@
   <nav class="col-md-2 d-none d-lg-block sidebar">
     <div class="sidebar-sticky bg-light">
       <ul class="nav flex-column">
-        <li class="list-group-item bg-transparent border-0">
-            <h6 class="font-weight-bold">
-              DSION
-            </h6>
-          </li>
+        <li class="list-group-item bg-transparent border-0 py-5">
+          <img src="~images/dsion.png" alt="Dsion logo" class="img-fluid pl-5">
+        </li>
       </ul>
       <ul class="nav flex-column mt-4">
         <li class="nav-item my-2" :key="index" v-for="(link, index) in links">
@@ -48,7 +46,7 @@ export default {
         {
           title: 'Dashboard',
           path_name: 'Main',
-          link: '/dashboard'
+          link: '/dashboard/'
         },
         {
           title: 'Membership Management',
@@ -56,7 +54,7 @@ export default {
           link: '/dashboard/membership-management'
         },
         {
-          title: 'Despoit Management',
+          title: 'Deposit Management',
           path_name: 'DepositManagement',
           link: '/dashboard/deposit-management'
         },

@@ -7,20 +7,20 @@
             <thead>
               <tr>
                 <th scope="col">Total deposit</th>
-                <th scope="col">Deposit amount</th>
-                <th scope="col">Currently</th>
+                <th scope="col">Total withdraw</th>
+                <th scope="col">Current holding</th>
               </tr>
             </thead>
             <tbody>
               <tr class="text-danger">
                 <td>
-                  <h3 class="font-weight-bold">25,252 ETH</h3>
+                  <h3 class="font-weight-bold">0 ETH</h3>
                 </td>
                 <td>
-                  <h3 class="font-weight-bold">20,151 ETH</h3>
+                  <h3 class="font-weight-bold">0 ETH</h3>
                 </td>
                 <td>
-                  <h3 class="font-weight-bold">18.451 ETH</h3>
+                  <h3 class="font-weight-bold">0 ETH</h3>
                 </td>
               </tr>
             </tbody>
@@ -44,37 +44,36 @@
           <a href="#!" class="btn btn-light btn-block">Public</a>
         </div>
       </div>
-      <div class="row col-8 mt-4">
-        <div class="col-6">
-          <h5 class="font-weight-bold">
-            Subscribers: 82
-          </h5>
-        </div>
-        <div class="col-6">
-          <h5 class="font-weight-bold">
-            Deposit applicant: 55
-          </h5>
-        </div>
-        <div class="col-6">
-          <h5 class="font-weight-bold">
-            Application fee: 1,559
-          </h5>
-        </div>
-        <div class="col-6">
-          <h5 class="font-weight-bold">
-            KYC applicants: 49
-          </h5>
-        </div>
-        <div class="col-6">
-          <h5 class="font-weight-bold">
-            Deposit amount: 1.25
-          </h5>
-        </div>
-        <div class="col-6">
-          <h5 class="font-weight-bold">
-            KYC in progress: N people<br/>
-            KYC approved: N people
-          </h5>
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-6">
+              <ul>
+                <li>
+                  <h6 class="font-weight-bold">Application fee: </h6>
+                </li>
+                <li>
+                  <h6 class="font-weight-bold">Deposit amount: </h6>
+                </li>
+                <li>
+                  <h6 class="font-weight-bold">Withdrawal amount:</h6>
+                </li>
+              </ul>
+            </div>
+            <div class="col-6">
+              <ul>
+                <li>
+                  <h6 class="font-weight-bold">Subscribers: </h6>
+                </li>
+                <li>
+                  <h6 class="font-weight-bold">KYC applicants: </h6>
+                </li>
+                <li>
+                  <h6 class="font-weight-bold">KYC: In progress 0 people | Approved 0 people</h6>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row col-8 mt-5">
@@ -101,17 +100,35 @@
                 <th scope="col"></th>
                 <th scope="col">To</th>
                 <th scope="col">Value</th>
-                <th scope="col">TxFee</th>
+                <th scope="col" class="text-muted">[TxFee]</th>
               </tr>
             </thead>
             <tbody>
               <tr :key="index" v-for="index in 10">
-                <td class="text-primary">0xffd0c6bde2f41d78</td>
-                <td class="text-muted">(pending)</td>
-                <td class="text-muted">10 secs ago</td>
-                <td class="text-primary">0x8b9ef17d32880a</td>
-                <td class="border p-3 bg-success text-white">
-                  <h6>IN</h6>
+                <td class="text-primary">
+                  <router-link to="/">
+                    0xffd0c6bde2f41d78
+                  </router-link>
+                </td>
+                <td>
+                  <small class="font-italic text-muted">
+                    (pending)
+                  </small>
+                </td>
+                <td>
+                  <small class="font-italic text-muted">
+                    10 secs ago
+                  </small>
+                </td>
+                <td class="text-primary">
+                  <router-link to="/">
+                    0xffd0c6bde2f41d78
+                  </router-link>
+                </td>
+                <td class="text-center">
+                  <h6 class="font-italic bg-success rounded text-white p-1">
+                    <small>IN</small>
+                  </h6>
                 </td>
                 <td class="text-muted">0xe530441f4f73bdb</td>
                 <td class="text-muted">0 Ether</td>

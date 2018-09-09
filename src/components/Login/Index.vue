@@ -73,11 +73,7 @@ export default {
           this.$session.set('jwt', this.responseData.token)
           this.$router.push({ name: 'DashboardMain' })
         } else {
-          this.$notify({
-            group: 'login',
-            title: 'Invalid login',
-            text: 'Invalid user id or password'
-          })
+          this.$awn.alert('Invalid user id or password')
         }
       })
     }

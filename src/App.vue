@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <notifications group="login" position="bottom right" />
     <router-view></router-view>
+    <v-dialog></v-dialog>
   </div>
 </template>
 

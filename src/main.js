@@ -5,11 +5,18 @@ import App from './App'
 import store from './store'
 import router from './router'
 import VueSession from 'vue-session'
-import Notifications from 'vue-notification'
+import VueClipboard from 'vue-clipboard2'
+import VueAWN from 'vue-awesome-notifications'
+import VModal from 'vue-js-modal'
+
 import 'bootstrap'
 
-Vue.use(Notifications)
+require('vue-awesome-notifications/dist/styles/style.css')
+
 Vue.use(VueSession)
+Vue.use(VueClipboard)
+Vue.use(VueAWN)
+Vue.use(VModal, { dialog: true })
 
 Vue.config.productionTip = false
 
