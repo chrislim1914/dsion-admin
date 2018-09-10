@@ -6,9 +6,9 @@
           <table class="table text-center">
             <thead>
               <tr>
-                <th scope="col">Total deposit</th>
-                <th scope="col">Total withdraw</th>
-                <th scope="col">Current holding</th>
+                <th scope="col">Total deposit amount</th>
+                <th scope="col">Total withdrawal amount</th>
+                <th scope="col">Currently holding amount</th>
               </tr>
             </thead>
             <tbody>
@@ -50,7 +50,7 @@
             <div class="col-6">
               <ul>
                 <li>
-                  <h6 class="font-weight-bold">Application fee: </h6>
+                  <h6 class="font-weight-bold">Request amount: </h6>
                 </li>
                 <li>
                   <h6 class="font-weight-bold">Deposit amount: </h6>

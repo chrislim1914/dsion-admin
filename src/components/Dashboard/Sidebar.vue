@@ -67,6 +67,11 @@ export default {
           title: 'ICO Management',
           path_name: 'IcoManagement',
           link: '/dashboard/ico-management'
+        },
+        {
+          title: 'Promotion Management',
+          path_name: 'PromotionManagement',
+          link: '/dashboard/promotion-management'
         }
       ]
     }

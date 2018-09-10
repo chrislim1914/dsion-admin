@@ -16,6 +16,7 @@ import MemberProfile from '@/components/Dashboard/MemberProfile'
 import DepositManagement from '@/components/Dashboard/DepositManagement'
 import TokenManagement from '@/components/Dashboard/TokenManagement'
 import IcoManagement from '@/components/Dashboard/IcoManagement'
+import PromotionManagement from '@/components/Dashboard/PromotionManagement'
 
 Vue.use(Router)
 
@@ -61,6 +62,11 @@ export default new Router({
           path: 'ico-management',
           name: 'DashboardIcoManagement',
           component: IcoManagement
+        },
+        {
+          path: 'promotion-management',
+          name: 'DashboardPromotionManagement',
+          component: PromotionManagement
         }
       ]
     }

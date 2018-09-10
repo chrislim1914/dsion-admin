@@ -1,7 +1,7 @@
 <template>
     <div id="app-dashboard-membershipmanagement">
-      <div class="container p-4">
-        <div class="row">
+      <div class="container">
+        <div class="row p-3">
           <div class="col-12">
             <h5 class="font-weight-bold">
               Membership
@@ -52,13 +52,13 @@
         <!-- start third filter -->
         <div class="row mt-3">
           <div class="col">
-            <input type="number" class="form-control" id="estimated-amount" placeholder="Estimated amount">
+            <input type="number" class="form-control" id="estimated-amount" min="1" placeholder="Estimated amount">
           </div>
           <div class="col">
-            <input type="number" class="form-control" id="above-below" placeholder="Above / below">
+            <input type="number" class="form-control" id="above-below" min="1" placeholder="Above / below">
           </div>
           <div class="col">
-            <input type="number" class="form-control" id="eth" placeholder="ETH">
+            <input type="number" class="form-control" id="eth" min="1" placeholder="ETH">
           </div>
           <div class="col">
             <a href="#!" class="btn btn-light btn-block">Search</a>
@@ -70,17 +70,14 @@
         <div class="row mt-3">
           <div class="col-3">
             <select class="form-control" id="date-of-application">
-              <option>Date of application</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
+              <option class="user-created">User created date</option>
+              <option class="user-created">KYC updated date</option>
             </select>
           </div>
           <div class="col-2">
             <input type="text" class="form-control" id="start-date" placeholder="Start date">
           </div>
-          <div class="col-1 align-self-center">
+          <div class="col-1 text-center align-self-center">
             <h6>~</h6>
           </div>
           <div class="col-2">
@@ -115,13 +112,16 @@
           <table class="table">
             <thead>
               <tr>
-                <th scope="col"></th>
-                <th scope="col">full id</th>
-                <th scope="col">mobile phone number</th>
-                <th scope="col">enter eth address</th>
-                <th scope="col">scheduled deposit amount</th>
-                <th scope="col">deposit kyc status</th>
-                <th scope="col">charge manager refund</th>
+                <th scope="col">All</th>
+                <th scope="col">Registration date</th>
+                <th scope="col">ID</th>
+                <th scope="col">Mobile number</th>
+                <th scope="col">ETH Address</th>
+                <th scope="col">Estimated amount of deposit</th>
+                <th scope="col">Deposit amount</th>
+                <th scope="col">KYC</th>
+                <th scope="col">Person in charge</th>
+                <th scope="col">Refund process status</th>
               </tr>
             </thead>
             <tbody>
@@ -131,13 +131,15 @@
                     <input class="form-check-input" type="checkbox" id="autoSizingCheck2">
                   </div>
                 </td>
-                <td>2018-08-02</td>
-                <td>dsion</td>
-                <td>22857428</td>
-                <td>left blank</td>
-                <td>50ETH</td>
-                <td>50ETH</td>
-                <td>approved</td>
+                <td>2018-09-01</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
               </tr>
             </tbody>
           </table>

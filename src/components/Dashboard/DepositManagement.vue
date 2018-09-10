@@ -115,17 +115,35 @@
                 <th scope="col"></th>
                 <th scope="col">To</th>
                 <th scope="col">Value</th>
-                <th scope="col">TxFee</th>
+                <th scope="col" class="text-muted">[TxFee]</th>
               </tr>
             </thead>
             <tbody>
               <tr :key="index" v-for="index in 10">
-                <td class="text-primary">0xffd0c6bde2f41d78</td>
-                <td class="text-muted">(pending)</td>
-                <td class="text-muted">10 secs ago</td>
-                <td class="text-primary">0x8b9ef17d32880a</td>
-                <td class="border p-3 bg-success text-white">
-                  <h6>IN</h6>
+                <td class="text-primary">
+                  <router-link to="/">
+                    0xffd0c6bde2f41d78
+                  </router-link>
+                </td>
+                <td>
+                  <small class="font-italic text-muted">
+                    (pending)
+                  </small>
+                </td>
+                <td>
+                  <small class="font-italic text-muted">
+                    10 secs ago
+                  </small>
+                </td>
+                <td class="text-primary">
+                  <router-link to="/">
+                    0xffd0c6bde2f41d78
+                  </router-link>
+                </td>
+                <td class="text-center">
+                  <h6 class="font-italic bg-success rounded text-white p-1">
+                    <small>IN</small>
+                  </h6>
                 </td>
                 <td class="text-muted">0xe530441f4f73bdb</td>
                 <td class="text-muted">0 Ether</td>

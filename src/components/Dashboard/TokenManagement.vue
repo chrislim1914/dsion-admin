@@ -1,7 +1,7 @@
 <template>
   <div id="app-dashboard-tokenmanagement">
     <div class="container">
-      <div class="row">
+      <div class="row p-3">
         <div class="col-12">
           <h3 class="font-weight-bold">
             Bonus Amount
@@ -15,35 +15,35 @@
       </div>
       <div class="row">
         <div class="col">
-          <a href="#!" class="btn btn-light">
+          <a href="#!" class="btn btn-light btn-block">
             View all
           </a>
         </div>
         <div class="col">
-          <a href="#!" class="btn btn-light">
+          <a href="#!" class="btn btn-light btn-block">
             Private
           </a>
         </div>
         <div class="col">
-          <a href="#!" class="btn btn-light">
+          <a href="#!" class="btn btn-light btn-block">
             Free 1
           </a>
         </div>
         <div class="col">
-          <a href="#!" class="btn btn-light">
+          <a href="#!" class="btn btn-light btn-block">
             Free 2
           </a>
         </div>
         <div class="col">
-          <a href="#!" class="btn btn-light">
+          <a href="#!" class="btn btn-light btn-block">
             Public
           </a>
         </div>
         <div class="col">
-          <input type="text" class="form-control" id="idbox" placeholder="id placeholder">
+          <input type="text" class="form-control" id="idbox" placeholder="ID Search">
         </div>
         <div class="col">
-          <a href="#!" class="btn btn-light">
+          <a href="#!" class="btn btn-light btn-block">
             Search
           </a>
         </div>
@@ -53,14 +53,16 @@
           <table class="table table-borderless">
             <thead>
               <tr>
-                <th scope="col">id</th>
-                <th scope="col">contribute</th>
-                <th scope="col">participation</th>
-                <th scope="col">ico promotion / bonus</th>
-                <th scope="col">bonus remark</th>
+                <th scope="col">Date</th>
+                <th scope="col">ID</th>
+                <th scope="col">Contribute</th>
+                <th scope="col">Participation ICO</th>
+                <th scope="col">Promotion</th>
+                <th scope="col">Bonus paid</th>
+                <th scope="col">Remarks</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="text-center">
               <tr :key="index" v-for="index in 10">
                 <td class="text-muted">2018-08-02</td>
                 <td class="text-muted">dsion</td>
