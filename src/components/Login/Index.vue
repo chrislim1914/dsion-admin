@@ -14,7 +14,7 @@
           <div class="form-group">
             <input type="password" class="form-control" id="password" v-model="password" aria-describedby="password" placeholder="Please enter your PW">
           </div>
-          <button type="submit" class="btn btn-block">login</button>
+          <button type="submit" class="btn btn-block">Login</button>
         </form>
       </div>
       <div class="row">

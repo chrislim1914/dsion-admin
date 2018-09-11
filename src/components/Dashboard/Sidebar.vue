@@ -1,7 +1,7 @@
 <template>
   <nav class="col-md-2 d-none d-lg-block sidebar">
     <div class="sidebar-sticky bg-light">
-      <ul class="nav flex-column">
+      <ul class="nav flex-column bg-dark">
         <li class="list-group-item bg-transparent border-0 py-5">
           <img src="~images/dsion.png" alt="Dsion logo" class="img-fluid pl-5">
         </li>
