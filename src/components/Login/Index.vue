@@ -2,19 +2,17 @@
   <div id="app-login">
     <div class="container">
       <div class="row mt-5 justify-content-center">
-        <div class="col-md-5 text-center py-5 border">
-          <h1 class="display-5 font-weight-bold">
-            DSION TOKEN
-          </h1>
+        <div class="col-md-5 text-center py-5 border bg-dark">
+          <img src="~images/dsion.png" alt="Dsion logo">
         </div>
       </div>
       <div class="row justify-content-center mt-3">
         <form class="col-md-5" @submit.prevent="login">
           <div class="form-group">
-            <input type="text" class="form-control" id="user_id" v-model="userId" aria-describedby="text" placeholder="user id">
+            <input type="text" class="form-control" id="user_id" v-model="userId" aria-describedby="text" placeholder="Please enter your ID">
           </div>
           <div class="form-group">
-            <input type="password" class="form-control" id="password" v-model="password" aria-describedby="password" placeholder="password">
+            <input type="password" class="form-control" id="password" v-model="password" aria-describedby="password" placeholder="Please enter your PW">
           </div>
           <button type="submit" class="btn btn-block">login</button>
         </form>
