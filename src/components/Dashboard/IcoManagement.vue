@@ -63,7 +63,7 @@
       <div class="row mt-3">
         <div class="col-5">
           <h6>
-            bonus
+            Bonus
           </h6>
         </div>
         <div class="col">
@@ -73,7 +73,7 @@
       <div class="row mt-3">
         <div class="col-5">
           <h6>
-            referral bonus
+            Referral bonus
           </h6>
         </div>
         <div class="col">

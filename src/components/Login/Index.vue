@@ -56,7 +56,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'loginUser'
+      'loginUser',
+      'fetchUserInfo'
     ]),
     login () {
       this.isLoading = true
@@ -66,10 +67,18 @@ export default {
         password: this.password
       }).then(() => {
         this.isLoading = false
-        if (this.responseData.message === 'login ok') {
-          this.$session.start()
-          this.$session.set('jwt', this.responseData.token)
-          this.$router.push({ name: 'DashboardMain' })
+        if (this.responseData.result) {
+          this.isLoading = true
+          const tokenHolder = this.responseData.token
+          this.fetchUserInfo({
+            token: tokenHolder
+          }).then(() => {
+            this.isLoading = false
+            this.$session.start()
+            this.$session.set('jwt', tokenHolder)
+            this.$session.set('admin', this.responseData)
+            this.$router.push({ name: 'DashboardMain' })
+          })
         } else {
           this.$awn.alert('Invalid user id or password')
         }

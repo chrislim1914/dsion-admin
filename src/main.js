@@ -8,7 +8,7 @@ import VueSession from 'vue-session'
 import VueClipboard from 'vue-clipboard2'
 import VueAWN from 'vue-awesome-notifications'
 import VModal from 'vue-js-modal'
-
+import moment from 'moment'
 import 'bootstrap'
 
 require('vue-awesome-notifications/dist/styles/style.css')
@@ -19,6 +19,7 @@ Vue.use(VueAWN)
 Vue.use(VModal, { dialog: true })
 
 Vue.config.productionTip = false
+Vue.prototype.moment = moment
 
 /* eslint-disable no-new */
 new Vue({

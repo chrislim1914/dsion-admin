@@ -8,7 +8,8 @@ import {
 
 export const user = {
   login: apiURL + '/admin/login',
-  logout: apiURL + '/auth/logout'
+  logout: apiURL + '/auth/logout',
+  getInfo: apiURL + '/auth/User'
 }
 
 export const ico = {
@@ -23,4 +24,8 @@ export const article = {
   retrieveArticles: apiURL + '/admin/news',
   postArticle: apiURL + '/admin/news/create',
   removeArticle: apiURL + '/admin/news/delete'
+}
+
+export const sales = {
+  retrieveSales: apiURL + '/Sale/all'
 }

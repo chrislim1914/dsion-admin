@@ -41,6 +41,16 @@ const actions = {
     } catch (error) {
       context.commit('updateResponseMessage', 'General Error')
     }
+  },
+  fetchUserInfo: async (context, payload) => {
+    try {
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + payload.token
+      var resp = await axios.post(user.getInfo)
+      context.commit('updateResponseMessage', resp.data)
+    } catch (error) {
+      console.log(error)
+      context.commit('updateResponseMessage', 'General Error')
+    }
   }
 }
 

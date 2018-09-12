@@ -28,7 +28,7 @@
           <div class="form-group row">
             <label for="bonus" class="col-sm-3 col-form-label">Bonus:</label>
             <div class="col-sm-9">
-              <input type="number" class="form-control" id="bonus" v-model="promotion.bonus">
+              <input type="text" class="form-control" id="bonus" v-model="promotion.bonus">
             </div>
           </div>
         </div>
@@ -49,15 +49,15 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-4">
+        <div class="col-6">
           <div class="form-group row">
             <label for="user" class="col-sm-2 col-form-label">User:</label>
             <div class="col-sm-10">
-              <input type="email" class="form-control" id="user" v-model="promotion.user">
+              <input type="email" class="form-control" id="user" v-model="promotion.user" required>
             </div>
           </div>
         </div>
-        <div class="col-4">
+        <div class="col-6">
           <div class="form-group row">
             <label for="category" class="col-sm-3 col-form-label">Category:</label>
             <div class="col-sm-9">
@@ -69,9 +69,25 @@
         </div>
         <div class="col-4">
           <div class="form-group row">
-            <label for="expiration-date" class="col-sm-5 col-form-label">Expiration date:</label>
+            <label for="sale-status" class="col-sm-4 col-form-label">Sale status:</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="sale-status" v-model="promotion.saleStatus" disabled>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group row">
+            <label for="start-date" class="col-sm-4 col-form-label">Start date:</label>
+            <div class="col-sm-8">
+              <input type="date" class="form-control" id="start-date" :min="moment().format('YYYY-MM-DD')" v-model="promotion.startDate" required>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group row">
+            <label for="expiration-date" class="col-sm-54 col-form-label">Expiration date:</label>
             <div class="col-sm-7">
-              <input type="date" class="form-control" id="expiration-date" v-model="promotion.expirationDate">
+              <input type="date" class="form-control" id="expiration-date" :min="moment().add(1, 'days').format('YYYY-MM-DD')" v-model="promotion.expirationDate" required>
             </div>
           </div>
         </div>
@@ -125,7 +141,8 @@ import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.min.css'
 import {
   mapActions,
-  mapState
+  mapState,
+  mapGetters
 } from 'vuex'
 export default {
   name: 'DashboardPromotionManagement',
@@ -137,6 +154,8 @@ export default {
       promotion: {
         user: '',
         category: '',
+        saleStatus: '',
+        startDate: '',
         expirationDate: '',
         promoCode: 'Click produce to generate promo code.',
         description: '',
@@ -150,8 +169,12 @@ export default {
       'icoResponse': ({ico}) => ico.responseData,
       'generatedPromoCode': ({ico}) => ico.generatedPromoCode,
       'generatedpromoCodesList': ({ico}) => ico.generatedpromoCodesList,
-      'promoCategories': ({ico}) => ico.promoCategories
-    })
+      'promoCategories': ({ico}) => ico.promoCategories,
+      'salesResponse': ({sales}) => sales.responseData
+    }),
+    ...mapGetters([
+      'activeSale'
+    ])
   },
   methods: {
     ...mapActions([
@@ -159,7 +182,8 @@ export default {
       'requestPromoCategory',
       'requestAllPromoCode',
       'createPromotionCategory',
-      'createPromotionCode'
+      'createPromotionCode',
+      'fetchActiveSale'
     ]),
     producePromoCode () {
       this.isLoading = true
@@ -192,21 +216,41 @@ export default {
     },
     savePromotionCode () {
       if (this.promotion.promoCode !== 'Click produce to generate promo code.' && this.promotion.promoCode !== undefined) {
-        this.isLoading = true
-        this.createPromotionCode({
-          promocode: this.promotion.promoCode,
-          idpromotioncategory: this.promotion.category,
-          email: this.promotion.user,
-          adminuser: 'admin123',
-          expiredate: this.promotion.expirationDate
-        }).then(() => {
-          this.isLoading = false
-          if (this.icoResponse.message === 'Promo Code Created!') {
-            this.$awn.success('Promotion code saved.')
+        if (this.promotion.user !== '' && this.promotion.user !== undefined) {
+          if (this.promotion.category !== '' && this.promotion.category !== undefined) {
+            if (this.promotion.startDate !== '' && this.promotion.expirationDate !== '') {
+              this.isLoading = true
+              this.createPromotionCode({
+                promocode: this.promotion.promoCode,
+                idpromotioncategory: this.promotion.category,
+                idsalestatus: this.activeSale[0].idsale_status,
+                email: this.promotion.user,
+                adminuser: this.$session.get('admin').iduser,
+                startdate: this.promotion.startDate,
+                expiredate: this.promotion.expirationDate
+              }).then(() => {
+                this.isLoading = false
+                if (this.icoResponse.message === 'Promo Code Created!') {
+                  this.promotion.user = ''
+                  this.promotion.category = ''
+                  this.promotion.promoCode = 'Click produce to generate promo code.'
+                  this.promotion.startDate = ''
+                  this.promotion.expirationDate = ''
+                  this.requestAllPromoCode()
+                  this.$awn.success('Promotion code saved.')
+                } else {
+                  this.$awn.alert('Failed to create promo code.')
+                }
+              })
+            } else {
+              this.$awn.alert('Please select the starting and expiration date of the promo.')
+            }
           } else {
-            this.$awn.alert('Failed to create promo code.')
+            this.$awn.alert('Please select a promo category.')
           }
-        })
+        } else {
+          this.$awn.alert('Please provide a user to receive the promo.')
+        }
       } else {
         this.$awn.warning('Please produce a key first.')
       }
@@ -225,6 +269,9 @@ export default {
       }
     })
     this.requestPromoCategory()
+    this.fetchActiveSale().then(() => {
+      this.promotion.saleStatus = this.activeSale[0].name
+    })
   }
 }
 </script>
