@@ -212,7 +212,7 @@ export default {
 
       this.createArticle(formData).then(() => {
         this.isLoading = false
-        if (this.articleResponse.message === 'article created') {
+        if (this.articleResponse.result) {
           this.requestArticle().then(() => {
             this.article.title = ''
             this.article.media = ''
@@ -231,7 +231,7 @@ export default {
         idnews: this.selectedArticles
       }).then(() => {
         this.isLoading = false
-        if (this.articleResponse.message === 'news deleted') {
+        if (this.articleResponse.result) {
           this.requestArticle()
           this.$awn.success('Article deleted successfully.')
         } else {

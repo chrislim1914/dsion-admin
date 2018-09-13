@@ -7,8 +7,9 @@
 
 <style lang='scss'>
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import 'scss/variables/fonts.scss';
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Noto Sans', Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
