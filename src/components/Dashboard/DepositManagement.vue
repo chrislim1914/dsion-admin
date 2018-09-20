@@ -3,8 +3,39 @@
     <div class="container">
       <div class="row p-3">
         <div class="col">
-          <h5 class="font-weight-bold">
+          <h3 class="font-weight-bold">
             Deposit management
+          </h3>
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="col-12">
+          <form @submit.prevent="submitDeposit">
+            <h5 class="font-weight-bold mb-3 border-bottom pb-3">
+              Create Deposit
+            </h5>
+            <div class="form-group">
+               <label for="eth-address">ETH Address</label>
+               <input type="text" class="form-control" id="eth-address" v-model="ethAddress">
+            </div>
+            <div class="form-group">
+               <label for="eth-count">ETH Count</label>
+               <input type="number" class="form-control" id="eth-count" v-model="ethCount">
+            </div>
+            <div class="form-group">
+               <label for="sales-status">Sale Status</label>
+               <select class="form-control" id="sale-status" v-model="saleStatusId">
+                <option v-for="(sale, key) in sales" :key="key" :value="sale.idsale_status">{{ sale.name }}</option>
+              </select>
+            </div>
+            <button type="submit" class="btn col-2">Submit</button>
+          </form>
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="col-12">
+          <h5 class="font-weight-bold mb-3 border-bottom pb-3">
+            Deposit List
           </h5>
         </div>
       </div>
@@ -154,12 +185,86 @@
         </div>
       </div>
     </div>
+    <!-- loading start -->
+    <loading :active.sync="isLoading" :is-full-page="true">
+    </loading>
+    <!-- loading end -->
   </div>
 </template>
 
 <script>
+import Loading from 'vue-loading-overlay'
+import {mapState, mapActions} from 'vuex'
 export default {
-  name: 'DashboardDepositManagement'
+  name: 'DashboardDepositManagement',
+  data () {
+    return {
+      ethAddress: '',
+      ethCount: '',
+      saleStatusId: '',
+      isLoading: false
+    }
+  },
+  methods: {
+    ...mapActions([
+      'fetchActiveSale',
+      'createDeposit'
+    ]),
+    submitDeposit () {
+      if (!this.ethAddress) {
+        this.$awn.alert('Please enter eth address')
+        return
+      }
+
+      if (!this.ethCount) {
+        this.$awn.alert('Please enter eth count')
+        return
+      }
+
+      if (this.ethCount === '0') {
+        this.$awn.alert('Eth count must not be equal to 0')
+        return
+      }
+
+      if (!this.saleStatusId) {
+        this.$awn.alert('Please select sales status')
+        return
+      }
+
+      this.isLoading = true
+
+      this.createDeposit({
+        eth_address: this.ethAddress,
+        eth_count: this.ethCount,
+        idsale_status: this.saleStatusId
+      }).then(() => {
+        this.isLoading = false
+
+        if (!this.depositResponseData) {
+          this.$awn.alert('Error fetching response data')
+          return
+        }
+
+        if (this.depositResponseData.result) {
+          this.$awn.success('Successfully created deposit')
+        } else {
+          this.$awn.alert(this.depositResponseData.message)
+        }
+      })
+    }
+  },
+  components: {
+    Loading
+  },
+  computed: {
+    ...mapState({
+      sales: ({sales}) => sales.sale,
+      depositResponseData: ({deposit}) => deposit.responseData
+    })
+  },
+  created () {
+    this.fetchActiveSale()
+  }
 }
 </script>
 

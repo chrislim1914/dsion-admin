@@ -9,7 +9,7 @@ import {
 export const user = {
   login: apiURL + '/admin/login',
   logout: apiURL + '/auth/logout',
-  getInfo: apiURL + '/auth/User'
+  getInfo: apiURL + '/auth/admin'
 }
 
 export const ico = {
@@ -28,4 +28,8 @@ export const article = {
 
 export const sales = {
   retrieveSales: apiURL + '/Sale/all'
+}
+
+export const deposit = {
+  createDeposit: apiURL + '/admin/Deposit/create'
 }

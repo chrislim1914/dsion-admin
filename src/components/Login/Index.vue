@@ -66,16 +66,14 @@ export default {
         iduser: this.userId,
         password: this.password
       }).then(() => {
-        this.isLoading = false
         if (this.responseData.result) {
-          this.isLoading = true
-          const tokenHolder = this.responseData.token
+          var token = this.responseData.token.slice(3)
           this.fetchUserInfo({
-            token: tokenHolder
+            token: 'eyJ' + token
           }).then(() => {
             this.isLoading = false
             this.$session.start()
-            this.$session.set('jwt', tokenHolder)
+            this.$session.set('jwt', 'eyJ' + token)
             this.$session.set('admin', this.responseData)
             this.$router.push({ name: 'DashboardMain' })
           })
