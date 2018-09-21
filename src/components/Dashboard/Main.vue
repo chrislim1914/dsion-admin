@@ -50,13 +50,13 @@
             <div class="col-6">
               <ul>
                 <li>
-                  <h6 class="font-weight-bold">Request amount: </h6>
+                  <h6 class="font-weight-bold">Total Member: </h6>
                 </li>
                 <li>
-                  <h6 class="font-weight-bold">Deposit amount: </h6>
+                  <h6 class="font-weight-bold">Today's New Member: </h6>
                 </li>
                 <li>
-                  <h6 class="font-weight-bold">Withdrawal amount:</h6>
+                  <h6 class="font-weight-bold">Today's Deposit:</h6>
                 </li>
               </ul>
             </div>

@@ -71,7 +71,6 @@ export default {
           this.fetchUserInfo({
             token: 'eyJ' + token
           }).then(() => {
-            this.isLoading = false
             this.$session.start()
             this.$session.set('jwt', 'eyJ' + token)
             this.$session.set('admin', this.responseData)
@@ -80,6 +79,7 @@ export default {
         } else {
           this.$awn.alert('Invalid user id or password')
         }
+        this.isLoading = false
       })
     }
   },

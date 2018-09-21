@@ -8,7 +8,7 @@ import {
 
 export const user = {
   login: apiURL + '/admin/login',
-  logout: apiURL + '/auth/logout',
+  logout: apiURL + '/auth/admin/logout',
   getInfo: apiURL + '/auth/admin'
 }
 
@@ -31,5 +31,6 @@ export const sales = {
 }
 
 export const deposit = {
-  createDeposit: apiURL + '/admin/Deposit/create'
+  createDeposit: apiURL + '/admin/Deposit/create',
+  getDeposits: apiURL + '/admin/Deposit'
 }

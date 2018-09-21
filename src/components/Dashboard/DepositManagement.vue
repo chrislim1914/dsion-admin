@@ -44,12 +44,12 @@
           <div class="row">
             <div class="col-6">
               <div class="form-group">
-                <input type="text" class="form-control" id="deposit-amount" placeholder="deposit amount/amount of withdrawal">
+                <input type="text" class="form-control" id="search-user-email" v-model="searchUserEmail" placeholder="User Email">
               </div>
             </div>
             <div class="col-6">
               <div class="form-group">
-                <input type="text" class="form-control" id="above-below" placeholder="above / below">
+                <input type="text" class="form-control" id="search-eth-address" v-model="searchEthAddress" placeholder="ETH Address">
               </div>
             </div>
           </div>
@@ -58,16 +58,11 @@
           <div class="row">
             <div class="col">
               <div class="form-group">
-                <input type="date" class="form-control" id="start-date" placeholder="start date">
-              </div>
-            </div>~
-            <div class="col">
-              <div class="form-group">
-                <input type="date" class="form-control" id="end-date" placeholder="end date">
+                <input type="date" class="form-control" id="search-created-at" placeholder="Created At">
               </div>
             </div>
             <div class="col">
-              <a href="#!" class="btn btn-block btn-light">Search</a>
+              <button type="button" class="btn btn-block">Search</button>
             </div>
           </div>
         </div>
@@ -135,50 +130,34 @@
             Confirm ETH: <span class="text-danger">NNNNN</span> ETH
           </h4>
         </div>
-        <div class="col-12">
+        <div class="col-12" v-if="deposits">
           <table class="table table-borderless">
             <thead>
               <tr>
-                <th scope="col">TxHash</th>
-                <th scope="col">Block</th>
-                <th scope="col">Age</th>
-                <th scope="col">From</th>
-                <th scope="col"></th>
-                <th scope="col">To</th>
-                <th scope="col">Value</th>
-                <th scope="col" class="text-muted">[TxFee]</th>
+                <th scope="col">KYC ETH Address</th>
+                <th scope="col">Deposit ETH Count</th>
+                <th scope="col">Deposit Sale Status</th>
+                <th scope="col">Deposit Total</th>
+                <th scope="col">Deposit Created</th>
               </tr>
             </thead>
             <tbody>
-              <tr :key="index" v-for="index in 10">
+              <tr :key="index" v-for="(deposit, index) in deposits">
                 <td class="text-primary">
-                  <router-link to="/">
-                    0xffd0c6bde2f41d78
-                  </router-link>
+                  {{ deposit.eth_address }}
                 </td>
                 <td>
-                  <small class="font-italic text-muted">
-                    (pending)
-                  </small>
+                  {{ deposit.eth_count }}
                 </td>
                 <td>
-                  <small class="font-italic text-muted">
-                    10 secs ago
-                  </small>
+                  {{ deposit.sale_status }}
                 </td>
-                <td class="text-primary">
-                  <router-link to="/">
-                    0xffd0c6bde2f41d78
-                  </router-link>
+                <td>
+                  {{ deposit.token }}
                 </td>
-                <td class="text-center">
-                  <h6 class="font-italic bg-success rounded text-white p-1">
-                    <small>IN</small>
-                  </h6>
+                <td>
+                  {{ deposit.created_at }}
                 </td>
-                <td class="text-muted">0xe530441f4f73bdb</td>
-                <td class="text-muted">0 Ether</td>
-                <td class="text-muted">(pending)</td>
               </tr>
             </tbody>
           </table>
@@ -202,13 +181,16 @@ export default {
       ethAddress: '',
       ethCount: '',
       saleStatusId: '',
+      searchUserEmail: '',
+      searchEthAddress: '',
       isLoading: false
     }
   },
   methods: {
     ...mapActions([
       'fetchActiveSale',
-      'createDeposit'
+      'createDeposit',
+      'getDeposits'
     ]),
     submitDeposit () {
       if (!this.ethAddress) {
@@ -247,6 +229,10 @@ export default {
 
         if (this.depositResponseData.result) {
           this.$awn.success('Successfully created deposit')
+          this.getDeposits()
+          this.ethAddress = ''
+          this.ethCount = ''
+          this.saleStatusId = ''
         } else {
           this.$awn.alert(this.depositResponseData.message)
         }
@@ -259,11 +245,13 @@ export default {
   computed: {
     ...mapState({
       sales: ({sales}) => sales.sale,
-      depositResponseData: ({deposit}) => deposit.responseData
+      depositResponseData: ({deposit}) => deposit.responseData,
+      deposits: ({deposit}) => deposit.deposit
     })
   },
   created () {
     this.fetchActiveSale()
+    this.getDeposits()
   }
 }
 </script>

@@ -11,7 +11,7 @@ import {
  * @type {object}
  */
 const state = {
-  deposit: {},
+  deposit: null,
   responseData: null
 }
 
@@ -33,7 +33,25 @@ const actions = {
     } catch (error) {
       context.commit('setResponseData', null)
     }
+  },
+
+  /**
+      * Get deposits
+      * @param  context
+      * @return {Promise}
+      */
+  getDeposits: async (context) => {
+    try {
+      var resp = await axios.get(deposit.getDeposits)
+
+      if (resp.data.result) {
+        context.commit('setDeposit', resp.data.data)
+      }
+    } catch (error) {
+      context.commit('setDeposit', null)
+    }
   }
+
 }
 
 /**
@@ -47,7 +65,7 @@ const mutations = {
      * @param data
      */
   setDeposit: (state, data) => {
-    state.sale = data
+    state.deposit = data
   },
 
   /**
