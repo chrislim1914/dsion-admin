@@ -10,25 +10,36 @@
       </div>
       <div class="row p-3">
         <div class="col-12">
-          <form @submit.prevent="submitDeposit">
+          <form @submit.prevent="submitDeposit" novalidate>
             <h5 class="font-weight-bold mb-3 border-bottom pb-3">
               Create Deposit
             </h5>
-            <div class="form-group">
-               <label for="eth-address">ETH Address</label>
-               <input type="text" class="form-control" id="eth-address" v-model="ethAddress">
-            </div>
-            <div class="form-group">
-               <label for="eth-count">ETH Count</label>
-               <input type="number" class="form-control" id="eth-count" v-model="ethCount">
-            </div>
-            <div class="form-group">
-               <label for="sales-status">Sale Status</label>
-               <select class="form-control" id="sale-status" v-model="saleStatusId">
+            <div class="row">
+              <div class="col-lg-3">
+                 <label for="eth-address">ETH Address</label>
+                 <input type="text" class="form-control" id="eth-address" v-model="ethAddress">
+              </div>
+              <div class="col-lg-3">
+                 <label for="eth-count">ETH Count</label>
+                 <input type="number" class="form-control" id="eth-count" v-model="ethCount">
+              </div>
+              <div class="col-lg-3">
+                <label for="sales-status">Sale Status</label>
+                <select class="form-control" id="sale-status" v-model="saleStatusId">
                 <option v-for="(sale, key) in sales" :key="key" :value="sale.idsale_status">{{ sale.name }}</option>
-              </select>
+                </select>
+              </div>
+              <div class="col-lg-3">
+                <label for="sales-status">Create Date</label>
+                <!-- <input type="datetime-local" class="form-control" id="create-date" v-model="createDate"> -->
+                <datetime type="datetime" format="yyyy-MM-dd HH:mm:ss" class="form-control" v-model="createDate"></datetime>
+              </div>
             </div>
-            <button type="submit" class="btn col-2">Submit</button>
+            <div class="row">
+              <div class="col-lg-3">
+                <button type="submit" class="btn btn-block mt-4">Submit</button>
+              </div>
+            </div>
           </form>
         </div>
       </div>
@@ -39,97 +50,64 @@
           </h5>
         </div>
       </div>
-      <div class="row">
-        <div class="col-6">
-          <div class="row">
-            <div class="col-6">
-              <div class="form-group">
-                <input type="text" class="form-control" id="search-user-email" v-model="searchUserEmail" placeholder="User Email">
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="form-group">
-                <input type="text" class="form-control" id="search-eth-address" v-model="searchEthAddress" placeholder="ETH Address">
-              </div>
-            </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3">
+            <label for="user-email">User Email</label>
+            <input type="text" class="form-control" id="user-email" v-model="searchUserEmail">
+          </div>
+          <div class="col-lg-3">
+            <label for="search-eth-address">ETH Address</label>
+            <input type="text" class="form-control" id="search-eth-address" v-model="searchEthAddress" placeholder="ETH Address">
+          </div>
+          <div class="col-lg-3">
+            <label for="search-created-at">Created At</label>
+            <datetime format="yyyy-MM-dd" class="form-control" id="search-created-at" v-model="searchCreatedAt"></datetime>
+          </div>
+          <div class="col-lg-3">
+              <br>
+              <button type="button" class="btn btn-md btn-block mt-2" @click="searchDeposit">Search</button>
           </div>
         </div>
-        <div class="col-6">
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <input type="date" class="form-control" id="search-created-at" placeholder="Created At">
-              </div>
-            </div>
-            <div class="col">
-              <button type="button" class="btn btn-block">Search</button>
-            </div>
+        <div class="row mt-3">
+          <div class="col-2">
+            <button class="btn btn-light btn-block">
+              View all
+            </button>
+          </div>
+          <div class="col-2" v-for="(sale, key) in sales" :key="key">
+            <button class="btn btn-light btn-block">
+              {{ sale.name }}
+            </button>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-lg-6">
+            <h4 class="font-weight-bold">
+              Total deposit amount: <span class="text-danger">NNNNN</span> ETH
+            </h4>
+          </div>
+          <div class="col-lg-6">
+            <h4 class="font-weight-bold">
+              Total withdrawal amount: <span class="text-danger">NNNNN</span> ETH
+            </h4>
+          </div>
+          <div class="col-lg-6">
+            <h4 class="font-weight-bold">
+              Currently holding amount: <span class="text-danger">NNNNN</span> ETH
+            </h4>
+          </div>
+          <div class="col-lg-6">
+            <h4 class="font-weight-bold">
+              Day deposit: <span class="text-danger">NNNNN</span> ETH
+            </h4>
+          </div>
+          <div class="col-12">
+            <div class="dropdown-divider"></div>
           </div>
         </div>
       </div>
       <div class="row mt-3">
-        <div class="col-2">
-          <a href="#!" class="btn btn-light btn-block">View all</a>
-        </div>
-        <div class="col-2">
-          <a href="#!" class="btn btn-light btn-block">Private</a>
-        </div>
-        <div class="col-2">
-          <a href="#!" class="btn btn-light btn-block">Free 1</a>
-        </div>
-        <div class="col-2">
-          <a href="#!" class="btn btn-light btn-block">Free 2</a>
-        </div>
-        <div class="col-2">
-          <a href="#!" class="btn btn-light btn-block">Public</a>
-        </div>
-      </div>
-      <div class="row mt-4">
-        <div class="col-6">
-          <h4 class="font-weight-bold">
-            Deposit amount: <span class="text-danger">NNNNN</span> ETH
-          </h4>
-        </div>
-        <div class="col-6">
-          <h4 class="font-weight-bold">
-            Total deposit amount: <span class="text-danger">NNNNN</span> ETH
-          </h4>
-        </div>
-        <div class="col-6">
-          <h4 class="font-weight-bold">
-            Withdrawal amount: <span class="text-danger">NNNNN</span> ETH
-          </h4>
-        </div>
-        <div class="col-6">
-          <h4 class="font-weight-bold">
-            Total withdrawal amount: <span class="text-danger">NNNNN</span> ETH
-          </h4>
-        </div>
-        <div class="col-6">
-          <h4 class="font-weight-bold">
-            Pending: <span class="text-danger">NNNNN</span> ETH
-          </h4>
-        </div>
-        <div class="col-6">
-          <h4 class="font-weight-bold">
-            Total balance by period: <span class="text-danger">NNNNN</span> ETH
-          </h4>
-        </div>
-        <div class="col-12">
-          <div class="dropdown-divider"></div>
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col-6">
-          <h4 class="font-weight-bold">
-            Day deposit: <span class="text-danger">NNNNN</span> ETH
-          </h4>
-        </div>
-        <div class="col-6">
-          <h4 class="font-weight-bold">
-            Confirm ETH: <span class="text-danger">NNNNN</span> ETH
-          </h4>
-        </div>
         <div class="col-12" v-if="deposits">
           <table class="table table-borderless">
             <thead>
@@ -173,6 +151,8 @@
 
 <script>
 import Loading from 'vue-loading-overlay'
+import { Datetime } from 'vue-datetime'
+import 'vue-datetime/dist/vue-datetime.css'
 import {mapState, mapActions} from 'vuex'
 export default {
   name: 'DashboardDepositManagement',
@@ -181,8 +161,10 @@ export default {
       ethAddress: '',
       ethCount: '',
       saleStatusId: '',
+      createDate: '',
       searchUserEmail: '',
       searchEthAddress: '',
+      searchCreatedAt: '',
       isLoading: false
     }
   },
@@ -213,12 +195,18 @@ export default {
         return
       }
 
+      if (!this.createDate) {
+        this.$awn.alert('Please select create date')
+        return
+      }
+
       this.isLoading = true
 
       this.createDeposit({
         eth_address: this.ethAddress,
         eth_count: this.ethCount,
-        idsale_status: this.saleStatusId
+        idsale_status: this.saleStatusId,
+        created_at: this.createDate
       }).then(() => {
         this.isLoading = false
 
@@ -237,19 +225,24 @@ export default {
           this.$awn.alert(this.depositResponseData.message)
         }
       })
+    },
+    searchDeposit () {
+
     }
   },
   components: {
-    Loading
+    Loading,
+    datetime: Datetime
   },
   computed: {
     ...mapState({
       sales: ({sales}) => sales.sale,
       depositResponseData: ({deposit}) => deposit.responseData,
-      deposits: ({deposit}) => deposit.deposit
+      deposits: ({deposit}) => deposit.deposits
     })
   },
   created () {
+    this.createDate = this.moment().format('YYYY-MM-DDTkk:mm')
     this.fetchActiveSale()
     this.getDeposits()
   }

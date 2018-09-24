@@ -11,7 +11,7 @@ import {
  * @type {object}
  */
 const state = {
-  deposit: null,
+  deposits: null,
   responseData: null
 }
 
@@ -45,10 +45,10 @@ const actions = {
       var resp = await axios.get(deposit.getDeposits)
 
       if (resp.data.result) {
-        context.commit('setDeposit', resp.data.data)
+        context.commit('setDeposits', resp.data.data)
       }
     } catch (error) {
-      context.commit('setDeposit', null)
+      context.commit('setDeposits', null)
     }
   }
 
@@ -60,12 +60,12 @@ const actions = {
  */
 const mutations = {
   /**
-     * Set deposit state
+     * Set deposits state
      * @param state
      * @param data
      */
-  setDeposit: (state, data) => {
-    state.deposit = data
+  setDeposits: (state, data) => {
+    state.deposits = data
   },
 
   /**

@@ -76,7 +76,7 @@
           </div>
         </div>
       </div>
-      <div class="row col-8 mt-5">
+      <!-- <div class="row col-8 mt-5">
         <div class="col-6">
           <h4 class="font-weight-bold">
             Day deposit: NNNN ETH
@@ -87,8 +87,8 @@
             Confirm ETH: NNNN ETH
           </h4>
         </div>
-      </div>
-      <div class="row mt-4">
+      </div> -->
+      <!-- <div class="row mt-4">
         <div class="col-12">
           <table class="table table-borderless">
             <thead>
@@ -137,7 +137,7 @@
             </tbody>
           </table>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
