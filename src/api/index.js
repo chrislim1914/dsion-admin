@@ -34,3 +34,7 @@ export const deposit = {
   createDeposit: apiURL + '/admin/Deposit/create',
   getDeposits: apiURL + '/admin/Deposit'
 }
+
+export const dashboard = {
+  getDashboard: apiURL + '/admin/Dashboard'
+}

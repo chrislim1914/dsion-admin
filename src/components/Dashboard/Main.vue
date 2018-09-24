@@ -1,6 +1,6 @@
 <template>
   <div id="app-dashboard">
-    <div class="container">
+    <div class="container" v-if="dashboard">
       <div class="row">
         <div class="col-12">
           <table class="table text-center">
@@ -14,21 +14,26 @@
             <tbody>
               <tr class="text-danger">
                 <td>
-                  <h3 class="font-weight-bold">0 ETH</h3>
+                  <h3 class="font-weight-bold">{{ dashboard.total_deposit}} ETH</h3>
                 </td>
                 <td>
-                  <h3 class="font-weight-bold">0 ETH</h3>
+                  <h3 class="font-weight-bold">{{ dashboard.total_withdraw }} ETH</h3>
                 </td>
                 <td>
-                  <h3 class="font-weight-bold">0 ETH</h3>
+                  <h3 class="font-weight-bold">{{ dashboard.current_holding }} ETH</h3>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
+      <div class="row" v-if="sales">
+        <div class="col" v-for="(sale, key) in sales" :key="key">
+          <button class="btn btn-light btn-block">
+            {{ sale.name }}
+          </button>
+        </div>
+        <!-- <div class="col">
           <a href="#!" class="btn btn-light btn-block">View all</a>
         </div>
         <div class="col">
@@ -42,7 +47,7 @@
         </div>
         <div class="col">
           <a href="#!" class="btn btn-light btn-block">Public</a>
-        </div>
+        </div> -->
       </div>
       <div class="row mt-4">
         <div class="col-12">
@@ -50,26 +55,26 @@
             <div class="col-6">
               <ul>
                 <li>
-                  <h6 class="font-weight-bold">Total Member: </h6>
+                  <h6 class="font-weight-bold">Total Member: {{ dashboard.total_member }}</h6>
                 </li>
                 <li>
-                  <h6 class="font-weight-bold">Today's New Member: </h6>
+                  <h6 class="font-weight-bold">Today's New Member: {{ dashboard.todays_new_member }}</h6>
                 </li>
                 <li>
-                  <h6 class="font-weight-bold">Today's Deposit:</h6>
+                  <h6 class="font-weight-bold">Today's Deposit: {{ dashboard.todays_deposit }}</h6>
                 </li>
               </ul>
             </div>
             <div class="col-6">
               <ul>
                 <li>
-                  <h6 class="font-weight-bold">Subscribers: </h6>
+                  <h6 class="font-weight-bold">Subscribers: {{ dashboard.subscribers }}</h6>
                 </li>
                 <li>
-                  <h6 class="font-weight-bold">KYC applicants: </h6>
+                  <h6 class="font-weight-bold">KYC applicants: {{ dashboard.kyc_Applicants }}</h6>
                 </li>
                 <li>
-                  <h6 class="font-weight-bold">KYC: In progress 0 people | Approved 0 people</h6>
+                  <h6 class="font-weight-bold">KYC: <span v-for="(kyc, key) in dashboard.kyc" :key="key"><span v-if="key > 0">&nbsp;|&nbsp;</span>{{ kyc.status }}&nbsp;{{kyc.countstatus}}&nbsp;people</span></h6>
                 </li>
               </ul>
             </div>
@@ -143,8 +148,23 @@
 </template>
 
 <script>
+import {mapState, mapActions} from 'vuex'
 export default {
-  name: 'DashboardMain'
+  name: 'DashboardMain',
+  computed: {
+    ...mapState({
+      dashboard: ({dashboard}) => dashboard.dashboard,
+      sales: ({sales}) => sales.sale
+    })
+  },
+  methods: {
+    ...mapActions([
+      'getDashboard'
+    ])
+  },
+  created () {
+    this.getDashboard()
+  }
 }
 </script>
 

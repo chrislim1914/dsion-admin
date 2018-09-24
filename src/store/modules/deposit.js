@@ -1,5 +1,5 @@
 /**
- * Sales store module
+ * Deposit store module
  */
 import axios from 'axios'
 import {

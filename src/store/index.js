@@ -9,7 +9,7 @@ import ico from './modules/ico'
 import articles from './modules/article'
 import sales from './modules/sales'
 import deposit from './modules/deposit'
-
+import dashboard from './modules/dashboard'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -19,6 +19,7 @@ export default new Vuex.Store({
     ico,
     articles,
     sales,
-    deposit
+    deposit,
+    dashboard
   }
 })

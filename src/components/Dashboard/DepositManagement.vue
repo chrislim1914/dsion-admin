@@ -151,6 +151,7 @@
 
 <script>
 import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.min.css'
 import { Datetime } from 'vue-datetime'
 import 'vue-datetime/dist/vue-datetime.css'
 import {mapState, mapActions} from 'vuex'
