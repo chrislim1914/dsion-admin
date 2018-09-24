@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import {jwtHeader} from '@/config'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.min.css'
 import {
@@ -67,12 +68,12 @@ export default {
         password: this.password
       }).then(() => {
         if (this.responseData.result) {
-          var token = this.responseData.token.slice(3)
+          var token = 'eyJ' + this.responseData.token.slice(3)
           this.fetchUserInfo({
-            token: 'eyJ' + token
+            token: jwtHeader + token
           }).then(() => {
             this.$session.start()
-            this.$session.set('jwt', 'eyJ' + token)
+            this.$session.set('jwt', jwtHeader + token)
             this.$session.set('admin', this.responseData)
             this.$router.push({ name: 'DashboardMain' })
           })

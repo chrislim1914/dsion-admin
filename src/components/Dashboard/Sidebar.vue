@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import {jwtHeader} from '@/config'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.min.css'
 import {
@@ -92,7 +93,7 @@ export default {
       this.isLoading = true
 
       this.logoutUser({
-        token: this.$session.get('jwt')
+        token: jwtHeader + this.$session.get('jwt').slice(3)
       }).then(() => {
         this.isLoading = false
         this.$session.destroy()
