@@ -52,7 +52,10 @@
         <!-- start third filter -->
         <div class="row mt-3">
           <div class="col">
-            <input type="number" class="form-control" id="estimated-amount" min="1" placeholder="Estimated amount">
+            <select class="form-control">
+              <option>Estimate Deposit</option>
+              <option>Deposit Amount</option>
+            </select>
           </div>
           <div class="col">
             <input type="number" class="form-control" id="above-below" min="1" placeholder="Above / below">
@@ -132,7 +135,7 @@
                   </div>
                 </td>
                 <td>{{ member.created_date }}</td>
-                <td>{{ member.idkyc }}</td>
+                <td>{{ member.email }}</td>
                 <td>{{ member.phone }}</td>
                 <td>{{ member.eth_address }}</td>
                 <td>{{ member.estimated_amount }}</td>
