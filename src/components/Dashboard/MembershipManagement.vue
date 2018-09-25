@@ -101,9 +101,9 @@
                 </a>
               </div>
               <div class="col-5">
-                <a href="#!" class="btn" id="save-excel">
+                <button type="button" class="btn" id="save-excel" @click="exportMembers">
                   Save list to excel
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -164,7 +164,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'getMembers'
+      'getMembers',
+      'exportMembers'
     ])
   },
   components: {

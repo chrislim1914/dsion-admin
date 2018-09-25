@@ -11,7 +11,8 @@ import {
  * @type {object}
  */
 const state = {
-  members: null
+  members: null,
+  responseData: null
 }
 
 /**
@@ -34,6 +35,28 @@ const actions = {
     } catch (error) {
       context.commit('setMembers', null)
     }
+  },
+
+  /**
+   * Export members
+   */
+  exportMembers: async (context) => {
+    try {
+      var formData = new FormData()
+      formData.append('modeStatus', 0)
+      var resp = await axios.post(member.exportMembers, formData, {headers: { 'Content-Type': 'multipart/form-data' }, responseType: 'blob'})
+      if (resp) {
+        const url = window.URL.createObjectURL(new Blob([resp.data]))
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', 'members-' + new Date().toISOString().slice(0, 10) + '.xls')
+        document.body.appendChild(link)
+        link.click()
+        context.commit('setResponseData', {is_success: true})
+      }
+    } catch (error) {
+      context.commit('setResponseData', {is_success: false})
+    }
   }
 }
 
@@ -49,6 +72,15 @@ const mutations = {
      */
   setMembers: (state, data) => {
     state.members = data
+  },
+
+  /**
+     * Set response data state
+     * @param state
+     * @param data
+     */
+  setResponseData: (state, data) => {
+    state.responseData = data
   }
 }
 

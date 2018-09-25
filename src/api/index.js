@@ -40,5 +40,6 @@ export const dashboard = {
 }
 
 export const member = {
-  getMembers: apiURL + '/admin/Kyc/All'
+  getMembers: apiURL + '/admin/Kyc/All',
+  exportMembers: apiURL + '/admin/kyc/export'
 }
