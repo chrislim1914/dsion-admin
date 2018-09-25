@@ -108,7 +108,7 @@
             </div>
           </div>
         </div>
-        <div class="row mt-4">
+        <div class="row mt-4" v-if="members">
           <table class="table">
             <thead>
               <tr>
@@ -125,32 +125,62 @@
               </tr>
             </thead>
             <tbody>
-              <tr :key="index" v-for="index in 10">
+              <tr v-for="(member, key) in members" :key="key">
                 <td>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="autoSizingCheck2">
                   </div>
                 </td>
-                <td>2018-09-01</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ member.created_date }}</td>
+                <td>{{ member.idkyc }}</td>
+                <td>{{ member.phone }}</td>
+                <td>{{ member.eth_address }}</td>
+                <td>{{ member.estimated_amount }}</td>
+                <td>{{ member.deposit_amount }}</td>
+                <td>{{ member.kyc_status }}</td>
+                <td>{{ member.admin }}</td>
+                <td>{{ member.refund }}</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
+      <!-- loading start -->
+      <loading :active.sync="isLoading" :is-full-page="true">
+      </loading>
+      <!-- loading end -->
     </div>
 </template>
 
 <script>
+import Loading from 'vue-loading-overlay'
+import {mapState, mapActions} from 'vuex'
 export default {
-  name: 'DashboardMembershipManagement'
+  name: 'DashboardMembershipManagement',
+  data () {
+    return {
+      isLoading: false
+    }
+  },
+  methods: {
+    ...mapActions([
+      'getMembers'
+    ])
+  },
+  components: {
+    Loading
+  },
+  computed: {
+    ...mapState({
+      members: ({members}) => members.members
+    })
+  },
+  created () {
+    this.isLoading = true
+    this.getMembers().then(() => {
+      this.isLoading = false
+    })
+  }
 }
 </script>
 

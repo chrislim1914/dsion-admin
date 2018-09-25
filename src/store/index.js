@@ -10,6 +10,7 @@ import articles from './modules/article'
 import sales from './modules/sales'
 import deposit from './modules/deposit'
 import dashboard from './modules/dashboard'
+import members from './modules/members'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     articles,
     sales,
     deposit,
-    dashboard
+    dashboard,
+    members
   }
 })

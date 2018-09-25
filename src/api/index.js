@@ -38,3 +38,7 @@ export const deposit = {
 export const dashboard = {
   getDashboard: apiURL + '/admin/Dashboard'
 }
+
+export const member = {
+  getMembers: apiURL + '/admin/Kyc/All'
+}
