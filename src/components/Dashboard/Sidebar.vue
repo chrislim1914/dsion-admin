@@ -29,7 +29,6 @@
 <script>
 import {jwtHeader} from '@/config'
 import Loading from 'vue-loading-overlay'
-import 'vue-loading-overlay/dist/vue-loading.min.css'
 import {
   mapState,
   mapActions

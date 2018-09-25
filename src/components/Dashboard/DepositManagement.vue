@@ -151,7 +151,6 @@
 
 <script>
 import Loading from 'vue-loading-overlay'
-import 'vue-loading-overlay/dist/vue-loading.min.css'
 import { Datetime } from 'vue-datetime'
 import 'vue-datetime/dist/vue-datetime.css'
 import {mapState, mapActions} from 'vuex'
@@ -244,8 +243,12 @@ export default {
   },
   created () {
     this.createDate = this.moment().format('YYYY-MM-DDTkk:mm')
-    this.fetchActiveSale()
-    this.getDeposits()
+    this.isLoading = true
+    this.fetchActiveSale().then(() => {
+      this.getDeposits().then(() => {
+        this.isLoading = false
+      })
+    })
   }
 }
 </script>

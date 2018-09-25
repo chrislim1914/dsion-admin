@@ -144,10 +144,15 @@
         </div>
       </div> -->
     </div>
+    <!-- loading start -->
+    <loading :active.sync="isLoading" :is-full-page="true">
+    </loading>
+    <!-- loading end -->
   </div>
 </template>
 
 <script>
+import Loading from 'vue-loading-overlay'
 import {mapState, mapActions} from 'vuex'
 export default {
   name: 'DashboardMain',
@@ -157,13 +162,24 @@ export default {
       sales: ({sales}) => sales.sale
     })
   },
+  data () {
+    return {
+      isLoading: false
+    }
+  },
+  components: {
+    Loading
+  },
   methods: {
     ...mapActions([
       'getDashboard'
     ])
   },
   created () {
-    this.getDashboard()
+    this.isLoading = true
+    this.getDashboard().then(() => {
+      this.isLoading = false
+    })
   }
 }
 </script>

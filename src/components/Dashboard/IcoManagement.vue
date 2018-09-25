@@ -164,7 +164,6 @@
 
 <script>
 import Loading from 'vue-loading-overlay'
-import 'vue-loading-overlay/dist/vue-loading.min.css'
 import {
   mapActions,
   mapState
