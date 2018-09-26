@@ -70,12 +70,12 @@
         </div>
         <div class="row mt-3">
           <div class="col-2">
-            <button class="btn btn-light btn-block">
+            <button class="btn btn-light btn-block" :class="{ active: !filterSaleStatus}"  @click="filterSaleStatus = ''">
               View all
             </button>
           </div>
           <div class="col-2" v-for="(sale, key) in sales" :key="key">
-            <button class="btn btn-light btn-block">
+            <button class="btn btn-light btn-block" :class="{ active: filterSaleStatus == sale.name }" @click="filterSaleStatus = sale.name">
               {{ sale.name }}
             </button>
           </div>
@@ -107,7 +107,7 @@
         </div>
       </div>
       <div class="row mt-3">
-        <div class="col-12" v-if="deposits">
+        <div class="col-12" v-if="filteredDeposits">
           <table class="table table-borderless">
             <thead>
               <tr>
@@ -119,7 +119,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr :key="index" v-for="(deposit, index) in deposits">
+              <tr :key="index" v-for="(deposit, index) in filteredDeposits">
                 <td class="text-primary">
                   {{ deposit.eth_address }}
                 </td>
@@ -152,7 +152,7 @@
 import Loading from 'vue-loading-overlay'
 import { Datetime } from 'vue-datetime'
 import 'vue-datetime/dist/vue-datetime.css'
-import {mapState, mapActions} from 'vuex'
+import {mapState, mapGetters, mapActions} from 'vuex'
 export default {
   name: 'DashboardDepositManagement',
   data () {
@@ -164,6 +164,7 @@ export default {
       searchUserEmail: '',
       searchEthAddress: '',
       searchCreatedAt: '',
+      filterSaleStatus: '',
       isLoading: false
     }
   },
@@ -245,9 +246,14 @@ export default {
   computed: {
     ...mapState({
       sales: ({sales}) => sales.sale,
-      depositResponseData: ({deposit}) => deposit.responseData,
-      deposits: ({deposit}) => deposit.deposits
-    })
+      depositResponseData: ({deposit}) => deposit.responseData
+    }),
+    ...mapGetters([
+      'filterDepositsBySaleStatus'
+    ]),
+    filteredDeposits () {
+      return this.filterDepositsBySaleStatus(this.filterSaleStatus)
+    }
   },
   created () {
     this.createDate = this.moment().format('YYYY-MM-DDTkk:mm')

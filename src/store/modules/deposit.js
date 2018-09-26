@@ -16,6 +16,24 @@ const state = {
 }
 
 /**
+ * @const getters
+ * @type {object}
+ */
+const getters = {
+  /**
+    * Filter deposits by sales status
+    * @param state
+    * @param saleStatus
+    */
+  filterDepositsBySaleStatus: (state) => (saleStatus) => {
+    if (!saleStatus) {
+      return state.deposits
+    }
+    return state.deposits.filter(deposit => deposit.sale_status === saleStatus)
+  }
+}
+
+/**
  * @const actions
  * @type {object}
  */
@@ -98,4 +116,4 @@ const mutations = {
   }
 }
 
-export default {state, actions, mutations}
+export default {state, getters, actions, mutations}
