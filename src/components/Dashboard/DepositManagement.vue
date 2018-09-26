@@ -10,7 +10,7 @@
       </div>
       <div class="row p-3">
         <div class="col-12">
-          <form @submit.prevent="submitDeposit" novalidate>
+          <form @submit.prevent="submit" novalidate>
             <h5 class="font-weight-bold mb-3 border-bottom pb-3">
               Create Deposit
             </h5>
@@ -31,7 +31,6 @@
               </div>
               <div class="col-lg-3">
                 <label for="sales-status">Create Date</label>
-                <!-- <input type="datetime-local" class="form-control" id="create-date" v-model="createDate"> -->
                 <datetime type="datetime" format="yyyy-MM-dd HH:mm:ss" class="form-control" v-model="createDate"></datetime>
               </div>
             </div>
@@ -66,7 +65,7 @@
           </div>
           <div class="col-lg-3">
               <br>
-              <button type="button" class="btn btn-md btn-block mt-2" @click="searchDeposit">Search</button>
+              <button type="button" class="btn btn-md btn-block mt-2" @click="search">Search</button>
           </div>
         </div>
         <div class="row mt-3">
@@ -172,9 +171,10 @@ export default {
     ...mapActions([
       'fetchActiveSale',
       'createDeposit',
-      'getDeposits'
+      'getDeposits',
+      'searchDeposits'
     ]),
-    submitDeposit () {
+    submit () {
       if (!this.ethAddress) {
         this.$awn.alert('Please enter eth address')
         return
@@ -226,8 +226,16 @@ export default {
         }
       })
     },
-    searchDeposit () {
-
+    search () {
+      if (!this.searchUserEmail && !this.searchEthAddress && !this.searchCreatedAt) {
+        this.getDeposits()
+        return
+      }
+      this.searchDeposits({
+        email: this.searchUserEmail,
+        eth_address: this.searchEthAddress,
+        created_at: this.searchCreatedAt.slice(0, 10)
+      })
     }
   },
   components: {

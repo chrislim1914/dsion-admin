@@ -36,16 +36,36 @@ const actions = {
   },
 
   /**
-      * Get deposits
-      * @param  context
-      * @return {Promise}
-      */
+  * Get deposits
+  * @param  context
+  * @return {Promise}
+  */
   getDeposits: async (context) => {
     try {
       var resp = await axios.get(deposit.getDeposits)
 
       if (resp.data.result) {
         context.commit('setDeposits', resp.data.data)
+      }
+    } catch (error) {
+      context.commit('setDeposits', null)
+    }
+  },
+
+  /**
+  * Search deposits
+  * @param  context
+  * @param payload
+  * @return {Promise}
+  */
+  searchDeposits: async (context, payload) => {
+    try {
+      var resp = await axios.post(deposit.searchDeposits, payload)
+
+      if (resp.data.result) {
+        context.commit('setDeposits', resp.data.data)
+      } else {
+        context.commit('setDeposits', null)
       }
     } catch (error) {
       context.commit('setDeposits', null)

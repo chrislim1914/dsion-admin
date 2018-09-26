@@ -32,7 +32,8 @@ export const sales = {
 
 export const deposit = {
   createDeposit: apiURL + '/admin/Deposit/create',
-  getDeposits: apiURL + '/admin/Deposit'
+  getDeposits: apiURL + '/admin/Deposit',
+  searchDeposits: apiURL + '/admin/Deposit/search'
 }
 
 export const dashboard = {
