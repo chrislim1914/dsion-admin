@@ -47,5 +47,6 @@ export const member = {
 }
 
 export const event = {
-  getEvents: apiURL + '/admin/Event'
+  getEvents: apiURL + '/admin/Event',
+  createEvent: apiURL + '/admin/Event/create'
 }

@@ -106,14 +106,67 @@ export default {
   },
   computed: {
     ...mapState({
-      events: ({events}) => events.events
+      events: ({events}) => events.events,
+      eventResponseData: ({events}) => events.responseData
     })
   },
   methods: {
     ...mapActions([
-      'getEvents'
+      'getEvents',
+      'createEvent'
     ]),
     submit () {
+      if (!this.eventTitle) {
+        this.$awn.alert('Please enter event title')
+        return
+      }
+
+      if (!this.eventContent) {
+        this.$awn.alert('Please enter event content')
+        return
+      }
+
+      if (!this.eventStartDate) {
+        this.$awn.alert('Please enter start date')
+        return
+      }
+
+      if (!this.eventEndDate) {
+        this.$awn.alert('Please enter end date')
+        return
+      }
+
+      if (this.eventStartDate >= this.eventEndDate) {
+        this.$awn.alert('Please enter valid event date')
+        return
+      }
+
+      this.isLoading = true
+
+      this.createEvent({
+        title: this.eventTitle,
+        content: this.eventContent,
+        startdate: this.eventStartDate,
+        enddate: this.eventEndDate
+      }).then(() => {
+        this.isLoading = false
+
+        if (!this.eventResponseData) {
+          this.$awn.alert('Error fetching response data')
+          return
+        }
+
+        if (this.eventResponseData.result) {
+          this.$awn.success('Successfully created event')
+          this.getEvents()
+          this.eventTitle = ''
+          this.eventContent = ''
+          this.eventStartDate = ''
+          this.eventEndDate = ''
+        } else {
+          this.$awn.alert(this.depositResponseData.message)
+        }
+      })
     }
   },
   components: {
@@ -121,7 +174,10 @@ export default {
     datetime: Datetime
   },
   created () {
-    this.getEvents()
+    this.isLoading = true
+    this.getEvents().then(() => {
+      this.isLoading = false
+    })
   }
 }
 </script>
