@@ -66,13 +66,13 @@
                   {{ event.title }}
                 </td>
                 <td>
-                  {{ event.createdate }}
+                  {{ event.createdate ? event.createdate.slice(0, 10) : '' }}
                 </td>
                 <td>
-                  {{ event.startdate }}
+                  {{ event.startdate ? event.startdate.slice(0, 10) : '' }}
                 </td>
                 <td>
-                  {{ event.enddate }}
+                  {{ event.enddate ? event.enddate.slice(0, 10) : '' }}
                 </td>
                 <td>
                   {{ event.comment_count }}
