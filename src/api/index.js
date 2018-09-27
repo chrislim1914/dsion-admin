@@ -45,3 +45,7 @@ export const member = {
   searchMembersByDeposit: apiURL + '/admin/kyc/sbdepo',
   exportMembers: apiURL + '/admin/kyc/export'
 }
+
+export const event = {
+  getEvents: apiURL + '/admin/Event'
+}

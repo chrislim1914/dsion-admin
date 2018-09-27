@@ -10,6 +10,7 @@ import VueAWN from 'vue-awesome-notifications'
 import VModal from 'vue-js-modal'
 import moment from 'moment'
 import 'vue-loading-overlay/dist/vue-loading.min.css'
+import 'vue-datetime/dist/vue-datetime.css'
 import 'bootstrap'
 
 require('vue-awesome-notifications/dist/styles/style.css')

@@ -153,7 +153,6 @@
 <script>
 import Loading from 'vue-loading-overlay'
 import { Datetime } from 'vue-datetime'
-import 'vue-datetime/dist/vue-datetime.css'
 import {mapState, mapGetters, mapActions} from 'vuex'
 export default {
   name: 'DashboardDepositManagement',

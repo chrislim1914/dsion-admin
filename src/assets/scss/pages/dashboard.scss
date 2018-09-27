@@ -60,6 +60,12 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0;
 }
 
+.vdatetime {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
 .vdatetime-input {
   border: none !important;
+  width: 100% !important;
 }

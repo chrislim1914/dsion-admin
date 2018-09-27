@@ -58,6 +58,11 @@ export default {
           path_name: 'DepositManagement',
           link: '/dashboard/deposit-management'
         },
+        {
+          title: 'Event Management',
+          path_name: 'EventManagement',
+          link: '/dashboard/event-management'
+        },
         // {
         //   title: 'Token Management',
         //   path_name: 'TokenManagement',

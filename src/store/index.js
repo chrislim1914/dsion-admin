@@ -11,6 +11,7 @@ import sales from './modules/sales'
 import deposit from './modules/deposit'
 import dashboard from './modules/dashboard'
 import members from './modules/members'
+import events from './modules/events'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -22,6 +23,7 @@ export default new Vuex.Store({
     sales,
     deposit,
     dashboard,
-    members
+    members,
+    events
   }
 })

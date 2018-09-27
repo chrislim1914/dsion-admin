@@ -1,0 +1,127 @@
+<template>
+  <div id="app-dashboard-eventmanagement">
+    <div class="container-fluid">
+      <div class="row p-3">
+        <div class="col">
+          <h3 class="font-weight-bold">
+            Event management
+          </h3>
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="col-12">
+          <form @submit.prevent="submit" novalidate>
+            <h5 class="font-weight-bold mb-3 border-bottom pb-3">
+              Create Event
+            </h5>
+            <div class="row">
+              <div class="col-lg-8">
+                 <label for="event-title">Event Title</label>
+                 <input type="text" class="form-control" id="event-title" v-model="eventTitle">
+              </div>
+              <div class="col-lg-8">
+                 <label for="event-content">Event Content</label>
+                 <textarea class="col-12" rows="15" id="event-content" v-model="eventContent"></textarea>
+              </div>
+              <div class="col-lg-4"></div>
+              <div class="col-lg-4">
+                 <label for="event-start-date">Start Date</label>
+                 <datetime format="yyyy-MM-dd" class="form-control" id="event-start-date" v-model="eventStartDate"></datetime>
+              </div>
+              <div class="col-lg-4">
+                 <label for="event-end-date">End Date</label>
+                 <datetime format="yyyy-MM-dd" class="form-control" id="event-end-date" v-model="eventEndDate"></datetime>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                <button type="submit" class="btn btn-block mt-4">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="col-12">
+          <h5 class="font-weight-bold mb-3 border-bottom pb-3">
+            Event List
+          </h5>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-lg-12">
+          <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Create Date</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Comment Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr :key="index" v-for="(event, index) in events">
+                <td class="text-primary">
+                  {{ event.title }}
+                </td>
+                <td>
+                  {{ event.createdate }}
+                </td>
+                <td>
+                  {{ event.startdate }}
+                </td>
+                <td>
+                  {{ event.enddate }}
+                </td>
+                <td>
+                  {{ event.comment_count }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- loading start -->
+    <loading :active.sync="isLoading" :is-full-page="true">
+    </loading>
+    <!-- loading end -->
+  </div>
+</template>
+<script>
+import Loading from 'vue-loading-overlay'
+import { Datetime } from 'vue-datetime'
+import {mapState, mapActions} from 'vuex'
+export default {
+  name: 'DashboardDepositManagement',
+  data () {
+    return {
+      eventTitle: '',
+      eventContent: '',
+      eventStartDate: '',
+      eventEndDate: '',
+      isLoading: false
+    }
+  },
+  computed: {
+    ...mapState({
+      events: ({events}) => events.events
+    })
+  },
+  methods: {
+    ...mapActions([
+      'getEvents'
+    ]),
+    submit () {
+    }
+  },
+  components: {
+    Loading,
+    datetime: Datetime
+  },
+  created () {
+    this.getEvents()
+  }
+}
+</script>
