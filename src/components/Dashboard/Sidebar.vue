@@ -58,11 +58,11 @@ export default {
           path_name: 'DepositManagement',
           link: '/dashboard/deposit-management'
         },
-        {
-          title: 'Token Management',
-          path_name: 'TokenManagement',
-          link: '/dashboard/token-management'
-        },
+        // {
+        //   title: 'Token Management',
+        //   path_name: 'TokenManagement',
+        //   link: '/dashboard/token-management'
+        // },
         {
           title: 'ICO Management',
           path_name: 'IcoManagement',

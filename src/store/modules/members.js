@@ -38,21 +38,32 @@ const actions = {
   },
 
   /**
-   * Export members
-   */
-  exportMembers: async (context) => {
+    * Search members by deposit
+    * @param  context
+    * @return {Promise}
+    */
+  searchMembersByDeposit: async (context, payload) => {
     try {
-      var formData = new FormData()
-      formData.append('modeStatus', 0)
-      var resp = await axios.post(member.exportMembers, formData, {headers: { 'Content-Type': 'multipart/form-data' }, responseType: 'blob'})
+      var resp = await axios.post(member.searchMembersByDeposit, payload)
+
+      if (resp.data.data) {
+        context.commit('setMembers', resp.data.data)
+      }
+    } catch (error) {
+      context.commit('setMembers', null)
+    }
+  },
+
+  /**
+   * Export members
+   * @param context
+   * @param payload
+   */
+  exportMembers: async (context, payload) => {
+    try {
+      var resp = await axios.post(member.exportMembers, payload)
       if (resp) {
-        const url = window.URL.createObjectURL(new Blob([resp.data]))
-        const link = document.createElement('a')
-        link.href = url
-        link.setAttribute('download', 'members-' + new Date().toISOString().slice(0, 10) + '.xls')
-        document.body.appendChild(link)
-        link.click()
-        context.commit('setResponseData', {is_success: true})
+        context.commit('setResponseData', {data: resp.data, is_success: true})
       }
     } catch (error) {
       context.commit('setResponseData', {is_success: false})

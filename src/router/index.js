@@ -14,7 +14,7 @@ import DashboardMain from '@/components/Dashboard/Main'
 import MembershipManagement from '@/components/Dashboard/MembershipManagement'
 import MemberProfile from '@/components/Dashboard/MemberProfile'
 import DepositManagement from '@/components/Dashboard/DepositManagement'
-import TokenManagement from '@/components/Dashboard/TokenManagement'
+// import TokenManagement from '@/components/Dashboard/TokenManagement'
 import IcoManagement from '@/components/Dashboard/IcoManagement'
 import PromotionManagement from '@/components/Dashboard/PromotionManagement'
 
@@ -53,11 +53,11 @@ export default new Router({
           name: 'DashboardDepositManagement',
           component: DepositManagement
         },
-        {
-          path: 'token-management',
-          name: 'DashboardTokenManagement',
-          component: TokenManagement
-        },
+        // {
+        //   path: 'token-management',
+        //   name: 'DashboardTokenManagement',
+        //   component: TokenManagement
+        // },
         {
           path: 'ico-management',
           name: 'DashboardIcoManagement',
