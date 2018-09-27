@@ -1,9 +1,9 @@
 <template>
-  <nav class="col-md-2 d-none d-lg-block sidebar">
+  <nav class="col-md-2 col-lg-2 d-none d-lg-block sidebar px-0">
     <div class="sidebar-sticky bg-light">
       <ul class="nav flex-column bg-dark">
-        <li class="list-group-item bg-transparent border-0 py-5">
-          <img src="~images/dsion.png" alt="Dsion logo" class="img-fluid pl-5">
+        <li class="list-group-item bg-transparent border-0 py-5 d-inline-block text-center">
+          <img src="~images/dsion.png" alt="Dsion logo" class="img-fluid">
         </li>
       </ul>
       <ul class="nav flex-column mt-4">

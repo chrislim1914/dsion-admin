@@ -1,6 +1,6 @@
 <template>
   <div id="app-dashboard-memberprofile">
-    <div class="container pb-5">
+    <div class="container-fluid pb-5">
       <div class="row p-3">
         <div class="col-12">
           <h3 class="font-weight-bold">

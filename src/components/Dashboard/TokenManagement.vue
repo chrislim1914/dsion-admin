@@ -1,6 +1,6 @@
 <template>
   <div id="app-dashboard-tokenmanagement">
-    <div class="container">
+    <div class="container-fluid">
       <div class="row p-3">
         <div class="col-12">
           <h3 class="font-weight-bold">

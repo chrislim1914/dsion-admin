@@ -1,15 +1,15 @@
 <template>
   <div id="app-dashboard" class="container-fluid mt-4">
-    <div class="wrapper">
-
-      <!-- sidebar -->
+    <div class="row">
+      <!-- sidebar start -->
       <dashboard-sidebar></dashboard-sidebar>
-
-      <div id="content" class="col-12 ml-sm-auto col-lg-10 px-4">
+      <!-- sidebar end -->
+      <!-- content start -->
+      <div id="content" class="col-12 ml-sm-auto col-lg-10 pr-0">
         <router-view></router-view>
       </div>
+      <!-- content end -->
     </div>
-
   </div>
 </template>
 

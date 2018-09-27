@@ -1,6 +1,6 @@
 <template>
   <div id="app-dashboard">
-    <div class="container" v-if="dashboard">
+    <div class="container-fluid" v-if="dashboard">
       <div class="row">
         <div class="col-12">
           <table class="table text-center">

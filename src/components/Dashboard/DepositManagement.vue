@@ -1,6 +1,6 @@
 <template>
   <div id="app-dashboard-depositmanagement">
-    <div class="container">
+    <div class="container-fluid">
       <div class="row p-3">
         <div class="col">
           <h3 class="font-weight-bold">
@@ -49,61 +49,59 @@
           </h5>
         </div>
       </div>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3">
-            <label for="user-email">User Email</label>
-            <input type="text" class="form-control" id="user-email" v-model="searchUserEmail">
-          </div>
-          <div class="col-lg-3">
-            <label for="search-eth-address">ETH Address</label>
-            <input type="text" class="form-control" id="search-eth-address" v-model="searchEthAddress" placeholder="ETH Address">
-          </div>
-          <div class="col-lg-3">
-            <label for="search-created-at">Created At</label>
-            <datetime format="yyyy-MM-dd" class="form-control" id="search-created-at" v-model="searchCreatedAt"></datetime>
-          </div>
-          <div class="col-lg-3">
-              <br>
-              <button type="button" class="btn btn-md btn-block mt-2" @click="search">Search</button>
-          </div>
+      <div class="row p-3">
+        <div class="col-lg-3">
+          <label for="user-email">User Email</label>
+          <input type="text" class="form-control" id="user-email" v-model="searchUserEmail">
         </div>
-        <div class="row mt-3">
-          <div class="col-2">
-            <button class="btn btn-light btn-block" :class="{ active: !filterSaleStatus}"  @click="filterSaleStatus = ''">
-              View all
-            </button>
-          </div>
-          <div class="col-2" v-for="(sale, key) in sales" :key="key">
-            <button class="btn btn-light btn-block" :class="{ active: filterSaleStatus == sale.name }" @click="filterSaleStatus = sale.name">
-              {{ sale.name }}
-            </button>
-          </div>
+        <div class="col-lg-3">
+          <label for="search-eth-address">ETH Address</label>
+          <input type="text" class="form-control" id="search-eth-address" v-model="searchEthAddress" placeholder="ETH Address">
         </div>
-        <div class="row mt-4">
-          <div class="col-lg-6">
-            <h4 class="font-weight-bold">
-              Total deposit amount: <span class="text-danger">NNNNN</span> ETH
-            </h4>
-          </div>
-          <div class="col-lg-6">
-            <h4 class="font-weight-bold">
-              Total withdrawal amount: <span class="text-danger">NNNNN</span> ETH
-            </h4>
-          </div>
-          <div class="col-lg-6">
-            <h4 class="font-weight-bold">
-              Currently holding amount: <span class="text-danger">NNNNN</span> ETH
-            </h4>
-          </div>
-          <div class="col-lg-6">
-            <h4 class="font-weight-bold">
-              Day deposit: <span class="text-danger">NNNNN</span> ETH
-            </h4>
-          </div>
-          <div class="col-12">
-            <div class="dropdown-divider"></div>
-          </div>
+        <div class="col-lg-3">
+          <label for="search-created-at">Created At</label>
+          <datetime format="yyyy-MM-dd" class="form-control" id="search-created-at" v-model="searchCreatedAt"></datetime>
+        </div>
+        <div class="col-lg-3">
+            <br>
+            <button type="button" class="btn btn-md btn-block mt-2" @click="search">Search</button>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-2">
+          <button class="btn btn-light btn-block" :class="{ active: !filterSaleStatus}"  @click="filterSaleStatus = ''">
+            View all
+          </button>
+        </div>
+        <div class="col-2" v-for="(sale, key) in sales" :key="key">
+          <button class="btn btn-light btn-block" :class="{ active: filterSaleStatus == sale.name }" @click="filterSaleStatus = sale.name">
+            {{ sale.name }}
+          </button>
+        </div>
+      </div>
+      <div class="row mt-4" v-if="dashboard">
+        <div class="col-lg-6">
+          <h4 class="font-weight-bold">
+            Total deposit amount: <span class="text-danger">{{ dashboard.total_deposit }}</span> ETH
+          </h4>
+        </div>
+        <div class="col-lg-6">
+          <h4 class="font-weight-bold">
+            Total withdrawal amount: <span class="text-danger">{{ dashboard.total_withdraw }}</span> ETH
+          </h4>
+        </div>
+        <div class="col-lg-6">
+          <h4 class="font-weight-bold">
+            Currently holding amount: <span class="text-danger">{{ dashboard.current_holding }}</span> ETH
+          </h4>
+        </div>
+        <div class="col-lg-6">
+          <h4 class="font-weight-bold">
+            Day deposit: <span class="text-danger">{{ dashboard.todays_deposit }}</span> ETH
+          </h4>
+        </div>
+        <div class="col-12">
+          <div class="dropdown-divider"></div>
         </div>
       </div>
       <div class="row mt-3">
@@ -112,6 +110,7 @@
             <thead>
               <tr>
                 <th scope="col">KYC ETH Address</th>
+                <th scope="col">Email</th>
                 <th scope="col">Deposit ETH Count</th>
                 <th scope="col">Deposit Sale Status</th>
                 <th scope="col">Deposit Total</th>
@@ -122,6 +121,9 @@
               <tr :key="index" v-for="(deposit, index) in filteredDeposits">
                 <td class="text-primary">
                   {{ deposit.eth_address }}
+                </td>
+                <td class="text-primary">
+                  {{ deposit.email }}
                 </td>
                 <td>
                   {{ deposit.eth_count }}
@@ -173,7 +175,8 @@ export default {
       'fetchActiveSale',
       'createDeposit',
       'getDeposits',
-      'searchDeposits'
+      'searchDeposits',
+      'getDashboard'
     ]),
     submit () {
       if (!this.ethAddress) {
@@ -246,7 +249,8 @@ export default {
   computed: {
     ...mapState({
       sales: ({sales}) => sales.sale,
-      depositResponseData: ({deposit}) => deposit.responseData
+      depositResponseData: ({deposit}) => deposit.responseData,
+      dashboard: ({dashboard}) => dashboard.dashboard
     }),
     ...mapGetters([
       'filterDepositsBySaleStatus'
@@ -260,7 +264,9 @@ export default {
     this.isLoading = true
     this.fetchActiveSale().then(() => {
       this.getDeposits().then(() => {
-        this.isLoading = false
+        this.getDashboard().then(() => {
+          this.isLoading = false
+        })
       })
     })
   }

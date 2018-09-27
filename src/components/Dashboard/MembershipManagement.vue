@@ -1,6 +1,6 @@
 <template>
     <div id="app-dashboard-membershipmanagement">
-      <div class="container">
+      <div class="container-fluid">
         <div class="row p-3">
           <div class="col-12">
             <h5 class="font-weight-bold">
@@ -120,10 +120,8 @@
                 <th scope="col">ID</th>
                 <th scope="col">Mobile number</th>
                 <th scope="col">ETH Address</th>
-                <th scope="col">Estimated amount of deposit</th>
                 <th scope="col">Deposit amount</th>
                 <th scope="col">KYC</th>
-                <th scope="col">Person in charge</th>
                 <th scope="col">Refund process status</th>
               </tr>
             </thead>
@@ -138,10 +136,8 @@
                 <td>{{ member.email }}</td>
                 <td>{{ member.phone }}</td>
                 <td>{{ member.eth_address }}</td>
-                <td>{{ member.estimated_amount }}</td>
                 <td>{{ member.deposit_amount }}</td>
                 <td>{{ member.kyc_status }}</td>
-                <td>{{ member.admin }}</td>
                 <td>{{ member.refund }}</td>
               </tr>
             </tbody>

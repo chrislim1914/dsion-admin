@@ -1,6 +1,6 @@
 <template>
   <div id="app-dashboard-promotionmanagement">
-    <div class="container">
+    <div class="container-fluid">
       <div class="row py-3">
         <div class="col-12">
           <h3 class="font-weight-bold">
