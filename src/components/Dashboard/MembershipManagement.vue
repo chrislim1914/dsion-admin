@@ -37,18 +37,13 @@
         </button>
       </div>
       <div class="col-2">
-        <button class="btn btn-light btn-block" :class="{ active: filterKycStatus == 'In-Progress' }" @click="filterKycStatus = 'In-Progress'">
-          KYC In Progress
-        </button>
-      </div>
-      <div class="col-2">
-        <button class="btn btn-light btn-block" :class="{ active: filterKycStatus == 'Pending' }" @click="filterKycStatus = 'Pending'">
+        <button class="btn btn-light btn-block" :class="{ active: filterKycStatus == 'Not Entered' }" @click="filterKycStatus = 'Not Entered'">
           KYC Not Entered
         </button>
       </div>
       <div class="col-2">
-        <button class="btn btn-light btn-block" :class="{ active: filterKycStatus == 'Rejected' }" @click="filterKycStatus = 'Rejected'">
-          KYC Rejected
+        <button class="btn btn-light btn-block" :class="{ active: filterKycStatus == 'Pending' }" @click="filterKycStatus = 'Pending'">
+          KYC Pending
         </button>
       </div>
     </div>
