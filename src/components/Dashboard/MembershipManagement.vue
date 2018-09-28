@@ -11,40 +11,45 @@
 
     <!-- filter by sales status start -->
     <div class="row">
-      <div class="col">
-        <a href="#!" class="btn btn-light btn-block">View all</a>
+      <div class="col-2">
+        <button class="btn btn-light btn-block" :class="{ active: !filterSaleStatus}"  @click="filterSaleStatus = ''">
+          View all
+        </button>
       </div>
-      <div class="col">
-        <a href="#!" class="btn btn-light btn-block">Private</a>
-      </div>
-      <div class="col">
-        <a href="#!" class="btn btn-light btn-block">Free 1</a>
-      </div>
-      <div class="col">
-        <a href="#!" class="btn btn-light btn-block">Free 2</a>
-      </div>
-      <div class="col">
-        <a href="#!" class="btn btn-light btn-block">Public</a>
+      <div class="col-2" v-for="(sale, key) in sales" :key="key">
+        <button class="btn btn-light btn-block" :class="{ active: filterSaleStatus == sale.name }" @click="filterSaleStatus = sale.name">
+          {{ sale.name }}
+        </button>
       </div>
     </div>
     <!-- filter by sales status end -->
 
     <!-- filter by kyc status start -->
     <div class="row mt-3">
-      <div class="col">
-        <a href="#!" class="btn btn-light btn-block">View all</a>
+      <div class="col-2">
+        <button class="btn btn-light btn-block" :class="{ active: !filterKycStatus}"  @click="filterKycStatus = ''">
+          View all
+        </button>
       </div>
-      <div class="col">
-        <a href="#!" class="btn btn-light btn-block">KYC Approved</a>
+      <div class="col-2">
+        <button class="btn btn-light btn-block" :class="{ active: filterKycStatus == 'Approved' }" @click="filterKycStatus = 'Approved'">
+          KYC Approved
+        </button>
       </div>
-      <div class="col">
-        <a href="#!" class="btn btn-light btn-block">KYC in progress</a>
+      <div class="col-2">
+        <button class="btn btn-light btn-block" :class="{ active: filterKycStatus == 'In-Progress' }" @click="filterKycStatus = 'In-Progress'">
+          KYC In Progress
+        </button>
       </div>
-      <div class="col">
-        <a href="#!" class="btn btn-light btn-block">KYC not entered</a>
+      <div class="col-2">
+        <button class="btn btn-light btn-block" :class="{ active: filterKycStatus == 'Pending' }" @click="filterKycStatus = 'Pending'">
+          KYC Not Entered
+        </button>
       </div>
-      <div class="col">
-        <a href="#!" class="btn btn-light btn-block">KYC rejection</a>
+      <div class="col-2">
+        <button class="btn btn-light btn-block" :class="{ active: filterKycStatus == 'Rejected' }" @click="filterKycStatus = 'Rejected'">
+          KYC Rejected
+        </button>
       </div>
     </div>
     <!-- filter by kyc status end -->
@@ -75,25 +80,25 @@
       <!-- search by date start -->
       <div class="row mt-3">
         <div class="col-3">
-          <select class="form-control" id="date-of-application">
-              <option class="user-created">User created date</option>
-              <option class="user-created">KYC updated date</option>
+          <select class="form-control" v-model="searchModeDate">
+              <option value="user created date">User created date</option>
+              <option value="kyc application date">KYC application date</option>
             </select>
         </div>
         <div class="col-2">
-          <input type="text" class="form-control" id="start-date" placeholder="Start date">
-          </div>
+          <datetime format="yyyy-MM-dd" class="form-control" v-model="searchStartDate" placeholder="Start Date"></datetime>
+        </div>
           <div class="col-1 text-center align-self-center">
             <h6>~</h6>
           </div>
           <div class="col-2">
-            <input type="text" class="form-control" id="end-date" placeholder="End date">
+            <datetime format="yyyy-MM-dd" class="form-control" v-model="searchEndDate" placeholder="End Date"></datetime>
           </div>
             <div class="col-2">
-              <input type="text" class="form-control" id="id-search" placeholder="ID search">
+              <input type="text" class="form-control" v-model="searchId" placeholder="ID search">
           </div>
               <div class="col-2">
-                <a href="#!" class="btn btn-light btn-block">Search</a>
+                <a href="#!" class="btn btn-light btn-block" @click="searchByDate">Search</a>
               </div>
             </div>
             <!-- search by date end -->
@@ -101,13 +106,13 @@
             <div class="row mt-4">
               <div class="col-6">
                 <div class="row">
-                  <div class="col-5">
-                    <a href="#!" class="btn" id="save-kyc-info">
+                  <div class="col-4">
+                    <a href="#!" class="btn btn-block" id="save-kyc-info">
                   Save KYC information
                 </a>
                   </div>
-                  <div class="col-5">
-                    <button type="button" class="btn" id="save-excel" @click="exportMembersData">
+                  <div class="col-4">
+                    <button type="button" class="btn btn-block" id="save-excel" @click="exportMembersData">
                   Save list to excel
                 </button>
                   </div>
@@ -129,7 +134,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(member, key) in members" :key="key">
+                  <tr v-for="(member, key) in filteredMembers" :key="key">
                     <td>
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="autoSizingCheck2">
@@ -156,8 +161,10 @@
 
 <script>
 import Loading from 'vue-loading-overlay'
+import {Datetime} from 'vue-datetime'
 import {
   mapState,
+  mapGetters,
   mapActions
 } from 'vuex'
 export default {
@@ -167,20 +174,46 @@ export default {
       searchModeDeposit: 'estimatedeposit',
       searchRange: 'above',
       searchEth: '',
+      searchModeDate: 'user created date',
+      searchStartDate: '',
+      searchEndDate: '',
+      searchId: '',
+      filterSaleStatus: '',
+      filterKycStatus: '',
       isLoading: false
     }
   },
   methods: {
     ...mapActions([
       'getMembers',
+      'fetchActiveSale',
       'searchMembersByDeposit',
+      'searchMembersByDate',
       'exportMembers'
     ]),
     searchByDeposit () {
+      if (!this.searchEth) {
+        this.getMembers()
+        return
+      }
+
       this.searchMembersByDeposit({
         eth: this.searchEth,
         range: this.searchRange,
         modeDeposit: this.searchModeDeposit
+      })
+    },
+    searchByDate () {
+      if (!this.searchStartDate && !this.searchEndDate && !this.searchId) {
+        this.getMembers()
+        return
+      }
+
+      this.searchMembersByDate({
+        startDate: this.searchStartDate.slice(0, 10),
+        endDate: this.searchEndDate.slice(0, 10),
+        email: this.searchId,
+        modeDate: this.searchModeDate
       })
     },
     exportMembersData () {
@@ -207,18 +240,28 @@ export default {
     }
   },
   components: {
-    Loading
+    Loading,
+    datetime: Datetime
   },
   computed: {
     ...mapState({
+      sales: ({sales}) => sales.sale,
       members: ({members}) => members.members,
       membersResponseData: ({members}) => members.responseData
-    })
+    }),
+    ...mapGetters([
+      'filterMembers'
+    ]),
+    filteredMembers () {
+      return this.filterMembers(this.filterSaleStatus, this.filterKycStatus)
+    }
   },
   created () {
     this.isLoading = true
     this.getMembers().then(() => {
-      this.isLoading = false
+      this.fetchActiveSale().then(() => {
+        this.isLoading = false
+      })
     })
   }
 }

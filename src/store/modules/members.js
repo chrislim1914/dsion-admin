@@ -16,6 +16,36 @@ const state = {
 }
 
 /**
+ * @const getters
+ * @type {object}
+ */
+const getters = {
+  /**
+    * Filter members
+    * @param state
+    * @param saleStatus
+    * @param kycStatus
+    */
+  filterMembers: (state) => (saleStatus, kycStatus) => {
+    if (!saleStatus && !kycStatus) {
+      return state.members
+    }
+
+    if (saleStatus && kycStatus) {
+      return state.members.filter(member => member.sale_status === saleStatus && member.status === kycStatus)
+    }
+
+    if (kycStatus) {
+      return state.members.filter(member => member.status === kycStatus)
+    }
+
+    if (saleStatus) {
+      return state.members.filter(member => member.sale_status === saleStatus)
+    }
+  }
+}
+
+/**
  * @const actions
  * @type {object}
  */
@@ -45,6 +75,23 @@ const actions = {
   searchMembersByDeposit: async (context, payload) => {
     try {
       var resp = await axios.post(member.searchMembersByDeposit, payload)
+
+      if (resp.data.data) {
+        context.commit('setMembers', resp.data.data)
+      }
+    } catch (error) {
+      context.commit('setMembers', null)
+    }
+  },
+
+  /**
+    * Search members by date
+    * @param  context
+    * @return {Promise}
+    */
+  searchMembersByDate: async (context, payload) => {
+    try {
+      var resp = await axios.post(member.searchMembersByDate, payload)
 
       if (resp.data.data) {
         context.commit('setMembers', resp.data.data)
@@ -95,4 +142,4 @@ const mutations = {
   }
 }
 
-export default {state, actions, mutations}
+export default {state, getters, actions, mutations}

@@ -43,6 +43,7 @@ export const dashboard = {
 export const member = {
   getMembers: apiURL + '/admin/Kyc/All',
   searchMembersByDeposit: apiURL + '/admin/kyc/sbdepo',
+  searchMembersByDate: apiURL + '/admin/kyc/sbdate',
   exportMembers: apiURL + '/admin/kyc/export'
 }
 
