@@ -1,5 +1,5 @@
 <template>
-  <div id="app-dashboard-eventmanagement">
+  <div id="app-dashboard-editevent">
     <div class="container-fluid">
       <div class="row p-3">
         <div class="col">
@@ -12,7 +12,7 @@
         <div class="col-12">
           <form @submit.prevent="submit" novalidate>
             <h5 class="font-weight-bold mb-3 border-bottom pb-3">
-              Create Event
+              Edit Event
             </h5>
             <div class="row">
               <div class="col-lg-8">
@@ -41,47 +41,6 @@
           </form>
         </div>
       </div>
-      <div class="row p-3">
-        <div class="col-12">
-          <h5 class="font-weight-bold mb-3 border-bottom pb-3">
-            Event List
-          </h5>
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col-lg-12">
-          <table class="table table-borderless">
-            <thead>
-              <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Create Date</th>
-                <th scope="col">Start Date</th>
-                <th scope="col">End Date</th>
-                <th scope="col">Comment Count</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr :key="index" v-for="(event, index) in events" v-if="events">
-                <td>
-                  <router-link :to="{ name: 'DashboardEventManagementEdit', params: { id: event.idevent }}">{{ event.title }}</router-link>
-                </td>
-                <td>
-                  {{ event.createdate ? event.createdate.slice(0, 10) : '' }}
-                </td>
-                <td>
-                  {{ event.startdate ? event.startdate.slice(0, 10) : '' }}
-                </td>
-                <td>
-                  {{ event.enddate ? event.enddate.slice(0, 10) : '' }}
-                </td>
-                <td>
-                  {{ event.comment_count }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
     </div>
     <!-- loading start -->
     <loading :active.sync="isLoading" :is-full-page="true">
@@ -94,7 +53,7 @@ import Loading from 'vue-loading-overlay'
 import { Datetime } from 'vue-datetime'
 import {mapState, mapActions} from 'vuex'
 export default {
-  name: 'DashboardEventManagement',
+  name: 'DashboardEventManagementEdit',
   data () {
     return {
       eventTitle: '',
@@ -106,14 +65,14 @@ export default {
   },
   computed: {
     ...mapState({
-      events: ({events}) => events.events,
+      event: ({events}) => events.event,
       eventResponseData: ({events}) => events.responseData
     })
   },
   methods: {
     ...mapActions([
-      'getEvents',
-      'createEvent'
+      'getEvent',
+      'updateEvent'
     ]),
     submit () {
       if (!this.eventTitle) {
@@ -143,7 +102,8 @@ export default {
 
       this.isLoading = true
 
-      this.createEvent({
+      this.updateEvent({
+        idevent: this.id,
         title: this.eventTitle,
         content: this.eventContent,
         startdate: this.eventStartDate,
@@ -156,26 +116,22 @@ export default {
           return
         }
 
-        if (this.eventResponseData.result) {
-          this.$awn.success('Successfully created event')
-          this.getEvents()
-          this.eventTitle = ''
-          this.eventContent = ''
-          this.eventStartDate = ''
-          this.eventEndDate = ''
-        } else {
-          this.$awn.alert(this.depositResponseData.message)
-        }
+        this.$awn.success('Successfully updated an event')
       })
     }
   },
+  props: ['id'],
   components: {
     Loading,
     datetime: Datetime
   },
   created () {
     this.isLoading = true
-    this.getEvents().then(() => {
+    this.getEvent(this.id).then(() => {
+      this.eventTitle = this.event.title
+      this.eventContent = this.event.content
+      this.eventStartDate = this.event.startdate.slice(0, 10)
+      this.eventEndDate = this.event.enddate.slice(0, 10)
       this.isLoading = false
     })
   }

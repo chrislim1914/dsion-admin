@@ -47,7 +47,9 @@ export const member = {
   exportMembers: apiURL + '/admin/kyc/export'
 }
 
-export const event = {
+export const eventApi = {
   getEvents: apiURL + '/admin/Event',
-  createEvent: apiURL + '/admin/Event/create'
+  getEvent: apiURL + '/admin/Event/',
+  createEvent: apiURL + '/admin/Event/create',
+  updateEvent: apiURL + '/admin/Event/update'
 }

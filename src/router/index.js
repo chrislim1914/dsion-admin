@@ -15,6 +15,7 @@ import MembershipManagement from '@/components/Dashboard/MembershipManagement'
 import MemberProfile from '@/components/Dashboard/MemberProfile'
 import DepositManagement from '@/components/Dashboard/DepositManagement'
 import EventManagement from '@/components/Dashboard/EventManagement'
+import EventManagementEdit from '@/components/Dashboard/EventManagementEdit'
 // import TokenManagement from '@/components/Dashboard/TokenManagement'
 import IcoManagement from '@/components/Dashboard/IcoManagement'
 import PromotionManagement from '@/components/Dashboard/PromotionManagement'
@@ -58,6 +59,12 @@ export default new Router({
           path: 'event-management',
           name: 'DashboardEventManagement',
           component: EventManagement
+        },
+        {
+          path: 'event-management/edit/:id',
+          name: 'DashboardEventManagementEdit',
+          component: EventManagementEdit,
+          props: true
         },
         // {
         //   path: 'token-management',
