@@ -9,7 +9,7 @@
         </div>
       </div>
       <div class="row p-3">
-        <div class="col-12">
+        <div class="col-12" v-if="event">
           <form @submit.prevent="submit" novalidate>
             <h5 class="font-weight-bold mb-3 border-bottom pb-3">
               Edit Event
@@ -39,6 +39,9 @@
               </div>
             </div>
           </form>
+        </div>
+        <div class="col-12" v-else>
+            <h2 class="text-center text-danger">Event not found</h2>
         </div>
       </div>
     </div>
@@ -128,10 +131,12 @@ export default {
   created () {
     this.isLoading = true
     this.getEvent(this.id).then(() => {
-      this.eventTitle = this.event.title
-      this.eventContent = this.event.content
-      this.eventStartDate = this.event.startdate.slice(0, 10)
-      this.eventEndDate = this.event.enddate.slice(0, 10)
+      if (this.event) {
+        this.eventTitle = this.event.title
+        this.eventContent = this.event.content
+        this.eventStartDate = this.event.startdate.slice(0, 10)
+        this.eventEndDate = this.event.enddate.slice(0, 10)
+      }
       this.isLoading = false
     })
   }
