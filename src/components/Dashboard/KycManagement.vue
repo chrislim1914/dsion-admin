@@ -4,7 +4,7 @@
     <div class="row p-3">
       <div class="col-12">
         <h3 class="font-weight-bold">
-          Membership Management
+          KYC Management
         </h3>
       </div>
     </div>
@@ -92,40 +92,81 @@
                 </button>
               </div>
             </div>
+            <div class="row">
+              <div class="col-12 mt-2">
+                  <div class="dropdown-divider"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2 mb-2 mb-md-0">
+                <button type="button" class="btn btn-primary btn-block" :disabled="!kycIds.length">
+                  Approve
+                </button>
+              </div>
+              <div class="col-md-2 mb-2 mb-md-0">
+                <button type="button" class="btn btn-danger btn-block" :disabled="!kycIds.length">
+                  Reject
+                </button>
+              </div>
+            </div>
             <!-- export end -->
-            <!-- membership table start -->
+            <!-- kyc table start -->
             <div class="row mt-4 table-responsive" v-if="members">
               <table class="table">
                 <thead>
                   <tr>
                     <th scope="col">All</th>
-                    <th scope="col">Registration date</th>
-                    <th scope="col">ID</th>
-                    <th scope="col">Mobile number</th>
-                    <th scope="col">ETH Address</th>
-                    <th scope="col">Deposit amount</th>
-                    <th scope="col">KYC</th>
-                    <th scope="col">Refund process status</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Nationality</th>
+                    <th scope="col">Contact Number</th>
+                    <th scope="col">Doc Type</th>
+                    <th scope="col">Doc Front</th>
+                    <th scope="col">Doc Back</th>
+                    <th scope="col">Selfie</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Eth Address</th>
+                    <th scope="col">Deposit Amount</th>
+                    <th scope="col">Created At</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(member, key) in filteredMembers" :key="key">
                     <td>
-                      <input type="checkbox">
+                      <input type="checkbox" v-model="kycIds" :value="member.idkyc">
                     </td>
-                    <td>{{ member.created_at }}</td>
                     <td>{{ member.email }}</td>
+                    <td>{{ member.first_name }}</td>
+                    <td>{{ member.last_name }}</td>
+                    <td>{{ member.nationality }}</td>
                     <td>{{ member.contactnumber }}</td>
+                    <td>{{ member.doctype }}</td>
+                    <td>
+                      <a :href="member.docfront | assetUrl" target="_blank">
+                        <img class="img-fixed-size" :src="member.docfront | assetUrl" alt="Doc Front Image">
+                      </a>
+                    </td>
+                    <td>
+                      <a :href="member.docback | assetUrl" target="_blank">
+                        <img class="img-fixed-size" :src="member.docback | assetUrl" alt="Doc Back Image">
+                      </a>
+                    </td>
+                    <td>
+                      <a :href="member.selfie | assetUrl" target="_blank">
+                        <img class="img-fixed-size" :src="member.selfie | assetUrl" alt="Selfie Image">
+                      </a>
+                    </td>
+                    <td>{{ member.status }}</td>
                     <td>{{ member.eth_address }}</td>
                     <td>{{ member.deposit_amount }}</td>
-                    <td>{{ member.status }}</td>
-                    <td>{{ member.refund }}</td>
+                    <td>{{ member.created_at }}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
-          <!-- membership table end -->
+          <!-- kyc table end -->
           <!-- loading start -->
           <loading :active.sync="isLoading" :is-full-page="true">
           </loading>
@@ -142,7 +183,7 @@ import {
   mapActions
 } from 'vuex'
 export default {
-  name: 'DashboardMembershipManagement',
+  name: 'DashboardKycManagement',
   data () {
     return {
       searchModeDeposit: 'estimatedeposit',
@@ -153,6 +194,7 @@ export default {
       searchEndDate: '',
       searchId: '',
       filterKycStatus: '',
+      kycIds: [],
       isLoading: false
     }
   },

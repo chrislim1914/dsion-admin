@@ -54,6 +54,11 @@ export default {
           link: '/dashboard/membership-management'
         },
         {
+          title: 'KYC Management',
+          path_name: 'KycManagement',
+          link: '/dashboard/kyc-management'
+        },
+        {
           title: 'Deposit Management',
           path_name: 'DepositManagement',
           link: '/dashboard/deposit-management'

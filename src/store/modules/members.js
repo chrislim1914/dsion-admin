@@ -104,6 +104,22 @@ const actions = {
     } catch (error) {
       context.commit('setResponseData', {is_success: false})
     }
+  },
+
+  /**
+   * Export kyc info
+   * @param context
+   * @param payload
+   */
+  exportKycInfo: async (context, payload) => {
+    try {
+      var resp = await axios.post(member.exportKycInfo, payload)
+      if (resp) {
+        context.commit('setResponseData', {data: resp.data, is_success: true})
+      }
+    } catch (error) {
+      context.commit('setResponseData', {is_success: false})
+    }
   }
 }
 

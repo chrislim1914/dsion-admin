@@ -128,7 +128,7 @@
             <tbody>
               <tr :key="index" v-for="(deposit, index) in filteredDeposits">
                 <td>
-                  <input type="checkbox" :id="index" v-model="depositIds" :value="deposit.iddeposit">
+                  <input type="checkbox" v-model="depositIds" :value="deposit.iddeposit">
                 </td>
                 <td class="text-primary">
                   {{ deposit.eth_address }}

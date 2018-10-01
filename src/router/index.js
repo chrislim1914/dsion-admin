@@ -12,6 +12,7 @@ import Login from '@/components/Login/Index'
 import Dashboard from '@/components/Dashboard/Index'
 import DashboardMain from '@/components/Dashboard/Main'
 import MembershipManagement from '@/components/Dashboard/MembershipManagement'
+import KycManagement from '@/components/Dashboard/KycManagement'
 import MemberProfile from '@/components/Dashboard/MemberProfile'
 import DepositManagement from '@/components/Dashboard/DepositManagement'
 import EventManagement from '@/components/Dashboard/EventManagement'
@@ -49,6 +50,11 @@ export default new Router({
           name: 'DashboardMemberProfile',
           props: true,
           component: MemberProfile
+        },
+        {
+          path: 'kyc-management',
+          name: 'DashboardKycManagement',
+          component: KycManagement
         },
         {
           path: 'deposit-management',
