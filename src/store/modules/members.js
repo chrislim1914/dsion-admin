@@ -23,25 +23,14 @@ const getters = {
   /**
     * Filter members
     * @param state
-    * @param saleStatus
     * @param kycStatus
     */
-  filterMembers: (state) => (saleStatus, kycStatus) => {
-    if (!saleStatus && !kycStatus) {
+  filterMembers: (state) => (kycStatus) => {
+    if (!kycStatus) {
       return state.members
     }
 
-    if (saleStatus && kycStatus) {
-      return state.members.filter(member => member.sale_status === saleStatus && member.status === kycStatus)
-    }
-
-    if (kycStatus) {
-      return state.members.filter(member => member.status === kycStatus)
-    }
-
-    if (saleStatus) {
-      return state.members.filter(member => member.sale_status === saleStatus)
-    }
+    return state.members.filter(member => member.status === kycStatus)
   }
 }
 

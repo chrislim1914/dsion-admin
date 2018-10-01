@@ -9,21 +9,6 @@
       </div>
     </div>
 
-    <!-- filter by sales status start -->
-    <div class="row">
-      <div class="col-2">
-        <button class="btn btn-light btn-block" :class="{ active: !filterSaleStatus}"  @click="filterSaleStatus = ''">
-          View all
-        </button>
-      </div>
-      <div class="col-2" v-for="(sale, key) in sales" :key="key">
-        <button class="btn btn-light btn-block" :class="{ active: filterSaleStatus == sale.name }" @click="filterSaleStatus = sale.name">
-          {{ sale.name }}
-        </button>
-      </div>
-    </div>
-    <!-- filter by sales status end -->
-
     <!-- filter by kyc status start -->
     <div class="row mt-3">
       <div class="col-2">
@@ -171,7 +156,6 @@ export default {
       searchStartDate: '',
       searchEndDate: '',
       searchId: '',
-      filterSaleStatus: '',
       filterKycStatus: '',
       isLoading: false
     }
@@ -179,7 +163,6 @@ export default {
   methods: {
     ...mapActions([
       'getMembers',
-      'fetchActiveSale',
       'searchMembersByDeposit',
       'searchMembersByDate',
       'exportMembers'
@@ -238,7 +221,6 @@ export default {
   },
   computed: {
     ...mapState({
-      sales: ({sales}) => sales.sale,
       members: ({members}) => members.members,
       membersResponseData: ({members}) => members.responseData
     }),
@@ -246,15 +228,13 @@ export default {
       'filterMembers'
     ]),
     filteredMembers () {
-      return this.filterMembers(this.filterSaleStatus, this.filterKycStatus)
+      return this.filterMembers(this.filterKycStatus)
     }
   },
   created () {
     this.isLoading = true
     this.getMembers().then(() => {
-      this.fetchActiveSale().then(() => {
-        this.isLoading = false
-      })
+      this.isLoading = false
     })
   }
 }
