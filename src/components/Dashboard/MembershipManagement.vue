@@ -131,9 +131,7 @@
                 <tbody>
                   <tr v-for="(member, key) in filteredMembers" :key="key">
                     <td>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="autoSizingCheck2">
-                  </div>
+                      <input class="form-check-input" type="checkbox" id="autoSizingCheck2">
                     </td>
                     <td>{{ member.created_at }}</td>
                     <td>{{ member.email }}</td>

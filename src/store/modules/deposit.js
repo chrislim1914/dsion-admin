@@ -1,6 +1,6 @@
 /**
- * Deposit store module
- */
+* Deposit store module
+*/
 import axios from 'axios'
 import {
   deposit
@@ -39,11 +39,11 @@ const getters = {
  */
 const actions = {
   /**
-      * Create deposit
-      * @param  context
-      * @param  payload
-      * @return {Promise}
-      */
+  * Create deposit
+  * @param  context
+  * @param  payload
+  * @return {Promise}
+  */
   createDeposit: async (context, payload) => {
     try {
       var resp = await axios.post(deposit.createDeposit, payload)
@@ -88,8 +88,22 @@ const actions = {
     } catch (error) {
       context.commit('setDeposits', null)
     }
-  }
+  },
 
+  /**
+  * Delete deposits
+  * @param  context
+  * @param  payload
+  * @return {Promise}
+  */
+  deleteDeposits: async (context, payload) => {
+    try {
+      var resp = await axios.post(deposit.deleteDeposits, payload)
+      context.commit('setResponseData', resp.data)
+    } catch (error) {
+      context.commit('setResponseData', null)
+    }
+  }
 }
 
 /**
@@ -109,10 +123,10 @@ const mutations = {
   /**
      * Set response data state
      * @param state
-     * @param status
+     * @param data
      */
-  setResponseData: (state, status) => {
-    state.responseData = status
+  setResponseData: (state, data) => {
+    state.responseData = data
   }
 }
 

@@ -18,7 +18,7 @@ require('vue-awesome-notifications/dist/styles/style.css')
 Vue.use(VueSession)
 Vue.use(VueClipboard)
 Vue.use(VueAWN)
-Vue.use(VModal, { dialog: true })
+Vue.use(VModal)
 
 Vue.config.productionTip = false
 Vue.prototype.moment = moment

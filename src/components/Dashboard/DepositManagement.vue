@@ -104,11 +104,19 @@
           <div class="dropdown-divider"></div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-2">
+          <button class="btn btn-block my-3" @click="showDeleteDepositModal" :disabled="!depositIds.length">
+            Delete
+          </button>
+        </div>
+      </div>
       <div class="row mt-3">
         <div class="col-12" v-if="filteredDeposits">
           <table class="table table-borderless">
             <thead>
               <tr>
+                <th scope="col">All</th>
                 <th scope="col">KYC ETH Address</th>
                 <th scope="col">Email</th>
                 <th scope="col">Deposit ETH Count</th>
@@ -119,6 +127,9 @@
             </thead>
             <tbody>
               <tr :key="index" v-for="(deposit, index) in filteredDeposits">
+                <td>
+                  <input type="checkbox" :id="index" v-model="depositIds" :value="deposit.iddeposit">
+                </td>
                 <td class="text-primary">
                   {{ deposit.eth_address }}
                 </td>
@@ -147,6 +158,9 @@
     <loading :active.sync="isLoading" :is-full-page="true">
     </loading>
     <!-- loading end -->
+    <!-- delete deposit modal start -->
+    <delete-deposit-modal />
+    <!-- delete deposit modal end -->
   </div>
 </template>
 
@@ -154,6 +168,7 @@
 import Loading from 'vue-loading-overlay'
 import { Datetime } from 'vue-datetime'
 import {mapState, mapGetters, mapActions} from 'vuex'
+import DeleteDepositModal from '@/components/Globals/DeleteDepositModal'
 export default {
   name: 'DashboardDepositManagement',
   data () {
@@ -166,6 +181,7 @@ export default {
       searchEthAddress: '',
       searchCreatedAt: '',
       filterSaleStatus: '',
+      depositIds: [],
       isLoading: false
     }
   },
@@ -177,6 +193,9 @@ export default {
       'searchDeposits',
       'getDashboard'
     ]),
+    showDeleteDepositModal () {
+      this.$modal.show('delete-deposit-modal', {depositIds: this.depositIds})
+    },
     submit () {
       if (!this.ethAddress) {
         this.$awn.alert('Please enter eth address')
@@ -243,7 +262,8 @@ export default {
   },
   components: {
     Loading,
-    datetime: Datetime
+    datetime: Datetime,
+    'delete-deposit-modal': DeleteDepositModal
   },
   computed: {
     ...mapState({

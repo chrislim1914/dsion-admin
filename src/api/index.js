@@ -33,7 +33,8 @@ export const sales = {
 export const deposit = {
   createDeposit: apiURL + '/admin/Deposit/create',
   getDeposits: apiURL + '/admin/Deposit',
-  searchDeposits: apiURL + '/admin/Deposit/search'
+  searchDeposits: apiURL + '/admin/Deposit/search',
+  deleteDeposits: apiURL + '/admin/Deposit/multidelete'
 }
 
 export const dashboard = {
