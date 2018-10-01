@@ -12,8 +12,8 @@
         <p>Are you sure you want to delete deposit?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary px-5" @click="confirmDeleteDeposit">Yes</button>
-        <button type="button" class="btn btn-secondary px-5 mx-2" @click="closeModal">No</button>
+        <button type="button" class="btn px-5" @click="confirmDeleteDeposit">Yes</button>
+        <button type="button" class="btn px-5 mx-2" @click="closeModal">No</button>
       </div>
     </div>
   </modal>
