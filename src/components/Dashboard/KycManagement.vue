@@ -99,12 +99,12 @@
             </div>
             <div class="row">
               <div class="col-md-2 mb-2 mb-md-0">
-                <button type="button" class="btn btn-primary btn-block" :disabled="!kycIds.length">
+                <button type="button" class="btn btn-block" :disabled="!kycIds.length" @click="updateKycStatusData('Approved')">
                   Approve
                 </button>
               </div>
               <div class="col-md-2 mb-2 mb-md-0">
-                <button type="button" class="btn btn-danger btn-block" :disabled="!kycIds.length">
+                <button type="button" class="btn btn-block" :disabled="!kycIds.length" @click="updateKycStatusData('Rejected')">
                   Reject
                 </button>
               </div>
@@ -204,7 +204,8 @@ export default {
       'searchMembersByDeposit',
       'searchMembersByDate',
       'exportMembers',
-      'exportKycInfo'
+      'exportKycInfo',
+      'updateKycStatus'
     ]),
     searchByDeposit () {
       if (!this.searchEth) {
@@ -254,6 +255,23 @@ export default {
       }).then(() => {
         if (this.membersResponseData.is_success) {
           this.downloadData(this.membersResponseData.data, 'kyc-info')
+        }
+      })
+    },
+    updateKycStatusData (status) {
+      this.isLoading = true
+      this.updateKycStatus({
+        status: status,
+        idkyclist: this.kycIds
+      }).then(() => {
+        if (this.membersResponseData.result) {
+          this.$awn.success('Successfully updated kyc status')
+          this.kycIds = []
+          this.getMembers().then(() => {
+            this.isLoading = false
+          })
+        } else {
+          this.$awn.alertt('Error updating kyc status')
         }
       })
     }

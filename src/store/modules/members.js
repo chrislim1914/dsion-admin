@@ -120,6 +120,22 @@ const actions = {
     } catch (error) {
       context.commit('setResponseData', {is_success: false})
     }
+  },
+
+  /**
+   * Update kyc status
+   * @param context
+   * @param payload
+   */
+  updateKycStatus: async (context, payload) => {
+    try {
+      var resp = await axios.post(member.updateKycStatus, payload)
+      if (resp) {
+        context.commit('setResponseData', resp.data)
+      }
+    } catch (error) {
+      context.commit('setResponseData', resp.data)
+    }
   }
 }
 
