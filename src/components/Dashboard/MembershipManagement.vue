@@ -82,12 +82,12 @@
             <!-- export start -->
             <div class="row mt-4">
               <div class="col-md-2 mb-2 mb-md-0">
-                <button type="button" class="btn btn-block" id="save-kyc-info" @click="exportKycInfoData">
+                <button type="button" class="btn btn-block" id="save-kyc-info" @click="exportKycInfo">
                   Save KYC information
                 </button>
               </div>
               <div class="col-md-2 mb-2 mb-md-0">
-                <button type="button" class="btn btn-block" id="save-members" @click="exportMembersData">
+                <button type="button" class="btn btn-block" id="save-members" @click="exportMembers">
                   Save list to excel
                 </button>
               </div>
@@ -136,6 +136,7 @@
 <script>
 import Loading from 'vue-loading-overlay'
 import {Datetime} from 'vue-datetime'
+import {member} from '@/api'
 import {
   mapState,
   mapGetters,
@@ -160,9 +161,7 @@ export default {
     ...mapActions([
       'getMembers',
       'searchMembersByDeposit',
-      'searchMembersByDate',
-      'exportMembers',
-      'exportKycInfo'
+      'searchMembersByDate'
     ]),
     searchByDeposit () {
       if (!this.searchEth) {
@@ -189,31 +188,13 @@ export default {
         modeDate: this.searchModeDate
       })
     },
-    downloadData (data, filename) {
-      const url = window.URL.createObjectURL(new Blob([data]))
-      const link = document.createElement('a')
-      link.href = url
-      link.setAttribute('download', filename + '-' + new Date().toISOString().slice(0, 10) + '.xls')
-      document.body.appendChild(link)
-      link.click()
+    exportMembers () {
+      var kycIds = this.members.map(member => member.idkyc).join('-')
+      window.open(member.exportMembers + kycIds, '_blank')
     },
-    exportMembersData () {
-      this.exportMembers({
-        idkyc: this.members.map(member => member.idkyc)
-      }).then(() => {
-        if (this.membersResponseData.is_success) {
-          this.downloadData(this.membersResponseData.data, 'members')
-        }
-      })
-    },
-    exportKycInfoData () {
-      this.exportKycInfo({
-        idkyc: this.members.map(member => member.idkyc)
-      }).then(() => {
-        if (this.membersResponseData.is_success) {
-          this.downloadData(this.membersResponseData.data, 'kyc-info')
-        }
-      })
+    exportKycInfo () {
+      var kycIds = this.members.map(member => member.idkyc).join('-')
+      window.open(member.exportKycInfo + kycIds, '_blank')
     }
   },
   components: {

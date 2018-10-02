@@ -91,38 +91,6 @@ const actions = {
   },
 
   /**
-   * Export members
-   * @param context
-   * @param payload
-   */
-  exportMembers: async (context, payload) => {
-    try {
-      var resp = await axios.post(member.exportMembers, payload)
-      if (resp) {
-        context.commit('setResponseData', {data: resp.data, is_success: true})
-      }
-    } catch (error) {
-      context.commit('setResponseData', {is_success: false})
-    }
-  },
-
-  /**
-   * Export kyc info
-   * @param context
-   * @param payload
-   */
-  exportKycInfo: async (context, payload) => {
-    try {
-      var resp = await axios.post(member.exportKycInfo, payload)
-      if (resp) {
-        context.commit('setResponseData', {data: resp.data, is_success: true})
-      }
-    } catch (error) {
-      context.commit('setResponseData', {is_success: false})
-    }
-  },
-
-  /**
    * Update kyc status
    * @param context
    * @param payload
