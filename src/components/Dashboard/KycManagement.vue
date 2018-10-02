@@ -115,20 +115,20 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col">All</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">Nationality</th>
-                    <th scope="col">Contact Number</th>
-                    <th scope="col">Doc Type</th>
-                    <th scope="col">Doc Front</th>
-                    <th scope="col">Doc Back</th>
-                    <th scope="col">Selfie</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Eth Address</th>
-                    <th scope="col">Deposit Amount</th>
-                    <th scope="col">Created At</th>
+                    <th scope="col" class="text-center">All</th>
+                    <th scope="col" class="text-center">Email</th>
+                    <th scope="col" class="text-center">First Name</th>
+                    <th scope="col" class="text-center">Last Name</th>
+                    <th scope="col" class="text-center">Nationality</th>
+                    <th scope="col" class="text-center">Contact Number</th>
+                    <th scope="col" class="text-center">Doc Type</th>
+                    <th scope="col" class="text-center">Doc Front</th>
+                    <th scope="col" class="text-center">Doc Back</th>
+                    <th scope="col" class="text-center">Selfie</th>
+                    <th scope="col" class="text-center">Status</th>
+                    <th scope="col" class="text-center">Eth Address</th>
+                    <th scope="col" class="text-center">Deposit Amount</th>
+                    <th scope="col" class="text-center">Created At</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -136,31 +136,31 @@
                     <td>
                       <input type="checkbox" v-model="kycIds" :value="member.idkyc">
                     </td>
-                    <td>{{ member.email }}</td>
-                    <td>{{ member.first_name }}</td>
-                    <td>{{ member.last_name }}</td>
-                    <td>{{ member.nationality }}</td>
-                    <td>{{ member.contactnumber }}</td>
-                    <td>{{ member.doctype }}</td>
-                    <td>
+                    <td class="kyc-table-data">{{ member.email }}</td>
+                    <td class="kyc-table-data">{{ member.first_name }}</td>
+                    <td class="kyc-table-data">{{ member.last_name }}</td>
+                    <td class="kyc-table-data">{{ member.nationality }}</td>
+                    <td class="kyc-table-data">{{ member.contactnumber }}</td>
+                    <td class="kyc-table-data">{{ member.doctype }}</td>
+                    <td class="kyc-table-data">
                       <a :href="member.docfront | assetUrl" target="_blank">
-                        <img class="img-fixed-size" :src="member.docfront | assetUrl" alt="Doc Front Image">
+                        <img class="kyc-img" :src="member.docfront | assetUrl" alt="Doc Front Image">
                       </a>
                     </td>
-                    <td>
+                    <td class="kyc-table-data">
                       <a :href="member.docback | assetUrl" target="_blank">
-                        <img class="img-fixed-size" :src="member.docback | assetUrl" alt="Doc Back Image">
+                        <img class="kyc-img" :src="member.docback | assetUrl" alt="Doc Back Image">
                       </a>
                     </td>
-                    <td>
+                    <td class="kyc-table-data">
                       <a :href="member.selfie | assetUrl" target="_blank">
-                        <img class="img-fixed-size" :src="member.selfie | assetUrl" alt="Selfie Image">
+                        <img class="kyc-img" :src="member.selfie | assetUrl" alt="Selfie Image">
                       </a>
                     </td>
-                    <td>{{ member.status }}</td>
-                    <td>{{ member.eth_address }}</td>
-                    <td>{{ member.deposit_amount }}</td>
-                    <td>{{ member.created_at }}</td>
+                    <td class="kyc-table-data">{{ member.status }}</td>
+                    <td class="kyc-table-data">{{ member.eth_address }}</td>
+                    <td class="kyc-table-data">{{ member.deposit_amount }}</td>
+                    <td class="kyc-table-data">{{ member.created_at }}</td>
                   </tr>
                 </tbody>
               </table>
