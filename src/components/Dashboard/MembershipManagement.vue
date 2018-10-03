@@ -11,22 +11,22 @@
     <!-- filter by kyc status start -->
     <div class="row mt-3">
       <div class="col-md-2 mb-2 mb-md-0">
-        <button class="btn btn-light btn-block" :class="{ active: !filterKycStatus}"  @click="filterKycStatus = ''">
+        <button class="btn btn-light btn-block" :class="{ active: !filterKycStatus}"  @click="filterByKycStatus('')">
           View all
         </button>
       </div>
       <div class="col-md-2 mb-2 mb-md-0">
-        <button class="btn btn-light btn-block" :class="{ active: filterKycStatus == 'Approved' }" @click="filterKycStatus = 'Approved'">
+        <button class="btn btn-light btn-block" :class="{ active: filterKycStatus === 'Approved' }" @click="filterByKycStatus('Approved')">
           KYC Approved
         </button>
       </div>
       <div class="col-md-2 mb-2 mb-md-0">
-        <button class="btn btn-light btn-block" :class="{ active: filterKycStatus == 'Not Entered' }" @click="filterKycStatus = 'Not Entered'">
+        <button class="btn btn-light btn-block" :class="{ active: filterKycStatus === 'Not Entered' }" @click="filterByKycStatus('Not Entered')">
           KYC Not Entered
         </button>
       </div>
       <div class="col-md-2 mb-2 mb-md-0">
-        <button class="btn btn-light btn-block" :class="{ active: filterKycStatus == 'Pending' }" @click="filterKycStatus = 'Pending'">
+        <button class="btn btn-light btn-block" :class="{ active: filterKycStatus === 'Pending' }" @click="filterByKycStatus('Pending')">
           KYC Pending
         </button>
       </div>
@@ -52,85 +52,99 @@
         <div class="col-md-3 mb-2 mb-md-0">
           <button type="button" class="btn btn-block" @click="searchByDeposit">Search</button>
         </div>
+    </div>
+    <!-- search by deposit end -->
+    <!-- search by date start -->
+    <div class="row mt-3">
+      <div class="col-md-3 mb-2 mb-md-0">
+        <select class="form-control" v-model="searchModeDate">
+            <option value="usercreateddate">User created date</option>
+            <option value="kycapplicationdate">KYC application date</option>
+        </select>
       </div>
-      <!-- search by deposit end -->
-      <!-- search by date start -->
-      <div class="row mt-3">
-        <div class="col-md-3 mb-2 mb-md-0">
-          <select class="form-control" v-model="searchModeDate">
-              <option value="user created date">User created date</option>
-              <option value="kyc application date">KYC application date</option>
-            </select>
+      <div class="col-md-2 mb-2 mb-md-0">
+        <datetime format="yyyy-MM-dd" class="form-control" v-model="searchStartDate" placeholder="Start Date"></datetime>
+      </div>
+        <div class="col-md-1 mb-2 mb-md-0 text-center align-self-center">
+          <h6>~</h6>
         </div>
         <div class="col-md-2 mb-2 mb-md-0">
-          <datetime format="yyyy-MM-dd" class="form-control" v-model="searchStartDate" placeholder="Start Date"></datetime>
+          <datetime format="yyyy-MM-dd" class="form-control" v-model="searchEndDate" placeholder="End Date"></datetime>
         </div>
-          <div class="col-md-1 mb-2 mb-md-0 text-center align-self-center">
-            <h6>~</h6>
-          </div>
           <div class="col-md-2 mb-2 mb-md-0">
-            <datetime format="yyyy-MM-dd" class="form-control" v-model="searchEndDate" placeholder="End Date"></datetime>
-          </div>
-            <div class="col-md-2 mb-2 mb-md-0">
-              <input type="text" class="form-control" v-model="searchId" placeholder="ID search">
-          </div>
-              <div class="col-md-2 mb-2 mb-md-0">
-                <button type="button" class="btn btn-block" @click="searchByDate">Search</button>
-              </div>
-            </div>
-            <!-- search by date end -->
-            <!-- export start -->
-            <div class="row mt-4">
-              <div class="col-md-2 mb-2 mb-md-0">
-                <button type="button" class="btn btn-block" id="save-kyc-info" @click="exportKycInfo">
-                  Save KYC information
-                </button>
-              </div>
-              <div class="col-md-2 mb-2 mb-md-0">
-                <button type="button" class="btn btn-block" id="save-members" @click="exportMembers">
-                  Save list to excel
-                </button>
-              </div>
-            </div>
-            <!-- export end -->
-            <!-- membership table start -->
-            <div class="row mt-4 table-responsive" v-if="members">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">All</th>
-                    <th scope="col">Registration date</th>
-                    <th scope="col">ID</th>
-                    <th scope="col">Mobile number</th>
-                    <th scope="col">ETH Address</th>
-                    <th scope="col">Deposit amount</th>
-                    <th scope="col">KYC</th>
-                    <th scope="col">Refund process status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(member, key) in filteredMembers" :key="key">
-                    <td>
-                      <input type="checkbox">
-                    </td>
-                    <td>{{ member.created_at }}</td>
-                    <td>{{ member.email }}</td>
-                    <td>{{ member.contactnumber }}</td>
-                    <td>{{ member.eth_address }}</td>
-                    <td>{{ member.deposit_amount }}</td>
-                    <td>{{ member.status }}</td>
-                    <td>{{ member.refund }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <!-- membership table end -->
-          <!-- loading start -->
-          <loading :active.sync="isLoading" :is-full-page="true">
-          </loading>
-          <!-- loading end -->
+            <input type="text" class="form-control" v-model="searchId" placeholder="ID search">
         </div>
+        <div class="col-md-2 mb-2 mb-md-0">
+          <button type="button" class="btn btn-block" @click="searchByDate">Search</button>
+        </div>
+    </div>
+    <!-- search by date end -->
+    <!-- export start -->
+    <div class="row mt-4">
+      <div class="col-md-2 mb-2 mb-md-0">
+        <button type="button" class="btn btn-block" id="save-kyc-info" @click="exportKycInfo">
+          Save KYC information
+        </button>
+      </div>
+      <div class="col-md-2 mb-2 mb-md-0">
+        <button type="button" class="btn btn-block" id="save-members" @click="exportMembers">
+          Save list to excel
+        </button>
+      </div>
+    </div>
+    <!-- export end -->
+    <!-- membership table start -->
+    <div class="row mt-4 table-responsive" v-if="members">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">All</th>
+            <th scope="col">Registration date</th>
+            <th scope="col">ID</th>
+            <th scope="col">Mobile number</th>
+            <th scope="col">ETH Address</th>
+            <th scope="col">Deposit amount</th>
+            <th scope="col">KYC</th>
+            <th scope="col">Refund process status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(member, key) in members.data" :key="key">
+            <td>
+              <input type="checkbox">
+            </td>
+            <td>{{ member.created_date }}</td>
+            <td>{{ member.email }}</td>
+            <td>{{ member.contactnumber }}</td>
+            <td>{{ member.eth_address }}</td>
+            <td>{{ member.deposit_amount }}</td>
+            <td>{{ member.status }}</td>
+            <td>{{ member.refund }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- pagination start -->
+    <div class="row mt-5">
+        <uib-pagination
+          v-if="members"
+          :total-items="members.total"
+          v-model="pagination"
+          @change="getMembersData"
+          :max-size="members.per_page"
+          :boundary-links="true"
+          :force-ellipses="true"
+          class="mx-auto"
+        />
+    </div>
+    <!-- pagination end -->
+  </div>
+  <!-- membership table end -->
+  <!-- loading start -->
+  <loading :active.sync="isLoading" :is-full-page="true">
+  </loading>
+  <!-- loading end -->
+</div>
 </template>
 
 <script>
@@ -139,7 +153,6 @@ import {Datetime} from 'vue-datetime'
 import {member} from '@/api'
 import {
   mapState,
-  mapGetters,
   mapActions
 } from 'vuex'
 export default {
@@ -149,11 +162,13 @@ export default {
       searchModeDeposit: 'estimatedeposit',
       searchRange: 'above',
       searchEth: '',
-      searchModeDate: 'user created date',
+      searchModeDate: 'usercreateddate',
       searchStartDate: '',
       searchEndDate: '',
       searchId: '',
       filterKycStatus: '',
+      action: '',
+      pagination: { currentPage: 1 },
       isLoading: false
     }
   },
@@ -163,21 +178,56 @@ export default {
       'searchMembersByDeposit',
       'searchMembersByDate'
     ]),
+    getMembersData () {
+      if (this.action === 'searchMembersByDeposit') {
+        this.searchByDeposit()
+        return
+      }
+
+      if (this.action === 'searchMembersByDate') {
+        this.searchByDate()
+        return
+      }
+
+      this.isLoading = true
+
+      this.getMembers({kycStatus: this.filterKycStatus, page: this.pagination.currentPage}).then(() => {
+        this.action = 'getMembers'
+        this.isLoading = false
+      })
+    },
     searchByDeposit () {
+      this.isLoading = true
+
       if (!this.searchEth) {
-        this.getMembers()
+        this.getMembers({kycStatus: this.filterKycStatus}).then(() => {
+          this.action = 'getMembers'
+          this.isLoading = false
+        })
+
         return
       }
 
       this.searchMembersByDeposit({
         eth: this.searchEth,
         range: this.searchRange,
-        modeDeposit: this.searchModeDeposit
+        modeDeposit: this.searchModeDeposit,
+        kycStatus: this.filterKycStatus,
+        page: this.pagination.currentPage
+      }).then(() => {
+        this.action = 'searchMembersByDeposit'
+        this.isLoading = false
       })
     },
     searchByDate () {
+      this.isLoading = true
+
       if (!this.searchStartDate && !this.searchEndDate && !this.searchId) {
-        this.getMembers()
+        this.getMembers({kycStatus: this.filterKycStatus}).then(() => {
+          this.action = 'getMembers'
+          this.isLoading = false
+        })
+
         return
       }
 
@@ -185,16 +235,24 @@ export default {
         startDate: this.searchStartDate.slice(0, 10),
         endDate: this.searchEndDate.slice(0, 10),
         email: this.searchId,
-        modeDate: this.searchModeDate
+        modeDate: this.searchModeDate,
+        kycStatus: this.filterKycStatus,
+        page: this.pagination.currentPage
+      }).then(() => {
+        this.action = 'searchMembersByDate'
+        this.isLoading = false
       })
     },
+    filterByKycStatus (status) {
+      this.filterKycStatus = status
+      this.pagination.currentPage = 1
+      this.getMembersData()
+    },
     exportMembers () {
-      var kycIds = this.members.map(member => member.idkyc).join('-')
-      window.open(member.exportMembers + kycIds, '_blank')
+      window.open(member.exportMembers + this.memberIds.join('-'), '_blank')
     },
     exportKycInfo () {
-      var kycIds = this.members.map(member => member.idkyc).join('-')
-      window.open(member.exportKycInfo + kycIds, '_blank')
+      window.open(member.exportKycInfo + this.memberIds.join('-'), '_blank')
     }
   },
   components: {
@@ -204,19 +262,15 @@ export default {
   computed: {
     ...mapState({
       members: ({members}) => members.members,
+      memberIds: ({members}) => members.memberIds,
       membersResponseData: ({members}) => members.responseData
-    }),
-    ...mapGetters([
-      'filterMembers'
-    ]),
-    filteredMembers () {
-      return this.filterMembers(this.filterKycStatus)
-    }
+    })
   },
   created () {
     this.isLoading = true
-    this.getMembers().then(() => {
+    this.getMembers({kycStatus: this.filterKycStatus}).then(() => {
       this.isLoading = false
+      this.action = 'getMembers'
     })
   }
 }

@@ -9,6 +9,8 @@ import VueSession from 'vue-session'
 import VueClipboard from 'vue-clipboard2'
 import VueAWN from 'vue-awesome-notifications'
 import VModal from 'vue-js-modal'
+import VueProgressiveImage from 'vue-progressive-image'
+import pagination from 'vuejs-uib-pagination'
 import moment from 'moment'
 import 'vue-loading-overlay/dist/vue-loading.min.css'
 import 'vue-datetime/dist/vue-datetime.css'
@@ -20,6 +22,8 @@ Vue.use(VueSession)
 Vue.use(VueClipboard)
 Vue.use(VueAWN)
 Vue.use(VModal)
+Vue.use(VueProgressiveImage)
+Vue.use(pagination)
 
 Vue.config.productionTip = false
 Vue.prototype.moment = moment

@@ -12,26 +12,8 @@ import {
  */
 const state = {
   members: null,
+  memberIds: null,
   responseData: null
-}
-
-/**
- * @const getters
- * @type {object}
- */
-const getters = {
-  /**
-    * Filter members
-    * @param state
-    * @param kycStatus
-    */
-  filterMembers: (state) => (kycStatus) => {
-    if (!kycStatus) {
-      return state.members
-    }
-
-    return state.members.filter(member => member.status === kycStatus)
-  }
 }
 
 /**
@@ -42,51 +24,60 @@ const actions = {
   /**
       * Get members
       * @param  context
+      * @param payload
       * @return {Promise}
       */
-  getMembers: async (context) => {
+  getMembers: async (context, payload) => {
     try {
-      var resp = await axios.get(member.getMembers)
+      var resp = await axios.get(member.getMembers, {params: payload})
 
-      if (resp.data.result) {
+      if (resp.data.data) {
         context.commit('setMembers', resp.data.data)
+        context.commit('setMemberIds', resp.data.ids)
       }
     } catch (error) {
       context.commit('setMembers', null)
+      context.commit('setMemberIds', null)
     }
   },
 
   /**
     * Search members by deposit
     * @param  context
+    * @param payload
     * @return {Promise}
     */
   searchMembersByDeposit: async (context, payload) => {
     try {
-      var resp = await axios.post(member.searchMembersByDeposit, payload)
+      var resp = await axios.get(member.searchMembersByDeposit, {params: payload})
 
       if (resp.data.data) {
         context.commit('setMembers', resp.data.data)
+        context.commit('setMemberIds', resp.data.ids)
       }
     } catch (error) {
       context.commit('setMembers', null)
+      context.commit('setMemberIds', null)
     }
   },
 
   /**
     * Search members by date
     * @param  context
+    * @param payload
     * @return {Promise}
     */
   searchMembersByDate: async (context, payload) => {
     try {
-      var resp = await axios.post(member.searchMembersByDate, payload)
+      var resp = await axios.get(member.searchMembersByDate, {params: payload})
 
       if (resp.data.data) {
         context.commit('setMembers', resp.data.data)
+        context.commit('setMemberIds', resp.data.ids)
       }
     } catch (error) {
       context.commit('setMembers', null)
+      context.commit('setMemberIds', null)
     }
   },
 
@@ -122,6 +113,15 @@ const mutations = {
   },
 
   /**
+     * Set member ids state
+     * @param state
+     * @param data
+     */
+  setMemberIds: (state, data) => {
+    state.memberIds = data
+  },
+
+  /**
      * Set response data state
      * @param state
      * @param data
@@ -131,4 +131,4 @@ const mutations = {
   }
 }
 
-export default {state, getters, actions, mutations}
+export default {state, actions, mutations}
