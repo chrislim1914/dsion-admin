@@ -129,9 +129,10 @@
         <uib-pagination
           v-if="members"
           :total-items="members.total"
+          :items-per-page="members.per_page"
           v-model="pagination"
           @change="getMembersData"
-          :max-size="members.per_page"
+          :max-size="10"
           :boundary-links="true"
           :force-ellipses="true"
           class="mx-auto"
