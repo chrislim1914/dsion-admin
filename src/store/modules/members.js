@@ -34,6 +34,9 @@ const actions = {
       if (resp.data.data) {
         context.commit('setMembers', resp.data.data)
         context.commit('setMemberIds', resp.data.ids)
+      } else {
+        context.commit('setMembers', null)
+        context.commit('setMemberIds', null)
       }
     } catch (error) {
       context.commit('setMembers', null)
@@ -54,6 +57,9 @@ const actions = {
       if (resp.data.data) {
         context.commit('setMembers', resp.data.data)
         context.commit('setMemberIds', resp.data.ids)
+      } else {
+        context.commit('setMembers', null)
+        context.commit('setMemberIds', null)
       }
     } catch (error) {
       context.commit('setMembers', null)
@@ -74,6 +80,9 @@ const actions = {
       if (resp.data.data) {
         context.commit('setMembers', resp.data.data)
         context.commit('setMemberIds', resp.data.ids)
+      } else {
+        context.commit('setMembers', null)
+        context.commit('setMemberIds', null)
       }
     } catch (error) {
       context.commit('setMembers', null)

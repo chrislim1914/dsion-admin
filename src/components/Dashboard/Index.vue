@@ -5,7 +5,7 @@
       <dashboard-sidebar></dashboard-sidebar>
       <!-- sidebar end -->
       <!-- content start -->
-      <div id="content" class="col-12 ml-sm-auto col-lg-10 pr-0">
+      <div id="content" class="col-12 col-lg-11">
         <router-view></router-view>
       </div>
       <!-- content end -->

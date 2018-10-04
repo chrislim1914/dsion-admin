@@ -21,8 +21,8 @@
         </button>
       </div>
       <div class="col-md-2 mb-2 mb-md-0">
-        <button class="btn btn-light btn-block" :class="{ active: filterKycStatus === 'Not Entered' }" @click="filterByKycStatus('Not Entered')">
-          KYC Not Entered
+        <button class="btn btn-light btn-block" :class="{ active: filterKycStatus === 'Rejected' }" @click="filterByKycStatus('Rejected')">
+          KYC Rejected
         </button>
       </div>
       <div class="col-md-2 mb-2 mb-md-0">
@@ -35,10 +35,9 @@
     <!-- search by deposit start -->
     <div class="row mt-3">
       <div class="col-md-3 mb-2 mb-md-0">
-        <select class="form-control" v-model="searchModeDeposit">
-              <option value="estimatedeposit">Estimate Deposit</option>
-              <option value="depositamount">Deposit Amount</option>
-            </select>
+        <select class="form-control bg-white select-no-arrow" v-model="searchModeDeposit" disabled>
+            <option value="depositamount">Deposit Amount</option>
+        </select>
       </div>
       <div class="col-md-3 mb-2 mb-md-0">
         <select class="form-control" v-model="searchRange">
@@ -81,12 +80,12 @@
     <!-- search by date end -->
     <!-- export start -->
     <div class="row mt-4">
-      <div class="col-md-2 mb-2 mb-md-0">
+      <div class="col-md-3 mb-2 mb-md-0">
         <button type="button" class="btn btn-block" id="save-kyc-info" @click="exportKycInfo">
           Save KYC information
         </button>
       </div>
-      <div class="col-md-2 mb-2 mb-md-0">
+      <div class="col-md-3 mb-2 mb-md-0">
         <button type="button" class="btn btn-block" id="save-members" @click="exportMembers">
           Save list to excel
         </button>
@@ -160,7 +159,7 @@ export default {
   name: 'DashboardMembershipManagement',
   data () {
     return {
-      searchModeDeposit: 'estimatedeposit',
+      searchModeDeposit: 'depositamount',
       searchRange: 'above',
       searchEth: '',
       searchModeDate: 'usercreateddate',

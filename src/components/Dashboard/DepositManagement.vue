@@ -30,8 +30,10 @@
                 </select>
               </div>
               <div class="col-lg-3">
-                <label for="sales-status">Create Date</label>
-                <datetime type="datetime" format="yyyy-MM-dd HH:mm:ss" class="form-control" v-model="createDate"></datetime>
+                <label for="create-date">Create Date</label>
+                <input type="text" class="form-control" id="create-date" v-model="createDate">
+                <!-- <label for="sales-status">Create Date</label>
+                <datetime type="datetime" format="yyyy-MM-dd HH:mm:ss" class="form-control" v-model="createDate"></datetime> -->
               </div>
             </div>
             <div class="row">
@@ -218,7 +220,12 @@ export default {
       }
 
       if (!this.createDate) {
-        this.$awn.alert('Please select create date')
+        this.$awn.alert('Please enter create date')
+        return
+      }
+
+      if (!this.moment(this.createDate, 'YYYY-MM-DD kk:mm', true).isValid()) {
+        this.$awn.alert('Please enter valid create date')
         return
       }
 
@@ -279,7 +286,7 @@ export default {
     }
   },
   created () {
-    this.createDate = this.moment().format('YYYY-MM-DDTkk:mm')
+    this.createDate = this.moment().format('YYYY-MM-DD kk:mm')
     this.isLoading = true
     this.fetchActiveSale().then(() => {
       this.getDeposits().then(() => {
