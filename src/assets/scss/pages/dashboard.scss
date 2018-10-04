@@ -35,7 +35,7 @@ a {
 .sidebar-sticky {
   position: relative;
   top: 0;
-  height: calc(100vh - 48px);
+  min-height: calc(100vh - 48px);
   padding-top: .5rem;
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
@@ -98,7 +98,7 @@ input[type=number]::-webkit-outer-spin-button {
   display: none;
 }
 
-@media (min-width: 1366px) and (max-width: 1919px) {
+@media (min-width: 1280px) and (max-width: 1919px) {
   #content {
     max-width: 84.33333% !important;
   }
