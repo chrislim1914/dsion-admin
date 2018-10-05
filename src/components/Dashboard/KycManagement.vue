@@ -90,7 +90,7 @@
         <input type="text" class="form-control" id="search-last-name" v-model="searchLastName" placeholder="Last Name">
       </div>
       <div class="col-md-3 mb-2 mb-md-0">
-        <button type="button" class="btn btn-block">Search</button>
+        <button type="button" class="btn btn-block" @click="searchByInfo">Search</button>
       </div>
     </div>
     <!-- search by info end -->
@@ -189,8 +189,8 @@
     <div class="row mt-5">
         <uib-pagination
           v-if="members"
-          :total-items="members.total"
-          :items-per-page="members.per_page"
+          :total-items="parseInt(members.total)"
+          :items-per-page="parseInt(members.per_page)"
           v-model="pagination"
           @change="getMembersData"
           :max-size="10"
@@ -243,6 +243,7 @@ export default {
       'getMembers',
       'searchMembersByDeposit',
       'searchMembersByDate',
+      'searchMembersByInfo',
       'updateKycStatus'
     ]),
     getMembersData () {
@@ -253,6 +254,11 @@ export default {
 
       if (this.action === 'searchMembersByDate') {
         this.searchByDate()
+        return
+      }
+
+      if (this.action === 'searchMembersByInfo') {
+        this.searchByInfo()
         return
       }
 
@@ -307,6 +313,29 @@ export default {
         page: this.pagination.currentPage
       }).then(() => {
         this.action = 'searchMembersByDate'
+        this.isLoading = false
+      })
+    },
+    searchByInfo () {
+      this.isLoading = true
+
+      if (!this.searchEmail && !this.searchFirstName && !this.searchLastName) {
+        this.getMembers({kycStatus: this.filterKycStatus}).then(() => {
+          this.action = 'getMembers'
+          this.isLoading = false
+        })
+
+        return
+      }
+
+      this.searchMembersByInfo({
+        email: this.searchEmail,
+        firstName: this.searchFirstName,
+        lastName: this.searchLastName,
+        kycStatus: this.filterKycStatus,
+        page: this.pagination.currentPage
+      }).then(() => {
+        this.action = 'searchMembersByInfo'
         this.isLoading = false
       })
     },

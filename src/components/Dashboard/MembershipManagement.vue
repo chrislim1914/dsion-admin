@@ -127,8 +127,8 @@
     <div class="row mt-5">
         <uib-pagination
           v-if="members"
-          :total-items="members.total"
-          :items-per-page="members.per_page"
+          :total-items="parseInt(members.total)"
+          :items-per-page="parseInt(members.per_page)"
           v-model="pagination"
           @change="getMembersData"
           :max-size="10"

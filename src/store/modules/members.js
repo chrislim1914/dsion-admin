@@ -91,6 +91,29 @@ const actions = {
   },
 
   /**
+   * Search members by info
+   * @param context
+   * @param payload
+   * @return {Promise}
+   */
+  searchMembersByInfo: async (context, payload) => {
+    try {
+      var resp = await axios.get(member.searchMembersByInfo, {params: payload})
+
+      if (resp.data.data) {
+        context.commit('setMembers', resp.data.data)
+        context.commit('setMemberIds', resp.data.ids)
+      } else {
+        context.commit('setMembers', null)
+        context.commit('setMemberIds', null)
+      }
+    } catch (error) {
+      context.commit('setMembers', null)
+      context.commit('setMemberIds', null)
+    }
+  },
+
+  /**
    * Update kyc status
    * @param context
    * @param payload
