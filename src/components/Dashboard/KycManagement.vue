@@ -128,6 +128,11 @@
           Pending
         </button>
       </div>
+      <div class="col-md-2 mb-2 mb-md-0">
+        <button type="button" class="btn btn-block" :disabled="!kycIds.length" @click="showDeleteKycModal">
+          Delete
+        </button>
+      </div>
     </div>
     <!-- export end -->
     <!-- kyc table start -->
@@ -206,6 +211,9 @@
   <loading :active.sync="isLoading" :is-full-page="true">
   </loading>
   <!-- loading end -->
+  <!-- delete deposit modal start -->
+  <delete-kyc-modal />
+  <!-- delete deposit modal end -->
 </div>
 </template>
 
@@ -217,6 +225,7 @@ import {
   mapState,
   mapActions
 } from 'vuex'
+import DeleteKycModal from '@/components/Globals/DeleteKycModal'
 export default {
   name: 'DashboardKycManagement',
   data () {
@@ -366,11 +375,15 @@ export default {
           this.$awn.alert('Error updating kyc status')
         }
       })
+    },
+    showDeleteKycModal () {
+      this.$modal.show('delete-kyc-modal', {memberIds: this.kycIds})
     }
   },
   components: {
     Loading,
-    datetime: Datetime
+    datetime: Datetime,
+    'delete-kyc-modal': DeleteKycModal
   },
   computed: {
     ...mapState({

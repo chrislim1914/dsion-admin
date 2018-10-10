@@ -1,18 +1,18 @@
 <template>
-<div id="app-delete-deposit-modal">
-  <modal name="delete-deposit-modal" :adaptive="true" height="auto" @before-open="beforeOpen">
+<div id="app-delete-kyc-modal">
+  <modal name="delete-kyc-modal" :adaptive="true" height="auto" @before-open="beforeOpen">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Delete Deposit</h5>
+        <h5 class="modal-title">Delete KYC</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="closeModal">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Are you sure you want to delete deposit?</p>
+        <p>Are you going to delete KYC?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn px-5" @click="confirmDeleteDeposit">Yes</button>
+        <button type="button" class="btn px-5" @click="confirmDeleteMembers">Yes</button>
         <button type="button" class="btn px-5 mx-2" @click="closeModal">No</button>
       </div>
     </div>
@@ -23,30 +23,30 @@
 <script>
 import {mapState, mapActions} from 'vuex'
 export default {
-  name: 'DeleteDepositModal',
+  name: 'DeleteKycModal',
   data () {
     return {
-      depositIds: [],
+      memberIds: [],
       isLoading: false
     }
   },
   methods: {
     ...mapActions([
-      'deleteDeposits'
+      'deleteMembers'
     ]),
     closeModal () {
-      this.$modal.hide('delete-deposit-modal')
+      this.$modal.hide('delete-kyc-modal')
     },
     beforeOpen (e) {
-      this.depositIds = e.params.depositIds
+      this.memberIds = e.params.memberIds
     },
-    confirmDeleteDeposit () {
+    confirmDeleteMembers () {
       this.isLoading = true
-      this.deleteDeposits({iddeposit: this.depositIds}).then(() => {
-        if (this.depositResponseData.result) {
-          this.$awn.success('Successfully deleted deposit')
+      this.deleteMembers({idkyc: this.memberIds}).then(() => {
+        if (this.membersResponseData.result) {
+          this.$awn.success('Successfully deleted KYC')
         } else {
-          this.$awn.alert('Error deleting deposit')
+          this.$awn.alert('Error deleting KYC')
         }
         this.closeModal()
         this.isLoading = false
@@ -56,7 +56,7 @@ export default {
   },
   computed: {
     ...mapState({
-      depositResponseData: ({deposit}) => deposit.responseData
+      membersResponseData: ({members}) => members.responseData
     })
   }
 }

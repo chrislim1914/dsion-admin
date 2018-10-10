@@ -127,6 +127,22 @@ const actions = {
     } catch (error) {
       context.commit('setResponseData', resp.data)
     }
+  },
+
+  /**
+   * Delete members
+   * @param context
+   * @param payload
+   */
+  deleteMembers: async (context, payload) => {
+    try {
+      var resp = await axios.post(member.deleteMembers, payload)
+      if (resp) {
+        context.commit('setResponseData', resp.data)
+      }
+    } catch (error) {
+      context.commit('setResponseData', resp.data)
+    }
   }
 }
 

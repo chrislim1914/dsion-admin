@@ -48,7 +48,8 @@ export const member = {
   searchMembersByInfo: apiURL + '/admin/kyc/sbi',
   exportMembers: apiURL + '/admin/kyc/export?idkyc=',
   exportKycInfo: apiURL + '/admin/kyc/export/kycInfo?idkyc=',
-  updateKycStatus: apiURL + '/admin/Kyc/Update'
+  updateKycStatus: apiURL + '/admin/Kyc/Update',
+  deleteMembers: apiURL + '/admin/Kyc/delete'
 }
 
 export const eventApi = {
