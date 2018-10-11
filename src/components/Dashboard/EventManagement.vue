@@ -79,7 +79,9 @@
                   {{ event.enddate ? event.enddate.slice(0, 10) : '' }}
                 </td>
                 <td>
-                  {{ event.comment_count }}
+                  <router-link :to="{ name: 'DashboardEventManagementComments', params: { id: event.idevent }}">
+                    {{ event.comment_count }}
+                  </router-link>
                 </td>
               </tr>
             </tbody>

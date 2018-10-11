@@ -13,6 +13,7 @@ import {
 const state = {
   event: null,
   events: null,
+  comments: null,
   responseData: null
 }
 
@@ -35,6 +36,26 @@ const actions = {
       }
     } catch (error) {
       context.commit('setEvents', null)
+    }
+  },
+
+  /**
+  * Get comments
+  * @param  context
+  * @param payload``
+  * @return {Promise}
+  */
+  getComments: async (context, payload) => {
+    try {
+      var resp = await axios.get(eventApi.getComments + payload.eventId, {params: {page: payload.page}})
+
+      if (resp.data.data && resp.data.data.length) {
+        context.commit('setComments', resp.data)
+      } else {
+        context.commit('setComments', null)
+      }
+    } catch (error) {
+      context.commit('setComments', null)
     }
   },
 
@@ -99,6 +120,15 @@ const mutations = {
      */
   setEvent: (state, data) => {
     state.event = data
+  },
+
+  /**
+     * Set comments state
+     * @param state
+     * @param data
+     */
+  setComments: (state, data) => {
+    state.comments = data
   },
 
   /**

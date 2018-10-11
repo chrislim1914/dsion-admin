@@ -55,6 +55,7 @@ export const member = {
 export const eventApi = {
   getEvents: apiURL + '/admin/Event',
   getEvent: apiURL + '/admin/Event/',
+  getComments: apiURL + '/admin/Commentlist/',
   createEvent: apiURL + '/admin/Event/create',
   updateEvent: apiURL + '/admin/Event/update'
 }
