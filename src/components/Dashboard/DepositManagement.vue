@@ -149,7 +149,7 @@
                   {{ deposit.sale_status }}
                 </td>
                 <td>
-                  {{ parseFloat(deposit.token) }}
+                  {{ parseFloat(deposit.total) }}
                 </td>
                 <td>
                   {{ deposit.created_at }}
