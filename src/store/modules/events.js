@@ -49,7 +49,7 @@ const actions = {
       var resp = await axios.get(eventApi.getEvent + eventId)
 
       if (resp.data.result) {
-        context.commit('setEvent', resp.data.data)
+        context.commit('setEvent', resp.data)
       }
     } catch (error) {
       context.commit('setEvent', null)

@@ -132,10 +132,10 @@ export default {
     this.isLoading = true
     this.getEvent(this.id).then(() => {
       if (this.event) {
-        this.eventTitle = this.event.title
-        this.eventContent = this.event.content
-        this.eventStartDate = this.event.startdate.slice(0, 10)
-        this.eventEndDate = this.event.enddate.slice(0, 10)
+        this.eventTitle = this.event.event.title
+        this.eventContent = this.event.event.content
+        this.eventStartDate = this.event.event.startdate.slice(0, 10)
+        this.eventEndDate = this.event.event.enddate.slice(0, 10)
       }
       this.isLoading = false
     })
