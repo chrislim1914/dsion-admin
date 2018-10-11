@@ -119,6 +119,7 @@
             <thead>
               <tr>
                 <th scope="col">All</th>
+                <th>Row</th>
                 <th scope="col">KYC ETH Address</th>
                 <th scope="col">Email</th>
                 <th scope="col">Deposit ETH Count</th>
@@ -128,9 +129,12 @@
               </tr>
             </thead>
             <tbody>
-              <tr :key="index" v-for="(deposit, index) in filteredDeposits">
+              <tr v-for="(deposit, index) in filteredDeposits" :key="index">
                 <td>
                   <input type="checkbox" v-model="depositIds" :value="deposit.iddeposit">
+                </td>
+                <td>
+                  {{ filteredDeposits.length - index }}
                 </td>
                 <td class="text-primary">
                   {{ deposit.eth_address }}
@@ -145,7 +149,7 @@
                   {{ deposit.sale_status }}
                 </td>
                 <td>
-                  {{ deposit.token }}
+                  {{ parseFloat(deposit.token) }}
                 </td>
                 <td>
                   {{ deposit.created_at }}

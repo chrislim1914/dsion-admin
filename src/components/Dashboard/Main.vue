@@ -9,6 +9,7 @@
                 <th scope="col">Total deposit amount</th>
                 <th scope="col">Total withdrawal amount</th>
                 <th scope="col">Currently holding amount</th>
+                <th scope="col">Total estimated token</th>
               </tr>
             </thead>
             <tbody>
@@ -21,6 +22,9 @@
                 </td>
                 <td>
                   <h3 class="font-weight-bold">{{ dashboard.current_holding }} ETH</h3>
+                </td>
+                <td>
+                  <h3 class="font-weight-bold">{{ dashboard.total_estimated_token }} DSN</h3>
                 </td>
               </tr>
             </tbody>

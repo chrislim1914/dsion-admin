@@ -141,6 +141,7 @@
         <thead>
           <tr>
             <th scope="col" class="text-center">All</th>
+            <th>Row</th>
             <th scope="col" class="text-center">Email</th>
             <th scope="col" class="text-center">First Name</th>
             <th scope="col" class="text-center">Last Name</th>
@@ -160,6 +161,9 @@
           <tr v-for="(member, key) in members.data" :key="key">
             <td>
               <input type="checkbox" v-model="kycIds" :value="member.idkyc">
+            </td>
+            <td>
+              {{ members.total - (((members.current_page -1) * members.per_page) + key ) }}
             </td>
             <td class="kyc-table-data">{{ member.email }}</td>
             <td class="kyc-table-data">{{ member.first_name }}</td>

@@ -98,6 +98,7 @@
         <thead>
           <tr>
             <th scope="col">All</th>
+            <th>Row</th>
             <th scope="col">Registration date</th>
             <th scope="col">ID</th>
             <th scope="col">Mobile number</th>
@@ -111,6 +112,9 @@
           <tr v-for="(member, key) in members.data" :key="key">
             <td>
               <input type="checkbox">
+            </td>
+            <td>
+              {{ members.total - (((members.current_page -1) * members.per_page) + key ) }}
             </td>
             <td>{{ member.created_date }}</td>
             <td>{{ member.email }}</td>

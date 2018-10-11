@@ -53,6 +53,7 @@
           <table class="table table-borderless">
             <thead>
               <tr>
+                <th>Row</th>
                 <th scope="col">Title</th>
                 <th scope="col">Create Date</th>
                 <th scope="col">Start Date</th>
@@ -62,6 +63,9 @@
             </thead>
             <tbody>
               <tr :key="index" v-for="(event, index) in events" v-if="events">
+                <td>
+                  {{ events.length - index }}
+                </td>
                 <td>
                   <router-link :to="{ name: 'DashboardEventManagementEdit', params: { id: event.idevent }}">{{ event.title }}</router-link>
                 </td>

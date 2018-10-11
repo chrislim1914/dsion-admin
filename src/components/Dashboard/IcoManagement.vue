@@ -96,8 +96,9 @@
             <thead>
               <tr>
                 <th scope="col">
-                  <input type="checkbox" checked disabled>
+                  All
                 </th>
+                <th>Row</th>
                 <th scope="col">Title</th>
                 <th scope="col">Media</th>
                 <th scope="col">Registration date</th>
@@ -107,8 +108,9 @@
             <tbody>
               <tr :key="index" v-for="(article, index) in articlesList">
                 <td class="text-primary">
-                  <input class="form-check-input" type="checkbox" :value="article.idnews" id="defaultCheck1" v-model="selectedArticles">
+                  <input type="checkbox" :value="article.idnews" id="defaultCheck1" v-model="selectedArticles">
                 </td>
+                <td>{{ articlesList.length - index }}</td>
                 <td class="text-muted">{{ article.title }}</td>
                 <td class="text-muted">{{ article.image }}</td>
                 <td class="text-muted">{{ article.created_at }}</td>
