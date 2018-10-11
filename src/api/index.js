@@ -33,7 +33,7 @@ export const sales = {
 export const deposit = {
   createDeposit: apiURL + '/admin/Deposit/create',
   getDeposits: apiURL + '/admin/Deposit',
-  searchDeposits: apiURL + '/admin/Deposit/search',
+  searchDeposits: apiURL + '/admin/kyc/sbdm',
   deleteDeposits: apiURL + '/admin/Deposit/multidelete'
 }
 
@@ -57,4 +57,8 @@ export const eventApi = {
   getEvent: apiURL + '/admin/Event/',
   createEvent: apiURL + '/admin/Event/create',
   updateEvent: apiURL + '/admin/Event/update'
+}
+
+export const kycApi = {
+  kycStatusCount: apiURL + '/admin/kycStatusCount'
 }

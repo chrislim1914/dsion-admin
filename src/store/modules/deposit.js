@@ -78,7 +78,7 @@ const actions = {
   */
   searchDeposits: async (context, payload) => {
     try {
-      var resp = await axios.post(deposit.searchDeposits, payload)
+      var resp = await axios.get(deposit.searchDeposits, {params: payload})
 
       if (resp.data.result) {
         context.commit('setDeposits', resp.data.data)

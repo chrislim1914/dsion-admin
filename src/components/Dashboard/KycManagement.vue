@@ -115,17 +115,17 @@
     <div class="row">
       <div class="col-md-2 mb-2 mb-md-0">
         <button type="button" class="btn btn-block" :disabled="!kycIds.length" @click="updateKycStatusData('Approved')">
-          Approve
+          Approve ({{ kycStatusCount.length ? kycStatusCount[0].countstatus : 0 }})
         </button>
       </div>
       <div class="col-md-2 mb-2 mb-md-0">
         <button type="button" class="btn btn-block" :disabled="!kycIds.length" @click="updateKycStatusData('Rejected')">
-          Reject
+          Reject ({{ kycStatusCount.length ? kycStatusCount[1].countstatus : 0 }})
         </button>
       </div>
       <div class="col-md-2 mb-2 mb-md-0">
         <button type="button" class="btn btn-block" :disabled="!kycIds.length" @click="updateKycStatusData('Pending')">
-          Pending
+          Pending ({{ kycStatusCount.length ? kycStatusCount[2].countstatus : 0 }})
         </button>
       </div>
       <div class="col-md-2 mb-2 mb-md-0">
@@ -257,7 +257,8 @@ export default {
       'searchMembersByDeposit',
       'searchMembersByDate',
       'searchMembersByInfo',
-      'updateKycStatus'
+      'updateKycStatus',
+      'getKycStatusCount'
     ]),
     getMembersData () {
       if (this.action === 'searchMembersByDeposit') {
@@ -393,14 +394,17 @@ export default {
     ...mapState({
       members: ({members}) => members.members,
       memberIds: ({members}) => members.memberIds,
-      membersResponseData: ({members}) => members.responseData
+      membersResponseData: ({members}) => members.responseData,
+      kycStatusCount: ({kyc}) => kyc.kycStatusCount
     })
   },
   created () {
     this.isLoading = true
-    this.getMembers({kycStatus: this.filterKycStatus}).then(() => {
-      this.isLoading = false
-      this.action = 'getMembers'
+    this.getKycStatusCount().then(() => {
+      this.getMembers({kycStatus: this.filterKycStatus}).then(() => {
+        this.isLoading = false
+        this.action = 'getMembers'
+      })
     })
   }
 }

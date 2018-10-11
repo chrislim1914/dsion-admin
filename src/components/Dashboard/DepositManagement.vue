@@ -152,7 +152,7 @@
                   {{ parseFloat(deposit.total) }}
                 </td>
                 <td>
-                  {{ deposit.created_at }}
+                  {{ deposit.created_date }}
                 </td>
               </tr>
             </tbody>
@@ -266,8 +266,9 @@ export default {
       }
       this.searchDeposits({
         email: this.searchUserEmail,
-        eth_address: this.searchEthAddress,
-        created_at: this.searchCreatedAt.slice(0, 10)
+        ethAddress: this.searchEthAddress,
+        createdDate: this.searchCreatedAt.slice(0, 10),
+        saleStatus: this.filterSaleStatus
       })
     }
   },
