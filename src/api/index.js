@@ -41,15 +41,12 @@ export const dashboard = {
   getDashboard: apiURL + '/admin/Dashboard'
 }
 
-export const member = {
-  getMembers: apiURL + '/admin/Kyc/All',
-  searchMembersByDeposit: apiURL + '/admin/kyc/sbdepo',
-  searchMembersByDate: apiURL + '/admin/kyc/sbdate',
-  searchMembersByInfo: apiURL + '/admin/kyc/sbi',
-  exportMembers: apiURL + '/admin/kyc/export?idkyc=',
-  exportKycInfo: apiURL + '/admin/kyc/export/kycInfo?idkyc=',
-  updateKycStatus: apiURL + '/admin/Kyc/Update',
-  deleteMembers: apiURL + '/admin/Kyc/delete'
+export const memberApi = {
+  getMembers: apiURL + '/admin/member/list',
+  searchMembersByDeposit: apiURL + '/admin/member/sbdepo',
+  searchMembersByDate: apiURL + '/admin/member/sbdate',
+  exportMembers: apiURL + '/admin/member/export?iduser=',
+  exportKycInfo: apiURL + '/admin/member/export/kycInfo?iduser='
 }
 
 export const eventApi = {
@@ -61,5 +58,13 @@ export const eventApi = {
 }
 
 export const kycApi = {
-  kycStatusCount: apiURL + '/admin/kycStatusCount'
+  getKyc: apiURL + '/admin/Kyc/All',
+  searchKycByDeposit: apiURL + '/admin/kyc/sbdepo',
+  searchKycByDate: apiURL + '/admin/kyc/sbdate',
+  searchKycByInfo: apiURL + '/admin/kyc/sbi',
+  exportKyc: apiURL + '/admin/kyc/export?idkyc=',
+  exportKycInfo: apiURL + '/admin/kyc/export/kycInfo?idkyc=',
+  kycStatusCount: apiURL + '/admin/kycStatusCount',
+  updateKycStatus: apiURL + '/admin/Kyc/Update',
+  deleteKyc: apiURL + '/admin/Kyc/delete'
 }

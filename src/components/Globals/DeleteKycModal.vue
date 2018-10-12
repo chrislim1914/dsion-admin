@@ -12,7 +12,7 @@
         <p>Are you going to delete KYC?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn px-5" @click="confirmDeleteMembers">Yes</button>
+        <button type="button" class="btn px-5" @click="confirmDeleteKyc">Yes</button>
         <button type="button" class="btn px-5 mx-2" @click="closeModal">No</button>
       </div>
     </div>
@@ -26,24 +26,24 @@ export default {
   name: 'DeleteKycModal',
   data () {
     return {
-      memberIds: [],
+      kycIds: [],
       isLoading: false
     }
   },
   methods: {
     ...mapActions([
-      'deleteMembers'
+      'deleteKyc'
     ]),
     closeModal () {
       this.$modal.hide('delete-kyc-modal')
     },
     beforeOpen (e) {
-      this.memberIds = e.params.memberIds
+      this.kycIds = e.params.kycIds
     },
-    confirmDeleteMembers () {
+    confirmDeleteKyc () {
       this.isLoading = true
-      this.deleteMembers({idkyc: this.memberIds}).then(() => {
-        if (this.membersResponseData.result) {
+      this.deleteKyc({idkyc: this.kycIds}).then(() => {
+        if (this.responseData.result) {
           this.$awn.success('Successfully deleted KYC')
         } else {
           this.$awn.alert('Error deleting KYC')
@@ -56,7 +56,7 @@ export default {
   },
   computed: {
     ...mapState({
-      membersResponseData: ({members}) => members.responseData
+      responseData: ({kyc}) => kyc.responseData
     })
   }
 }

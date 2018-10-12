@@ -1,5 +1,5 @@
 <template>
-<div id="app-dashboard-membershipmanagement">
+<div id="app-dashboard-kyc-management">
   <div class="container-fluid px-0">
     <div class="row p-3">
       <div class="col-12">
@@ -102,7 +102,7 @@
         </button>
       </div>
       <div class="col-md-3 mb-2 mb-md-0">
-        <button type="button" class="btn btn-block" id="save-members" @click="exportMembers">
+        <button type="button" class="btn btn-block" id="save-kyc" @click="exportKyc">
           Save list to excel
         </button>
       </div>
@@ -114,29 +114,29 @@
     </div>
     <div class="row">
       <div class="col-md-2 mb-2 mb-md-0">
-        <button type="button" class="btn btn-block" :disabled="!kycIds.length" @click="updateKycStatusData('Approved')">
+        <button type="button" class="btn btn-block" :disabled="!selectedKycIds.length" @click="updateKycStatusData('Approved')">
           Approve ({{ kycStatusCount.length ? kycStatusCount[0].countstatus : 0 }})
         </button>
       </div>
       <div class="col-md-2 mb-2 mb-md-0">
-        <button type="button" class="btn btn-block" :disabled="!kycIds.length" @click="updateKycStatusData('Rejected')">
+        <button type="button" class="btn btn-block" :disabled="!selectedKycIds.length" @click="updateKycStatusData('Rejected')">
           Reject ({{ kycStatusCount.length ? kycStatusCount[1].countstatus : 0 }})
         </button>
       </div>
       <div class="col-md-2 mb-2 mb-md-0">
-        <button type="button" class="btn btn-block" :disabled="!kycIds.length" @click="updateKycStatusData('Pending')">
+        <button type="button" class="btn btn-block" :disabled="!selectedKycIds.length" @click="updateKycStatusData('Pending')">
           Pending ({{ kycStatusCount.length ? kycStatusCount[2].countstatus : 0 }})
         </button>
       </div>
       <div class="col-md-2 mb-2 mb-md-0">
-        <button type="button" class="btn btn-block" :disabled="!kycIds.length" @click="showDeleteKycModal">
+        <button type="button" class="btn btn-block" :disabled="!selectedKycIds.length" @click="showDeleteKycModal">
           Delete
         </button>
       </div>
     </div>
     <!-- export end -->
     <!-- kyc table start -->
-    <div class="row mt-4 table-responsive" v-if="members">
+    <div class="row mt-4 table-responsive" v-if="kyc">
       <table class="table">
         <thead>
           <tr>
@@ -158,38 +158,38 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(member, key) in members.data" :key="key">
+          <tr v-for="(kycData, key) in kyc.data" :key="key">
             <td>
-              <input type="checkbox" v-model="kycIds" :value="member.idkyc">
+              <input type="checkbox" v-model="selectedKycIds" :value="kycData.idkyc">
             </td>
             <td>
-              {{ members.total - (((members.current_page -1) * members.per_page) + key ) }}
+              {{ kyc.total - (((kyc.current_page -1) * kyc.per_page) + key ) }}
             </td>
-            <td class="kyc-table-data">{{ member.email }}</td>
-            <td class="kyc-table-data">{{ member.first_name }}</td>
-            <td class="kyc-table-data">{{ member.last_name }}</td>
-            <td class="kyc-table-data">{{ member.nationality }}</td>
-            <td class="kyc-table-data">{{ member.contactnumber }}</td>
-            <td class="kyc-table-data">{{ member.doctype }}</td>
+            <td class="kyc-table-data">{{ kycData.email }}</td>
+            <td class="kyc-table-data">{{ kycData.first_name }}</td>
+            <td class="kyc-table-data">{{ kycData.last_name }}</td>
+            <td class="kyc-table-data">{{ kycData.nationality }}</td>
+            <td class="kyc-table-data">{{ kycData.contactnumber }}</td>
+            <td class="kyc-table-data">{{ kycData.doctype }}</td>
             <td class="kyc-table-data">
-              <a :href="member.docfront | assetUrl" target="_blank">
-                <progressive-img class="kyc-img" :src="member.docfront | assetUrl" alt="Doc Front Image" />
+              <a :href="kycData.docfront | assetUrl" target="_blank">
+                <progressive-img class="kyc-img" :src="kycData['thumb-front'] | assetUrl" alt="Doc Front Image" />
               </a>
             </td>
             <td class="kyc-table-data">
-              <a :href="member.docback | assetUrl" target="_blank">
-                <progressive-img class="kyc-img" :src="member.docback | assetUrl" alt="Doc Back Image" />
+              <a :href="kycData.docback | assetUrl" target="_blank">
+                <progressive-img class="kyc-img" :src="kycData['thumb-back'] | assetUrl" alt="Doc Back Image" />
               </a>
             </td>
             <td class="kyc-table-data">
-              <a :href="member.selfie | assetUrl" target="_blank">
-                <progressive-img class="kyc-img" :src="member.selfie | assetUrl" alt="SelfieImage" />
+              <a :href="kycData.selfie | assetUrl" target="_blank">
+                <progressive-img class="kyc-img" :src="kycData['thumb-selfie'] | assetUrl" alt="SelfieImage" />
               </a>
             </td>
-            <td class="kyc-table-data">{{ member.status }}</td>
-            <td class="kyc-table-data">{{ member.eth_address }}</td>
-            <td class="kyc-table-data">{{ member.deposit_amount }}</td>
-            <td class="kyc-table-data">{{ member.created_date }}</td>
+            <td class="kyc-table-data">{{ kycData.status }}</td>
+            <td class="kyc-table-data">{{ kycData.eth_address }}</td>
+            <td class="kyc-table-data">{{ kycData.deposit_amount }}</td>
+            <td class="kyc-table-data">{{ kycData.created_date }}</td>
           </tr>
         </tbody>
       </table>
@@ -197,11 +197,11 @@
     <!-- pagination start -->
     <div class="row mt-5">
         <uib-pagination
-          v-if="members"
-          :total-items="parseInt(members.total)"
-          :items-per-page="parseInt(members.per_page)"
+          v-if="kyc"
+          :total-items="parseInt(kyc.total)"
+          :items-per-page="parseInt(kyc.per_page)"
           v-model="pagination"
-          @change="getMembersData"
+          @change="getKycData"
           :max-size="10"
           :boundary-links="true"
           :force-ellipses="true"
@@ -224,7 +224,7 @@
 <script>
 import Loading from 'vue-loading-overlay'
 import {Datetime} from 'vue-datetime'
-import {member} from '@/api'
+import {kycApi} from '@/api'
 import {
   mapState,
   mapActions
@@ -245,7 +245,7 @@ export default {
       searchFirstName: '',
       searchLastName: '',
       filterKycStatus: '',
-      kycIds: [],
+      selectedKycIds: [],
       action: '',
       pagination: { currentPage: 1 },
       isLoading: false
@@ -253,33 +253,33 @@ export default {
   },
   methods: {
     ...mapActions([
-      'getMembers',
-      'searchMembersByDeposit',
-      'searchMembersByDate',
-      'searchMembersByInfo',
+      'getKyc',
+      'searchKycByDeposit',
+      'searchKycByDate',
+      'searchKycByInfo',
       'updateKycStatus',
       'getKycStatusCount'
     ]),
-    getMembersData () {
-      if (this.action === 'searchMembersByDeposit') {
+    getKycData () {
+      if (this.action === 'searchKycByDeposit') {
         this.searchByDeposit()
         return
       }
 
-      if (this.action === 'searchMembersByDate') {
+      if (this.action === 'searchKycByDate') {
         this.searchByDate()
         return
       }
 
-      if (this.action === 'searchMembersByInfo') {
+      if (this.action === 'searchKycByInfo') {
         this.searchByInfo()
         return
       }
 
       this.isLoading = true
 
-      this.getMembers({kycStatus: this.filterKycStatus, page: this.pagination.currentPage}).then(() => {
-        this.action = 'getMembers'
+      this.getKyc({kycStatus: this.filterKycStatus, page: this.pagination.currentPage}).then(() => {
+        this.action = 'getKyc'
         this.isLoading = false
       })
     },
@@ -287,22 +287,22 @@ export default {
       this.isLoading = true
 
       if (!this.searchEth) {
-        this.getMembers({kycStatus: this.filterKycStatus}).then(() => {
-          this.action = 'getMembers'
+        this.getKyc({kycStatus: this.filterKycStatus}).then(() => {
+          this.action = 'getKyc'
           this.isLoading = false
         })
 
         return
       }
 
-      this.searchMembersByDeposit({
+      this.searchKycByDeposit({
         eth: this.searchEth,
         range: this.searchRange,
         modeDeposit: this.searchModeDeposit,
         kycStatus: this.filterKycStatus,
         page: this.pagination.currentPage
       }).then(() => {
-        this.action = 'searchMembersByDeposit'
+        this.action = 'searchKycByDeposit'
         this.isLoading = false
       })
     },
@@ -310,15 +310,15 @@ export default {
       this.isLoading = true
 
       if (!this.searchStartDate && !this.searchEndDate && !this.searchId) {
-        this.getMembers({kycStatus: this.filterKycStatus}).then(() => {
-          this.action = 'getMembers'
+        this.getKyc({kycStatus: this.filterKycStatus}).then(() => {
+          this.action = 'getKyc'
           this.isLoading = false
         })
 
         return
       }
 
-      this.searchMembersByDate({
+      this.searchKycByDate({
         startDate: this.searchStartDate.slice(0, 10),
         endDate: this.searchEndDate.slice(0, 10),
         email: this.searchId,
@@ -326,7 +326,7 @@ export default {
         kycStatus: this.filterKycStatus,
         page: this.pagination.currentPage
       }).then(() => {
-        this.action = 'searchMembersByDate'
+        this.action = 'searchKycByDate'
         this.isLoading = false
       })
     },
@@ -334,46 +334,46 @@ export default {
       this.isLoading = true
 
       if (!this.searchEmail && !this.searchFirstName && !this.searchLastName) {
-        this.getMembers({kycStatus: this.filterKycStatus}).then(() => {
-          this.action = 'getMembers'
+        this.getKyc({kycStatus: this.filterKycStatus}).then(() => {
+          this.action = 'getKyc'
           this.isLoading = false
         })
 
         return
       }
 
-      this.searchMembersByInfo({
+      this.searchKycByInfo({
         email: this.searchEmail,
         firstName: this.searchFirstName,
         lastName: this.searchLastName,
         kycStatus: this.filterKycStatus,
         page: this.pagination.currentPage
       }).then(() => {
-        this.action = 'searchMembersByInfo'
+        this.action = 'searchKycByInfo'
         this.isLoading = false
       })
     },
     filterByKycStatus (status) {
       this.filterKycStatus = status
       this.pagination.currentPage = 1
-      this.getMembersData()
+      this.getKycData()
     },
-    exportMembers () {
-      window.open(member.exportMembers + this.memberIds.join('-'), '_blank')
+    exportKyc () {
+      window.open(kycApi.exportKyc + this.kycIds.join('-'), '_blank')
     },
     exportKycInfo () {
-      window.open(member.exportKycInfo + this.memberIds.join('-'), '_blank')
+      window.open(kycApi.exportKycInfo + this.kycIds.join('-'), '_blank')
     },
     updateKycStatusData (status) {
       this.isLoading = true
       this.updateKycStatus({
         status: status,
-        idkyclist: this.kycIds
+        idkyclist: this.selectedKycIds
       }).then(() => {
-        if (this.membersResponseData.result) {
+        if (this.kycResponseData.result) {
           this.$awn.success('Successfully updated kyc status')
-          this.kycIds = []
-          this.getMembers({kycStatus: this.filterKycStatus}).then(() => {
+          this.selectedKycIds = []
+          this.getKyc({kycStatus: this.filterKycStatus}).then(() => {
             this.isLoading = false
           })
         } else {
@@ -382,7 +382,7 @@ export default {
       })
     },
     showDeleteKycModal () {
-      this.$modal.show('delete-kyc-modal', {memberIds: this.kycIds})
+      this.$modal.show('delete-kyc-modal', {kycIds: this.selectedKycIds})
     }
   },
   components: {
@@ -392,18 +392,18 @@ export default {
   },
   computed: {
     ...mapState({
-      members: ({members}) => members.members,
-      memberIds: ({members}) => members.memberIds,
-      membersResponseData: ({members}) => members.responseData,
+      kyc: ({kyc}) => kyc.kyc,
+      kycIds: ({kyc}) => kyc.kycIds,
+      kycResponseData: ({kyc}) => kyc.responseData,
       kycStatusCount: ({kyc}) => kyc.kycStatusCount
     })
   },
   created () {
     this.isLoading = true
     this.getKycStatusCount().then(() => {
-      this.getMembers({kycStatus: this.filterKycStatus}).then(() => {
+      this.getKyc({kycStatus: this.filterKycStatus}).then(() => {
         this.isLoading = false
-        this.action = 'getMembers'
+        this.action = 'getKyc'
       })
     })
   }

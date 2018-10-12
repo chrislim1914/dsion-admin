@@ -154,7 +154,7 @@
 <script>
 import Loading from 'vue-loading-overlay'
 import {Datetime} from 'vue-datetime'
-import {member} from '@/api'
+import {memberApi} from '@/api'
 import {
   mapState,
   mapActions
@@ -253,10 +253,10 @@ export default {
       this.getMembersData()
     },
     exportMembers () {
-      window.open(member.exportMembers + this.memberIds.join('-'), '_blank')
+      window.open(memberApi.exportMembers + this.memberIds.join('-'), '_blank')
     },
     exportKycInfo () {
-      window.open(member.exportKycInfo + this.memberIds.join('-'), '_blank')
+      window.open(memberApi.exportKycInfo + this.memberIds.join('-'), '_blank')
     }
   },
   components: {

@@ -3,7 +3,7 @@
  */
 import axios from 'axios'
 import {
-  member
+  memberApi
 } from '@/api'
 
 /**
@@ -29,7 +29,7 @@ const actions = {
       */
   getMembers: async (context, payload) => {
     try {
-      var resp = await axios.get(member.getMembers, {params: payload})
+      var resp = await axios.get(memberApi.getMembers, {params: payload})
 
       if (resp.data.data) {
         context.commit('setMembers', resp.data.data)
@@ -52,7 +52,7 @@ const actions = {
     */
   searchMembersByDeposit: async (context, payload) => {
     try {
-      var resp = await axios.get(member.searchMembersByDeposit, {params: payload})
+      var resp = await axios.get(memberApi.searchMembersByDeposit, {params: payload})
 
       if (resp.data.data) {
         context.commit('setMembers', resp.data.data)
@@ -75,7 +75,7 @@ const actions = {
     */
   searchMembersByDate: async (context, payload) => {
     try {
-      var resp = await axios.get(member.searchMembersByDate, {params: payload})
+      var resp = await axios.get(memberApi.searchMembersByDate, {params: payload})
 
       if (resp.data.data) {
         context.commit('setMembers', resp.data.data)
@@ -87,61 +87,6 @@ const actions = {
     } catch (error) {
       context.commit('setMembers', null)
       context.commit('setMemberIds', null)
-    }
-  },
-
-  /**
-   * Search members by info
-   * @param context
-   * @param payload
-   * @return {Promise}
-   */
-  searchMembersByInfo: async (context, payload) => {
-    try {
-      var resp = await axios.get(member.searchMembersByInfo, {params: payload})
-
-      if (resp.data.data) {
-        context.commit('setMembers', resp.data.data)
-        context.commit('setMemberIds', resp.data.ids)
-      } else {
-        context.commit('setMembers', null)
-        context.commit('setMemberIds', null)
-      }
-    } catch (error) {
-      context.commit('setMembers', null)
-      context.commit('setMemberIds', null)
-    }
-  },
-
-  /**
-   * Update kyc status
-   * @param context
-   * @param payload
-   */
-  updateKycStatus: async (context, payload) => {
-    try {
-      var resp = await axios.post(member.updateKycStatus, payload)
-      if (resp) {
-        context.commit('setResponseData', resp.data)
-      }
-    } catch (error) {
-      context.commit('setResponseData', resp.data)
-    }
-  },
-
-  /**
-   * Delete members
-   * @param context
-   * @param payload
-   */
-  deleteMembers: async (context, payload) => {
-    try {
-      var resp = await axios.post(member.deleteMembers, payload)
-      if (resp) {
-        context.commit('setResponseData', resp.data)
-      }
-    } catch (error) {
-      context.commit('setResponseData', resp.data)
     }
   }
 }
