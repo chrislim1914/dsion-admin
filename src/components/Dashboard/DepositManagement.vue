@@ -66,7 +66,7 @@
         </div>
         <div class="col-lg-3">
             <br>
-            <button type="button" class="btn btn-md btn-block mt-2" @click="search">Search</button>
+            <button type="button" class="btn btn-md btn-block mt-2" @click="searchDepositsData(1)">Search</button>
         </div>
       </div>
       <div class="row mt-3">
@@ -76,7 +76,7 @@
           </button>
         </div>
         <div class="col-2" v-for="(sale, key) in sales" :key="key">
-          <button class="btn btn-light btn-block" :class="{ active: filterSaleStatus == sale.name }" @click="filterSaleStatus = sale.name">
+          <button class="btn btn-light btn-block" :class="{ active: filterSaleStatus == sale.idsale_status }" @click="filterBySaleStatus(sale.idsale_status)">
             {{ sale.name }}
           </button>
         </div>
@@ -114,7 +114,7 @@
         </div>
       </div>
       <div class="row mt-3">
-        <div class="col-12" v-if="filteredDeposits">
+        <div class="col-12" v-if="deposits">
           <table class="table table-borderless">
             <thead>
               <tr>
@@ -129,12 +129,12 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(deposit, index) in filteredDeposits" :key="index">
+              <tr v-for="(deposit, index) in deposits.data" :key="index">
                 <td>
                   <input type="checkbox" v-model="depositIds" :value="deposit.iddeposit">
                 </td>
                 <td>
-                  {{ filteredDeposits.length - index }}
+                  {{ deposits.total - (((deposits.current_page -1) * deposits.per_page) + index ) }}
                 </td>
                 <td class="text-primary">
                   {{ deposit.eth_address }}
@@ -159,6 +159,21 @@
           </table>
         </div>
       </div>
+      <!-- pagination start -->
+      <div class="row mt-5">
+          <uib-pagination
+            v-if="deposits"
+            :total-items="parseInt(deposits.total)"
+            :items-per-page="parseInt(deposits.per_page)"
+            v-model="pagination"
+            @change="loadDepositsData"
+            :max-size="10"
+            :boundary-links="true"
+            :force-ellipses="true"
+            class="mx-auto"
+          />
+      </div>
+      <!-- pagination end -->
     </div>
     <!-- loading start -->
     <loading :active.sync="isLoading" :is-full-page="true">
@@ -173,7 +188,7 @@
 <script>
 import Loading from 'vue-loading-overlay'
 import { Datetime } from 'vue-datetime'
-import {mapState, mapGetters, mapActions} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 import DeleteDepositModal from '@/components/Globals/DeleteDepositModal'
 export default {
   name: 'DashboardDepositManagement',
@@ -188,6 +203,8 @@ export default {
       searchCreatedAt: '',
       filterSaleStatus: '',
       depositIds: [],
+      action: '',
+      pagination: { currentPage: 1 },
       isLoading: false
     }
   },
@@ -199,6 +216,51 @@ export default {
       'searchDeposits',
       'getDashboard'
     ]),
+    getDepositsData () {
+      this.isLoading = true
+      this.getDeposits({
+        saleStatus: this.filterSaleStatus,
+        page: this.pagination.currentPage
+      }).then(() => {
+        this.action = 'getDeposits'
+        this.isLoading = false
+      })
+    },
+    searchDepositsData (page = null) {
+      if (page) {
+        this.pagination.currentPage = page
+      }
+
+      if (!this.searchUserEmail && !this.searchEthAddress && !this.searchCreatedAt) {
+        this.getDepositsData()
+        return
+      }
+
+      this.isLoading = true
+      this.searchDeposits({
+        email: this.searchUserEmail,
+        ethAddress: this.searchEthAddress,
+        createdDate: this.searchCreatedAt.slice(0, 10),
+        saleStatus: this.filterSaleStatus,
+        page: this.pagination.currentPage
+      }).then(() => {
+        this.action = 'searchDeposits'
+        this.isLoading = false
+      })
+    },
+    loadDepositsData () {
+      if (this.action === 'searchDeposits') {
+        this.searchDepositsData()
+        return
+      }
+
+      this.getDepositsData()
+    },
+    filterBySaleStatus (status) {
+      this.filterSaleStatus = status
+      this.pagination.currentPage = 1
+      this.loadDepositsData()
+    },
     showDeleteDepositModal () {
       this.$modal.show('delete-deposit-modal', {depositIds: this.depositIds})
     },
@@ -250,25 +312,13 @@ export default {
 
         if (this.depositResponseData.result) {
           this.$awn.success('Successfully created deposit')
-          this.getDeposits()
+          this.getDepositsData()
           this.ethAddress = ''
           this.ethCount = ''
           this.saleStatusId = ''
         } else {
           this.$awn.alert(this.depositResponseData.message)
         }
-      })
-    },
-    search () {
-      if (!this.searchUserEmail && !this.searchEthAddress && !this.searchCreatedAt) {
-        this.getDeposits()
-        return
-      }
-      this.searchDeposits({
-        email: this.searchUserEmail,
-        ethAddress: this.searchEthAddress,
-        createdDate: this.searchCreatedAt.slice(0, 10),
-        saleStatus: this.filterSaleStatus
       })
     }
   },
@@ -280,15 +330,10 @@ export default {
   computed: {
     ...mapState({
       sales: ({sales}) => sales.sale,
+      deposits: ({deposit}) => deposit.deposits,
       depositResponseData: ({deposit}) => deposit.responseData,
       dashboard: ({dashboard}) => dashboard.dashboard
-    }),
-    ...mapGetters([
-      'filterDepositsBySaleStatus'
-    ]),
-    filteredDeposits () {
-      return this.filterDepositsBySaleStatus(this.filterSaleStatus)
-    }
+    })
   },
   created () {
     this.createDate = this.moment().format('YYYY-MM-DD kk:mm')

@@ -16,24 +16,6 @@ const state = {
 }
 
 /**
- * @const getters
- * @type {object}
- */
-const getters = {
-  /**
-    * Filter deposits by sales status
-    * @param state
-    * @param saleStatus
-    */
-  filterDepositsBySaleStatus: (state) => (saleStatus) => {
-    if (!saleStatus) {
-      return state.deposits
-    }
-    return state.deposits.filter(deposit => deposit.sale_status === saleStatus)
-  }
-}
-
-/**
  * @const actions
  * @type {object}
  */
@@ -56,14 +38,17 @@ const actions = {
   /**
   * Get deposits
   * @param  context
+  * @param payload
   * @return {Promise}
   */
-  getDeposits: async (context) => {
+  getDeposits: async (context, payload) => {
     try {
-      var resp = await axios.get(deposit.getDeposits)
+      var resp = await axios.get(deposit.getDeposits, {params: payload})
 
       if (resp.data.result) {
         context.commit('setDeposits', resp.data.data)
+      } else {
+        context.commit('setDeposits', null)
       }
     } catch (error) {
       context.commit('setDeposits', null)
@@ -130,4 +115,4 @@ const mutations = {
   }
 }
 
-export default {state, getters, actions, mutations}
+export default {state, actions, mutations}
