@@ -299,6 +299,7 @@ export default {
         return
       }
 
+      this.action = 'searchKycByDeposit'
       this.searchKycByDeposit({
         eth: this.searchEth,
         range: this.searchRange,
@@ -306,7 +307,6 @@ export default {
         kycStatus: this.filterKycStatus,
         page: this.pagination.currentPage
       }).then(() => {
-        this.action = 'searchKycByDeposit'
         this.isLoading = false
       })
     },
@@ -326,6 +326,7 @@ export default {
         return
       }
 
+      this.action = 'searchKycByDate'
       this.searchKycByDate({
         startDate: this.searchStartDate.slice(0, 10),
         endDate: this.searchEndDate.slice(0, 10),
@@ -334,7 +335,6 @@ export default {
         kycStatus: this.filterKycStatus,
         page: this.pagination.currentPage
       }).then(() => {
-        this.action = 'searchKycByDate'
         this.isLoading = false
       })
     },
@@ -354,6 +354,7 @@ export default {
         return
       }
 
+      this.action = 'searchKycByInfo'
       this.searchKycByInfo({
         email: this.searchEmail,
         firstName: this.searchFirstName,
@@ -361,7 +362,6 @@ export default {
         kycStatus: this.filterKycStatus,
         page: this.pagination.currentPage
       }).then(() => {
-        this.action = 'searchKycByInfo'
         this.isLoading = false
       })
     },

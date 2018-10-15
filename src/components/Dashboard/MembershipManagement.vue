@@ -216,6 +216,7 @@ export default {
         return
       }
 
+      this.action = 'searchMembersByDeposit'
       this.searchMembersByDeposit({
         eth: this.searchEth,
         range: this.searchRange,
@@ -223,7 +224,6 @@ export default {
         kycStatus: this.filterKycStatus,
         page: this.pagination.currentPage
       }).then(() => {
-        this.action = 'searchMembersByDeposit'
         this.isLoading = false
       })
     },
@@ -239,10 +239,10 @@ export default {
           this.action = 'getMembers'
           this.isLoading = false
         })
-
         return
       }
 
+      this.action = 'searchMembersByDate'
       this.searchMembersByDate({
         startDate: this.searchStartDate.slice(0, 10),
         endDate: this.searchEndDate.slice(0, 10),
@@ -251,7 +251,6 @@ export default {
         kycStatus: this.filterKycStatus,
         page: this.pagination.currentPage
       }).then(() => {
-        this.action = 'searchMembersByDate'
         this.isLoading = false
       })
     },

@@ -227,6 +227,8 @@ export default {
       })
     },
     searchDepositsData (page = null) {
+      this.isLoading = true
+
       if (page) {
         this.pagination.currentPage = page
       }
@@ -235,8 +237,7 @@ export default {
         this.getDepositsData()
         return
       }
-
-      this.isLoading = true
+      this.action = 'searchDeposits'
       this.searchDeposits({
         email: this.searchUserEmail,
         ethAddress: this.searchEthAddress,
@@ -244,7 +245,6 @@ export default {
         saleStatus: this.filterSaleStatus,
         page: this.pagination.currentPage
       }).then(() => {
-        this.action = 'searchDeposits'
         this.isLoading = false
       })
     },
