@@ -49,7 +49,7 @@
         <input type="number" class="form-control" id="search-eth" v-model="searchEth" min="1" placeholder="ETH">
           </div>
         <div class="col-md-3 mb-2 mb-md-0">
-          <button type="button" class="btn btn-block" @click="searchByDeposit">Search</button>
+          <button type="button" class="btn btn-block" @click="searchByDeposit(1)">Search</button>
         </div>
     </div>
     <!-- search by deposit end -->
@@ -74,7 +74,7 @@
             <input type="text" class="form-control" v-model="searchId" placeholder="ID search">
         </div>
         <div class="col-md-2 mb-2 mb-md-0">
-          <button type="button" class="btn btn-block" @click="searchByDate">Search</button>
+          <button type="button" class="btn btn-block" @click="searchByDate(1)">Search</button>
         </div>
     </div>
     <!-- search by date end -->
@@ -90,7 +90,7 @@
         <input type="text" class="form-control" id="search-last-name" v-model="searchLastName" placeholder="Last Name">
       </div>
       <div class="col-md-3 mb-2 mb-md-0">
-        <button type="button" class="btn btn-block" @click="searchByInfo">Search</button>
+        <button type="button" class="btn btn-block" @click="searchByInfo(1)">Search</button>
       </div>
     </div>
     <!-- search by info end -->
@@ -283,8 +283,12 @@ export default {
         this.isLoading = false
       })
     },
-    searchByDeposit () {
+    searchByDeposit (page = null) {
       this.isLoading = true
+
+      if (page) {
+        this.pagination.currentPage = page
+      }
 
       if (!this.searchEth) {
         this.getKyc({kycStatus: this.filterKycStatus}).then(() => {
@@ -306,8 +310,12 @@ export default {
         this.isLoading = false
       })
     },
-    searchByDate () {
+    searchByDate (page = null) {
       this.isLoading = true
+
+      if (page) {
+        this.pagination.currentPage = page
+      }
 
       if (!this.searchStartDate && !this.searchEndDate && !this.searchId) {
         this.getKyc({kycStatus: this.filterKycStatus}).then(() => {
@@ -330,8 +338,12 @@ export default {
         this.isLoading = false
       })
     },
-    searchByInfo () {
+    searchByInfo (page = null) {
       this.isLoading = true
+
+      if (page) {
+        this.pagination.currentPage = page
+      }
 
       if (!this.searchEmail && !this.searchFirstName && !this.searchLastName) {
         this.getKyc({kycStatus: this.filterKycStatus}).then(() => {
