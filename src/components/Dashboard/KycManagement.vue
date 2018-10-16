@@ -173,17 +173,17 @@
             <td class="kyc-table-data">{{ kycData.doctype }}</td>
             <td class="kyc-table-data">
               <a :href="kycData.docfront | assetUrl" target="_blank">
-                <progressive-img class="kyc-img" :src="kycData['thumb-front'] | assetUrl" alt="Doc Front Image" />
+                <progressive-img class="kyc-img" :src="kycData.thumbFront | assetUrl" alt="Doc Front Image" />
               </a>
             </td>
             <td class="kyc-table-data">
               <a :href="kycData.docback | assetUrl" target="_blank">
-                <progressive-img class="kyc-img" :src="kycData['thumb-back'] | assetUrl" alt="Doc Back Image" />
+                <progressive-img class="kyc-img" :src="kycData.thumbBack | assetUrl" alt="Doc Back Image" />
               </a>
             </td>
             <td class="kyc-table-data">
               <a :href="kycData.selfie | assetUrl" target="_blank">
-                <progressive-img class="kyc-img" :src="kycData['thumb-selfie'] | assetUrl" alt="SelfieImage" />
+                <progressive-img class="kyc-img" :src="kycData.thumbSelfie | assetUrl" alt="SelfieImage" />
               </a>
             </td>
             <td class="kyc-table-data">{{ kycData.status }}</td>
