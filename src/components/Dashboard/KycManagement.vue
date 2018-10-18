@@ -10,22 +10,22 @@
     </div>
     <!-- filter by kyc status start -->
     <div class="row mt-3">
-      <div class="col-md-2 mb-2 mb-md-0">
+      <div class="col-lg-2 mb-2 mb-lg-0">
         <button class="btn btn-light btn-block" :class="{ active: !filterKycStatus}"  @click="filterByKycStatus('')">
           View all
         </button>
       </div>
-      <div class="col-md-2 mb-2 mb-md-0">
+      <div class="col-lg-2 mb-2 mb-lg-0">
         <button class="btn btn-light btn-block" :class="{ active: filterKycStatus === 'Approved' }" @click="filterByKycStatus('Approved')">
           KYC Approved
         </button>
       </div>
-      <div class="col-md-2 mb-2 mb-md-0">
+      <div class="col-lg-2 mb-2 mb-lg-0">
         <button class="btn btn-light btn-block" :class="{ active: filterKycStatus === 'Rejected' }" @click="filterByKycStatus('Rejected')">
           KYC Rejected
         </button>
       </div>
-      <div class="col-md-2 mb-2 mb-md-0">
+      <div class="col-lg-2 mb-2 mb-lg-0">
         <button class="btn btn-light btn-block" :class="{ active: filterKycStatus === 'Pending' }" @click="filterByKycStatus('Pending')">
           KYC Pending
         </button>
@@ -34,74 +34,74 @@
     <!-- filter by kyc status end -->
     <!-- search by deposit start -->
     <div class="row mt-3">
-      <div class="col-md-3 mb-2 mb-md-0">
+      <div class="col-lg-3 mb-2 mb-lg-0">
         <select class="form-control bg-white select-no-arrow" v-model="searchModeDeposit" disabled>
             <option value="depositamount">Deposit Amount</option>
         </select>
       </div>
-      <div class="col-md-3 mb-2 mb-md-0">
+      <div class="col-lg-3 mb-2 mb-lg-0">
         <select class="form-control" v-model="searchRange">
               <option value="above">Above</option>
               <option value="below">Below</option>
             </select>
       </div>
-      <div class="col-md-3 mb-2 mb-md-0">
+      <div class="col-lg-3 mb-2 mb-lg-0">
         <input type="number" class="form-control" id="search-eth" v-model="searchEth" min="1" placeholder="ETH">
           </div>
-        <div class="col-md-3 mb-2 mb-md-0">
+        <div class="col-lg-3 mb-2 mb-lg-0">
           <button type="button" class="btn btn-block" @click="searchByDeposit(1)">Search</button>
         </div>
     </div>
     <!-- search by deposit end -->
     <!-- search by date start -->
     <div class="row mt-3">
-      <div class="col-md-3 mb-2 mb-md-0">
+      <div class="col-lg-3 mb-2 mb-lg-0">
         <select class="form-control" v-model="searchModeDate">
             <option value="usercreateddate">User created date</option>
             <option value="kycapplicationdate">KYC application date</option>
         </select>
       </div>
-      <div class="col-md-2 mb-2 mb-md-0">
+      <div class="col-lg-2 mb-2 mb-lg-0">
         <datetime format="yyyy-MM-dd" class="form-control" v-model="searchStartDate" placeholder="Start Date"></datetime>
       </div>
-        <div class="col-md-1 mb-2 mb-md-0 text-center align-self-center">
+        <div class="col-lg-1 mb-2 mb-lg-0 text-center align-self-center">
           <h6>~</h6>
         </div>
-        <div class="col-md-2 mb-2 mb-md-0">
+        <div class="col-lg-2 mb-2 mb-lg-0">
           <datetime format="yyyy-MM-dd" class="form-control" v-model="searchEndDate" placeholder="End Date"></datetime>
         </div>
-          <div class="col-md-2 mb-2 mb-md-0">
+          <div class="col-lg-2 mb-2 mb-lg-0">
             <input type="text" class="form-control" v-model="searchId" placeholder="ID search">
         </div>
-        <div class="col-md-2 mb-2 mb-md-0">
+        <div class="col-lg-2 mb-2 mb-lg-0">
           <button type="button" class="btn btn-block" @click="searchByDate(1)">Search</button>
         </div>
     </div>
     <!-- search by date end -->
     <!-- search by info start -->
     <div class="row mt-3">
-      <div class="col-md-3 mb-2 mb-md-0">
+      <div class="col-lg-3 mb-2 mb-lg-0">
         <input type="text" class="form-control" id="search-email" v-model="searchEmail" placeholder="Email">
       </div>
-      <div class="col-md-3 mb-2 mb-md-0">
+      <div class="col-lg-3 mb-2 mb-lg-0">
         <input type="text" class="form-control" id="search-first-name" v-model="searchFirstName" placeholder="First Name">
       </div>
-      <div class="col-md-3 mb-2 mb-md-0">
+      <div class="col-lg-3 mb-2 mb-lg-0">
         <input type="text" class="form-control" id="search-last-name" v-model="searchLastName" placeholder="Last Name">
       </div>
-      <div class="col-md-3 mb-2 mb-md-0">
+      <div class="col-lg-3 mb-2 mb-lg-0">
         <button type="button" class="btn btn-block" @click="searchByInfo(1)">Search</button>
       </div>
     </div>
     <!-- search by info end -->
     <!-- export start -->
     <div class="row mt-4">
-      <div class="col-md-3 mb-2 mb-md-0">
+      <div class="col-lg-3 mb-2 mb-lg-0">
         <button type="button" class="btn btn-block" id="save-kyc-info" @click="exportKycInfo">
           Save KYC information
         </button>
       </div>
-      <div class="col-md-3 mb-2 mb-md-0">
+      <div class="col-lg-3 mb-2 mb-lg-0">
         <button type="button" class="btn btn-block" id="save-kyc" @click="exportKyc">
           Save list to excel
         </button>
@@ -113,22 +113,22 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-2 mb-2 mb-md-0">
+      <div class="col-lg-2 mb-2 mb-lg-0">
         <button type="button" class="btn btn-block" :disabled="!selectedKycIds.length" @click="updateKycStatusData('Approved')">
           Approve ({{ kycStatusCount.length ? kycStatusCount[0].countstatus : 0 }})
         </button>
       </div>
-      <div class="col-md-2 mb-2 mb-md-0">
+      <div class="col-lg-2 mb-2 mb-lg-0">
         <button type="button" class="btn btn-block" :disabled="!selectedKycIds.length" @click="updateKycStatusData('Rejected')">
           Reject ({{ kycStatusCount.length ? kycStatusCount[1].countstatus : 0 }})
         </button>
       </div>
-      <div class="col-md-2 mb-2 mb-md-0">
+      <div class="col-lg-2 mb-2 mb-lg-0">
         <button type="button" class="btn btn-block" :disabled="!selectedKycIds.length" @click="updateKycStatusData('Pending')">
           Pending ({{ kycStatusCount.length ? kycStatusCount[2].countstatus : 0 }})
         </button>
       </div>
-      <div class="col-md-2 mb-2 mb-md-0">
+      <div class="col-lg-2 mb-2 mb-lg-0">
         <button type="button" class="btn btn-block" :disabled="!selectedKycIds.length" @click="showDeleteKycModal">
           Delete
         </button>

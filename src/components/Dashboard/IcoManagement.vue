@@ -9,35 +9,35 @@
         </div>
       </div>
       <div class="row">
-        <div class="col">
+        <div class="col-lg-3 mb-2 mb-lg-0">
           <a href="#!" class="btn btn-light btn-block">Private</a>
         </div>
-        <div class="col">
+        <div class="col-lg-3 mb-2 mb-lg-0">
           <a href="#!" class="btn btn-light btn-block">Free 1</a>
         </div>
-        <div class="col">
+        <div class="col-lg-3 mb-2 mb-lg-0">
           <a href="#!" class="btn btn-light btn-block">Free 2</a>
         </div>
-        <div class="col">
+        <div class="col-lg-3">
           <a href="#!" class="btn btn-light btn-block">Public</a>
         </div>
       </div>
       <div class="row mt-3">
-        <div class="col">
+        <div class="col-12 col-lg">
           <h6>
             Start time
           </h6>
         </div>
-        <div class="col">
-          <input type="number" class="form-control text-center" id="start_year" placeholder="YYYY">
+        <div class="col-12 col-lg">
+          <input type="number" class="form-control text-center mb-2 mb-lg-0" id="start_year" placeholder="YYYY">
         </div>
-        <div class="col">
-          <input type="number" class="form-control text-center" id="start_month" placeholder="MM">
+        <div class="col-12 col-lg">
+          <input type="number" class="form-control text-center mb-2 mb-lg-0" id="start_month" placeholder="MM">
         </div>
-        <div class="col">
-          <input type="number" class="form-control text-center" id="start_date" placeholder="DD">
+        <div class="col-12 col-lg">
+          <input type="number" class="form-control text-center mb-2 mb-lg-0" id="start_date" placeholder="DD">
         </div>
-        <div class="col">
+        <div class="col-12 col-lg">
           <input type="number" class="form-control text-center" id="start_hour" placeholder="HH">
         </div>
       </div>
@@ -47,21 +47,21 @@
             End time
           </h6>
         </div>
-        <div class="col">
-          <input type="number" class="form-control text-center" id="end_year" placeholder="YYYY">
+        <div class="col-12 col-lg">
+          <input type="number" class="form-control text-center mb-2 mb-lg-0" id="end_year" placeholder="YYYY">
         </div>
-        <div class="col">
-          <input type="number" class="form-control text-center" id="end_month" placeholder="MM">
+        <div class="col-12 col-lg">
+          <input type="number" class="form-control text-center mb-2 mb-lg-0" id="end_month" placeholder="MM">
         </div>
-        <div class="col">
-          <input type="number" class="form-control text-center" id="end_date" placeholder="DD">
+        <div class="col-12 col-lg">
+          <input type="number" class="form-control text-center mb-2 mb-lg-0" id="end_date" placeholder="DD">
         </div>
-        <div class="col">
+        <div class="col-12 col-lg">
           <input type="number" class="form-control text-center" id="end_hour" placeholder="HH">
         </div>
       </div>
       <div class="row mt-3">
-        <div class="col-5">
+        <div class="col-lg-5">
           <h6>
             Bonus
           </h6>
@@ -71,7 +71,7 @@
         </div>
       </div>
       <div class="row mt-3">
-        <div class="col-5">
+        <div class="col-lg-5">
           <h6>
             Referral bonus
           </h6>
@@ -81,7 +81,7 @@
         </div>
       </div>
       <div class="row mt-5 justify-content-center">
-        <div class="col-6">
+        <div class="col-lg-6">
           <a href="#!" class="btn btn-light btn-block">Save</a>
         </div>
       </div>
@@ -92,7 +92,7 @@
           </h3>
         </div>
         <div class="col-12">
-          <table class="table text-center">
+          <table class="table table-responsive text-center">
             <thead>
               <tr>
                 <th scope="col">
@@ -121,12 +121,12 @@
         </div>
       </div>
       <div class="row justify-content-center">
-        <div class="col-3">
-          <a href="#!" class="btn btn-light btn-block" @click="unpublishArticle">
+        <div class="col-lg-3">
+          <a href="#!" class="btn btn-light btn-block mb-2 mb-lg-0" @click="unpublishArticle">
             Delete
           </a>
         </div>
-        <div class="col-3">
+        <div class="col-lg-3">
           <a href="#!" class="btn btn-light btn-block" @click="publishArticle">
             New registration
           </a>

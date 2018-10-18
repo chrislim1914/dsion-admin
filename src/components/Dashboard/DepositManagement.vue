@@ -70,12 +70,12 @@
         </div>
       </div>
       <div class="row mt-3">
-        <div class="col-2">
-          <button class="btn btn-light btn-block" :class="{ active: !filterSaleStatus}"  @click="filterSaleStatus = ''">
+        <div class="col-lg-2 mb-2 mb-lg-0">
+          <button class="btn btn-light btn-block" :class="{ active: !filterSaleStatus}"  @click="filterBySaleStatus('')">
             View all
           </button>
         </div>
-        <div class="col-2" v-for="(sale, key) in sales" :key="key">
+        <div class="col-lg-2 mb-2 mb-lg-0" v-for="(sale, key) in sales" :key="key">
           <button class="btn btn-light btn-block" :class="{ active: filterSaleStatus == sale.idsale_status }" @click="filterBySaleStatus(sale.idsale_status)">
             {{ sale.name }}
           </button>
@@ -83,22 +83,22 @@
       </div>
       <div class="row mt-4" v-if="dashboard">
         <div class="col-lg-6">
-          <h4 class="font-weight-bold">
+          <h4 class="font-weight-bold text-center text-lg-left">
             Total deposit amount: <span class="text-danger">{{ dashboard.total_deposit }}</span> ETH
           </h4>
         </div>
         <div class="col-lg-6">
-          <h4 class="font-weight-bold">
+          <h4 class="font-weight-bold text-center text-lg-left">
             Total withdrawal amount: <span class="text-danger">{{ dashboard.total_withdraw }}</span> ETH
           </h4>
         </div>
         <div class="col-lg-6">
-          <h4 class="font-weight-bold">
+          <h4 class="font-weight-bold text-center text-lg-left">
             Currently holding amount: <span class="text-danger">{{ dashboard.current_holding }}</span> ETH
           </h4>
         </div>
         <div class="col-lg-6">
-          <h4 class="font-weight-bold">
+          <h4 class="font-weight-bold text-center text-lg-left">
             Day deposit: <span class="text-danger">{{ dashboard.todays_deposit }}</span> ETH
           </h4>
         </div>
@@ -107,7 +107,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-2">
+        <div class="col-lg-2">
           <button class="btn btn-block my-3" @click="showDeleteDepositModal" :disabled="!depositIds.length">
             Delete
           </button>
@@ -115,7 +115,7 @@
       </div>
       <div class="row mt-3">
         <div class="col-12" v-if="deposits">
-          <table class="table table-borderless">
+          <table class="table table-responsive table-borderless">
             <thead>
               <tr>
                 <th scope="col">All</th>

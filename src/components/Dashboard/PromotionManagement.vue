@@ -16,23 +16,23 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-6">
+        <div class="col-lg-6">
          <div class="form-group row">
-            <label for="description" class="col-sm-2 col-form-label">Description:</label>
-            <div class="col-sm-10">
+            <label for="description" class="col-lg-2 col-form-label">Description:</label>
+            <div class="col-lg-10">
               <input type="text" class="form-control" id="description" v-model="promotion.description">
             </div>
           </div>
         </div>
-        <div class="col">
+        <div class="col-lg">
           <div class="form-group row">
-            <label for="bonus" class="col-sm-3 col-form-label">Bonus:</label>
-            <div class="col-sm-9">
+            <label for="bonus" class="col-lg-3 col-form-label">Bonus:</label>
+            <div class="col-lg-9">
               <input type="text" class="form-control" id="bonus" v-model="promotion.bonus">
             </div>
           </div>
         </div>
-        <div class="col">
+        <div class="col-lg">
           <a class="btn btn-light btn-block" @click="savePromotionCategory">Save</a>
         </div>
       </div>
@@ -49,57 +49,57 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-6">
+        <div class="col-lg-6">
           <div class="form-group row">
-            <label for="user" class="col-sm-2 col-form-label">User:</label>
-            <div class="col-sm-10">
+            <label for="user" class="col-lg-2 col-form-label">User:</label>
+            <div class="col-lg-10">
               <input type="email" class="form-control" id="user" v-model="promotion.user" required>
             </div>
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-lg-6">
           <div class="form-group row">
-            <label for="category" class="col-sm-3 col-form-label">Category:</label>
-            <div class="col-sm-9">
+            <label for="category" class="col-lg-3 col-form-label">Category:</label>
+            <div class="col-lg-9">
               <select class="form-control" id="category" v-model="promotion.category">
                 <option :value="promoCategory.idpromotioncategory" :key="index" v-for="(promoCategory, index) in promoCategories">{{ promoCategory.description }}</option>
               </select>
             </div>
           </div>
         </div>
-        <div class="col-4">
+        <div class="col-lg-4">
           <div class="form-group row">
-            <label for="sale-status" class="col-sm-4 col-form-label">Sale status:</label>
-            <div class="col-sm-8">
+            <label for="sale-status" class="col-lg-4 col-form-label">Sale status:</label>
+            <div class="col-lg-8">
               <input type="text" class="form-control" id="sale-status" v-model="promotion.saleStatus" disabled>
             </div>
           </div>
         </div>
-        <div class="col-4">
+        <div class="col-lg-4">
           <div class="form-group row">
-            <label for="start-date" class="col-sm-4 col-form-label">Start date:</label>
-            <div class="col-sm-8">
+            <label for="start-date" class="col-lg-4 col-form-label">Start date:</label>
+            <div class="col-lg-8">
               <input type="date" class="form-control" id="start-date" :min="moment().format('YYYY-MM-DD')" v-model="promotion.startDate" required>
             </div>
           </div>
         </div>
-        <div class="col-4">
+        <div class="col-lg-4">
           <div class="form-group row">
-            <label for="expiration-date" class="col-sm-54 col-form-label">Expiration date:</label>
-            <div class="col-sm-7">
+            <label for="expiration-date" class="col-lg-5 col-form-label">Expiration date:</label>
+            <div class="col-lg-7">
               <input type="date" class="form-control" id="expiration-date" :min="moment().add(1, 'days').format('YYYY-MM-DD')" v-model="promotion.expirationDate" required>
             </div>
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-5">
+        <div class="col-lg-5 mb-2 mb-lg-0">
           <input type="text" class="form-control form-control-sm" id="promo-code" v-model="promotion.promoCode" disabled>
         </div>
-        <div class="col-2">
+        <div class="col-lg-2 mb-2 mb-lg-0">
           <a class="btn btn-light btn-block" @click.prevent="producePromoCode">Produce</a>
         </div>
-        <div class="col-2">
+        <div class="col-lg-2 mb-2 mb-lg-0">
           <a href="#!" class="btn btn-light btn-block" v-clipboard:copy="promotion.promoCode" v-clipboard:success="successCopy" v-clipboard:error="errorCopy">Copy</a>
         </div>
         <div class="col">
@@ -108,14 +108,14 @@
       </div>
       <div class="row mt-5">
         <div class="col-12">
-          <table class="table text-center">
+          <table class="table table-responsive text-center w-100">
             <thead>
               <tr>
-                <th scope="col">Promotion key</th>
-                <th scope="col">Creation date</th>
-                <th scope="col">Admin</th>
-                <th scope="col">Service status</th>
-                <th scope="col">User</th>
+                <th scope="col" style="width:40%">Promotion key</th>
+                <th scope="col" style="width:20%">Creation date</th>
+                <th scope="col" style="width:20%">Admin</th>
+                <th scope="col" style="width:20%">Service status</th>
+                <th scope="col" style="width:20%">User</th>
               </tr>
             </thead>
             <tbody>
