@@ -50,7 +50,7 @@
       </div>
       <div class="row mt-3">
         <div class="col-lg-12">
-          <table class="table table-borderless">
+          <table class="table table-responsive table-borderless">
             <thead>
               <tr>
                 <th>Row</th>
