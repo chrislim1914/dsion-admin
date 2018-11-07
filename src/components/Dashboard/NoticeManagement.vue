@@ -8,8 +8,13 @@
           </h3>
         </div>
       </div>
-      <div class="row mt-3" v-if="notices">
-        <div class="col-lg-12">
+      <div class="row" v-if="notices">
+        <div class="col-lg-2">
+          <button type="button" class="btn btn-block ml-lg-3" id="save-kyc" @click="exportNotice">
+            Export excel
+          </button>
+        </div>
+        <div class="col-lg-12 mt-3">
           <table class="table table-responsive table-borderless">
             <thead>
               <tr>
@@ -65,6 +70,7 @@
   </div>
 </template>
 <script>
+import {noticeApi} from '@/api'
 import Loading from 'vue-loading-overlay'
 import {mapState, mapActions} from 'vuex'
 export default {
@@ -91,6 +97,9 @@ export default {
       }).then(() => {
         this.isLoading = false
       })
+    },
+    exportNotice () {
+      window.open(noticeApi.exportNotice)
     }
   },
   components: {

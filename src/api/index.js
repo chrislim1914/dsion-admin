@@ -70,5 +70,6 @@ export const kycApi = {
 }
 
 export const noticeApi = {
-  getNotices: apiURL + '/notice/application'
+  getNotices: apiURL + '/notice/application',
+  exportNotice: apiURL + '/notice/export'
 }
