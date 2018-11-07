@@ -21,6 +21,7 @@ import EventManagementComments from '@/components/Dashboard/EventManagementComme
 // import TokenManagement from '@/components/Dashboard/TokenManagement'
 import IcoManagement from '@/components/Dashboard/IcoManagement'
 import PromotionManagement from '@/components/Dashboard/PromotionManagement'
+import NoticeManagement from '@/components/Dashboard/NoticeManagement'
 
 Vue.use(Router)
 
@@ -93,6 +94,11 @@ export default new Router({
           path: 'promotion-management',
           name: 'DashboardPromotionManagement',
           component: PromotionManagement
+        },
+        {
+          path: 'notice-management',
+          name: 'DashboardNoticeManagement',
+          component: NoticeManagement
         }
       ]
     }

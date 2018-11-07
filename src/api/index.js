@@ -68,3 +68,7 @@ export const kycApi = {
   updateKycStatus: apiURL + '/admin/Kyc/Update',
   deleteKyc: apiURL + '/admin/Kyc/delete'
 }
+
+export const noticeApi = {
+  getNotices: apiURL + '/notice/application'
+}

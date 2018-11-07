@@ -13,6 +13,7 @@ import dashboard from './modules/dashboard'
 import members from './modules/members'
 import events from './modules/events'
 import kyc from './modules/kyc'
+import notice from './modules/notice'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -26,6 +27,7 @@ export default new Vuex.Store({
     dashboard,
     members,
     events,
-    kyc
+    kyc,
+    notice
   }
 })

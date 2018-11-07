@@ -77,6 +77,11 @@ export default {
           title: 'Promotion Management',
           path_name: 'PromotionManagement',
           link: '/dashboard/promotion-management'
+        },
+        {
+          title: 'Notice Management',
+          path_name: 'NoticeManagement',
+          link: '/dashboard/notice-management'
         }
       ]
     }
