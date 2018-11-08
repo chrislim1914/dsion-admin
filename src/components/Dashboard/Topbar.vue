@@ -34,56 +34,10 @@ export default {
   components: {
     Loading
   },
+  props: ['links'],
   data () {
     return {
-      isLoading: false,
-      links: [
-        {
-          title: 'Dashboard',
-          path_name: 'Main',
-          link: '/dashboard/'
-        },
-        {
-          title: 'Membership Management',
-          path_name: 'MembershipManagement',
-          link: '/dashboard/membership-management'
-        },
-        {
-          title: 'KYC Management',
-          path_name: 'KycManagement',
-          link: '/dashboard/kyc-management'
-        },
-        {
-          title: 'Deposit Management',
-          path_name: 'DepositManagement',
-          link: '/dashboard/deposit-management'
-        },
-        {
-          title: 'Event Management',
-          path_name: 'EventManagement',
-          link: '/dashboard/event-management'
-        },
-        // {
-        //   title: 'Token Management',
-        //   path_name: 'TokenManagement',
-        //   link: '/dashboard/token-management'
-        // },
-        {
-          title: 'ICO Management',
-          path_name: 'IcoManagement',
-          link: '/dashboard/ico-management'
-        },
-        {
-          title: 'Promotion Management',
-          path_name: 'PromotionManagement',
-          link: '/dashboard/promotion-management'
-        },
-        {
-          title: 'Notice Management',
-          path_name: 'NoticeManagement',
-          link: '/dashboard/notice-management'
-        }
-      ]
+      isLoading: false
     }
   },
   computed: {

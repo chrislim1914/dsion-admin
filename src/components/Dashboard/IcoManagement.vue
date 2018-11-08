@@ -114,7 +114,7 @@
                 <td class="text-muted">{{ article.title }}</td>
                 <td class="text-muted">{{ article.image }}</td>
                 <td class="text-muted">{{ article.created_at }}</td>
-                <td class="text-muted">{{ article.link }}</td>
+                <td><a :href="article.link" class="text-muted" target="_blank">{{ article.link }}</a></td>
               </tr>
             </tbody>
           </table>
