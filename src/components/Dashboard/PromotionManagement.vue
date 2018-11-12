@@ -262,14 +262,17 @@ export default {
     }
   },
   created () {
+    this.isLoading = true
     this.requestAllPromoCode().then(() => {
       if (this.icoResponse.message === 'Failed to load Promo Code!') {
         this.$awn.warning('Failed to load promo code.')
       }
-    })
-    this.requestPromoCategory()
-    this.fetchActiveSale().then(() => {
-      this.promotion.saleStatus = this.activeSale[0].name
+      this.requestPromoCategory().then(() => {
+        this.fetchActiveSale().then(() => {
+          this.isLoading = false
+          this.promotion.saleStatus = this.activeSale[0].name
+        })
+      })
     })
   }
 }

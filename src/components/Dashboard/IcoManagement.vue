@@ -242,7 +242,10 @@ export default {
     }
   },
   created () {
-    this.requestArticle()
+    this.isLoading = true
+    this.requestArticle().then(() => {
+      this.isLoading = false
+    })
   }
 }
 </script>
