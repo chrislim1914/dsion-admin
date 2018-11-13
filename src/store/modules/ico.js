@@ -40,8 +40,10 @@ const actions = {
   requestAllPromoCode: async (context) => {
     try {
       var resp = await axios.get(ico.retrievePromoCode)
-      context.commit('setGeneratedPromoCodesList', resp.data)
-      context.commit('updateResponseMessage', resp.data)
+      if (resp.data.result) {
+        context.commit('setGeneratedPromoCodesList', resp.data.data)
+      }
+      context.commit('updateResponseMessage', resp.data.message)
     } catch (error) {
       context.commit('updateResponseMessage', 'General Error')
     }

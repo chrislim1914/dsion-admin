@@ -412,11 +412,12 @@ export default {
   },
   created () {
     this.isLoading = true
-    this.getKycStatusCount().then(() => {
-      this.getKyc({kycStatus: this.filterKycStatus}).then(() => {
-        this.isLoading = false
-        this.action = 'getKyc'
-      })
+    Promise.all([
+      this.getKycStatusCount(),
+      this.getKyc({kycStatus: this.filterKycStatus})
+    ]).then(() => {
+      this.action = 'getKyc'
+      this.isLoading = false
     })
   }
 }

@@ -338,12 +338,8 @@ export default {
   created () {
     this.createDate = this.moment().format('YYYY-MM-DD kk:mm')
     this.isLoading = true
-    this.fetchActiveSale().then(() => {
-      this.getDeposits().then(() => {
-        this.getDashboard().then(() => {
-          this.isLoading = false
-        })
-      })
+    Promise.all([this.fetchActiveSale(), this.getDeposits(), this.getDashboard()]).then(() => {
+      this.isLoading = false
     })
   }
 }

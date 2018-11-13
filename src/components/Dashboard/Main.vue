@@ -51,13 +51,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="row">
-        <div class="col" v-for="(sale, key) in sales" :key="key">
-          <button class="btn btn-light btn-block">
-            {{ sale.name }}
-          </button>
-        </div>
-      </div> -->
       <div class="row mt-4">
         <div class="col-12">
           <div class="row mb-5">
