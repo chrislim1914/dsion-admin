@@ -1,6 +1,7 @@
-//---------------
-// login.scss
-//---------------
+// ***************
+// * Login styles
+// ***************
+@import 'scss/variables/colors.scss';
 
 * {
   margin: 0;
@@ -8,7 +9,7 @@
 }
 
 .btn {
-  background: #E0E0E0;
+  background: $color-alto-two;
 }
 
 .loading-parent {
@@ -16,5 +17,5 @@
 }
 
 .debugger {
-  border: 1px solid red;
+  border: 1px solid $color-red;
 }

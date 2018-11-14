@@ -1,7 +1,7 @@
-//---------------
-// dashboard.scss
-//---------------
-
+// *******************
+// * Dashboard styles
+// *******************
+@import 'scss/variables/colors.scss';
 @import 'scss/globals/pagination.scss';
 
 * {
@@ -38,11 +38,11 @@ a {
   min-height: calc(100vh - 48px);
   padding-top: .5rem;
   overflow-x: hidden;
-  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  overflow-y: auto; // Scrollable contents if viewport is shorter than content.
 
   ul {
     li > a {
-      color: black;
+      color: $color-black;
 
       &:hover {
         text-decoration: none;
@@ -52,12 +52,12 @@ a {
 }
 
 #search, #save-kyc-info, #save-excel {
-  color: #000;
-  background: #e0e0e0;
+  color: $color-black;
+  background: $color-alto-two;
 }
 
 .debugger {
-  border: 1px solid red;
+  border: 1px solid $color-red;
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -82,13 +82,13 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .select-no-arrow {
-  /* for Firefox */
+  // Firefox
   -moz-appearance: none;
-  /* for Chrome */
+  // Chrome
   -webkit-appearance: none;
 }
 
-/* For IE10 */
+// IE10
 .select-no-arrow::-ms-expand {
   display: none;
 }
