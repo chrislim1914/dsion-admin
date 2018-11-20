@@ -70,6 +70,11 @@ export default {
           title: 'Notice Management',
           path_name: 'NoticeManagement',
           link: '/dashboard/notice-management'
+        },
+        {
+          title: 'Dsion Airdrop',
+          path_name: 'DsionAirdrop',
+          link: '/dashboard/dsion-airdrop'
         }
       ]
     }

@@ -22,6 +22,7 @@ import EventManagementComments from '@/components/Dashboard/EventManagementComme
 import IcoManagement from '@/components/Dashboard/IcoManagement'
 import PromotionManagement from '@/components/Dashboard/PromotionManagement'
 import NoticeManagement from '@/components/Dashboard/NoticeManagement'
+import DsionAirdrop from '@/components/Dashboard/DsionAirdrop'
 
 Vue.use(Router)
 
@@ -99,6 +100,11 @@ export default new Router({
           path: 'notice-management',
           name: 'DashboardNoticeManagement',
           component: NoticeManagement
+        },
+        {
+          path: 'dsion-airdrop',
+          name: 'DashboardDsionAirdrop',
+          component: DsionAirdrop
         }
       ]
     }
