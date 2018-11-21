@@ -73,3 +73,7 @@ export const noticeApi = {
   getNotices: apiURL + '/notice/application',
   exportNotice: apiURL + '/notice/export'
 }
+
+export const airdropApi = {
+  importAirdrop: apiURL + '/airdrop/import'
+}

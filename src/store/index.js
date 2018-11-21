@@ -14,6 +14,7 @@ import members from './modules/members'
 import events from './modules/events'
 import kyc from './modules/kyc'
 import notice from './modules/notice'
+import airdrop from './modules/airdrop'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -28,6 +29,7 @@ export default new Vuex.Store({
     members,
     events,
     kyc,
-    notice
+    notice,
+    airdrop
   }
 })
