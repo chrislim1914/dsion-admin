@@ -13,7 +13,7 @@
         <div class="row p-3">
           <div class="col-lg-3">
             <h5>Phone number list</h5>
-            <small class="text-danger">* Phone numbers limit is 100.</small><br>
+            <small class="text-danger">* Phone numbers limit is 200.</small><br>
             <small class="text-danger">* Please clear formatting before importing excel file.</small>
           </div>
           <div class="col-lg-3">
@@ -85,7 +85,7 @@ export default {
       formData.append('amount', this.airdropAmount)
 
       this.importAirdrop(formData).then(() => {
-        if (!this.responseData) {
+        if (!this.responseData || !this.responseData.hasOwnProperty('result')) {
           this.$awn.alert('Dsion airdrop failed to send.')
           this.isLoading = false
           return
