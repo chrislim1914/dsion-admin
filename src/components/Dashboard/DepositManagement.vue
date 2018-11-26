@@ -290,7 +290,7 @@ export default {
         return
       }
 
-      if (!this.moment(this.createDate, 'YYYY-MM-DD kk:mm', true).isValid()) {
+      if (!this.$moment(this.createDate, 'YYYY-MM-DD kk:mm', true).isValid()) {
         this.$awn.alert('Please enter valid create date')
         return
       }
@@ -336,7 +336,7 @@ export default {
     })
   },
   created () {
-    this.createDate = this.moment().format('YYYY-MM-DD kk:mm')
+    this.createDate = this.$moment().format('YYYY-MM-DD kk:mm')
     this.isLoading = true
     Promise.all([this.fetchActiveSale(), this.getDeposits(), this.getDashboard()]).then(() => {
       this.isLoading = false
