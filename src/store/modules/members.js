@@ -88,6 +88,50 @@ const actions = {
       context.commit('setMembers', null)
       context.commit('setMemberIds', null)
     }
+  },
+
+  /**
+    * Export members
+    * @param  context
+    * @param payload
+    * @return {Promise}
+    */
+  exportMembers: async (context, payload) => {
+    try {
+      var resp = await axios.post(
+        memberApi.exportMembers,
+        payload,
+        {responseType: 'blob'}
+      )
+
+      if (resp.data) {
+        context.commit('setResponseData', resp.data)
+      }
+    } catch (error) {
+      context.commit('setResponseData', null)
+    }
+  },
+
+  /**
+    * Export members info
+    * @param  context
+    * @param payload
+    * @return {Promise}
+    */
+  exportMembersInfo: async (context, payload) => {
+    try {
+      var resp = await axios.post(
+        memberApi.exportMembersInfo,
+        payload,
+        {responseType: 'blob'}
+      )
+
+      if (resp.data) {
+        context.commit('setResponseData', resp.data)
+      }
+    } catch (error) {
+      context.commit('setResponseData', null)
+    }
   }
 }
 

@@ -26,7 +26,7 @@ Vue.use(VueProgressiveImage)
 Vue.use(pagination)
 
 Vue.config.productionTip = false
-Vue.prototype.moment = moment
+Vue.prototype.$moment = moment
 
 /* eslint-disable no-new */
 new Vue({

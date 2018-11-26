@@ -97,12 +97,12 @@
     <!-- export start -->
     <div class="row mt-4">
       <div class="col-lg-3 mb-2 mb-lg-0">
-        <button type="button" class="btn btn-block" id="save-kyc-info" @click="exportKycInfo">
+        <button type="button" class="btn btn-block" id="save-kyc-info" @click="exportKycInfoExcel">
           Save KYC information
         </button>
       </div>
       <div class="col-lg-3 mb-2 mb-lg-0">
-        <button type="button" class="btn btn-block" id="save-kyc" @click="exportKyc">
+        <button type="button" class="btn btn-block" id="save-kyc" @click="exportKycExcel">
           Save list to excel
         </button>
       </div>
@@ -224,7 +224,6 @@
 <script>
 import Loading from 'vue-loading-overlay'
 import {Datetime} from 'vue-datetime'
-import {kycApi} from '@/api'
 import {
   mapState,
   mapActions
@@ -258,7 +257,9 @@ export default {
       'searchKycByDate',
       'searchKycByInfo',
       'updateKycStatus',
-      'getKycStatusCount'
+      'getKycStatusCount',
+      'exportKyc',
+      'exportKycInfo'
     ]),
     getKycData () {
       if (this.action === 'searchKycByDeposit') {
@@ -370,11 +371,41 @@ export default {
       this.pagination.currentPage = 1
       this.getKycData()
     },
-    exportKyc () {
-      window.open(kycApi.exportKyc + this.kycIds.join('-'), '_blank')
+    exportKycExcel () {
+      this.isLoading = true
+      this.exportKyc({ids: this.kycIds}).then(() => {
+        if (this.kycResponseData) {
+          let blob = new Blob([this.kycResponseData])
+          let url = window.URL.createObjectURL(blob)
+          const link = document.createElement('a')
+          link.href = url
+          link.setAttribute(
+            'download',
+            'kyc-' + this.$moment().format('YYYYMMDD') + '.xls'
+          )
+          document.body.appendChild(link)
+          link.click()
+        }
+        this.isLoading = false
+      })
     },
-    exportKycInfo () {
-      window.open(kycApi.exportKycInfo + this.kycIds.join('-'), '_blank')
+    exportKycInfoExcel () {
+      this.isLoading = true
+      this.exportKycInfo({ids: this.kycIds}).then(() => {
+        if (this.kycResponseData) {
+          let blob = new Blob([this.kycResponseData])
+          let url = window.URL.createObjectURL(blob)
+          const link = document.createElement('a')
+          link.href = url
+          link.setAttribute(
+            'download',
+            'kycInfo-' + this.$moment().format('YYYYMMDD') + '.xls'
+          )
+          document.body.appendChild(link)
+          link.click()
+        }
+        this.isLoading = false
+      })
     },
     updateKycStatusData (status) {
       this.isLoading = true

@@ -81,12 +81,12 @@
     <!-- export start -->
     <div class="row mt-4">
       <div class="col-lg-3 mb-2 mb-lg-0">
-        <button type="button" class="btn btn-block" id="save-kyc-info" @click="exportKycInfo">
-          Save KYC information
+        <button type="button" class="btn btn-block" id="save-kyc-info" @click="exportMembersInfoExcel">
+          Save Members information
         </button>
       </div>
       <div class="col-lg-3 mb-2 mb-lg-0">
-        <button type="button" class="btn btn-block" id="save-members" @click="exportMembers">
+        <button type="button" class="btn btn-block" id="save-members" @click="exportMembersExcel">
           Save list to excel
         </button>
       </div>
@@ -154,7 +154,6 @@
 <script>
 import Loading from 'vue-loading-overlay'
 import {Datetime} from 'vue-datetime'
-import {memberApi} from '@/api'
 import {
   mapState,
   mapActions
@@ -180,7 +179,9 @@ export default {
     ...mapActions([
       'getMembers',
       'searchMembersByDeposit',
-      'searchMembersByDate'
+      'searchMembersByDate',
+      'exportMembers',
+      'exportMembersInfo'
     ]),
     getMembersData () {
       if (this.action === 'searchMembersByDeposit') {
@@ -259,11 +260,41 @@ export default {
       this.pagination.currentPage = 1
       this.getMembersData()
     },
-    exportMembers () {
-      window.open(memberApi.exportMembers + this.memberIds.join('-'), '_blank')
+    exportMembersExcel () {
+      this.isLoading = true
+      this.exportMembers({ids: this.memberIds}).then(() => {
+        if (this.membersResponseData) {
+          let blob = new Blob([this.membersResponseData])
+          let url = window.URL.createObjectURL(blob)
+          const link = document.createElement('a')
+          link.href = url
+          link.setAttribute(
+            'download',
+            'members-' + this.$moment().format('YYYYMMDD') + '.xls'
+          )
+          document.body.appendChild(link)
+          link.click()
+        }
+        this.isLoading = false
+      })
     },
-    exportKycInfo () {
-      window.open(memberApi.exportKycInfo + this.memberIds.join('-'), '_blank')
+    exportMembersInfoExcel () {
+      this.isLoading = true
+      this.exportMembersInfo({ids: this.memberIds}).then(() => {
+        if (this.membersResponseData) {
+          let blob = new Blob([this.membersResponseData])
+          let url = window.URL.createObjectURL(blob)
+          const link = document.createElement('a')
+          link.href = url
+          link.setAttribute(
+            'download',
+            'membersInfo-' + this.$moment().format('YYYYMMDD') + '.xls'
+          )
+          document.body.appendChild(link)
+          link.click()
+        }
+        this.isLoading = false
+      })
     }
   },
   components: {

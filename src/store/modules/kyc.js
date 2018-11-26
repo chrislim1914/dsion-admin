@@ -163,6 +163,50 @@ const actions = {
     } catch (error) {
       context.commit('setResponseData', resp.data)
     }
+  },
+
+  /**
+    * Export kyc
+    * @param  context
+    * @param payload
+    * @return {Promise}
+    */
+  exportKyc: async (context, payload) => {
+    try {
+      var resp = await axios.post(
+        kycApi.exportKyc,
+        payload,
+        {responseType: 'blob'}
+      )
+
+      if (resp.data) {
+        context.commit('setResponseData', resp.data)
+      }
+    } catch (error) {
+      context.commit('setResponseData', null)
+    }
+  },
+
+  /**
+    * Export kyc info
+    * @param  context
+    * @param payload
+    * @return {Promise}
+    */
+  exportKycInfo: async (context, payload) => {
+    try {
+      var resp = await axios.post(
+        kycApi.exportKycInfo,
+        payload,
+        {responseType: 'blob'}
+      )
+
+      if (resp.data) {
+        context.commit('setResponseData', resp.data)
+      }
+    } catch (error) {
+      context.commit('setResponseData', null)
+    }
   }
 }
 
