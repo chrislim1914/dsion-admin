@@ -264,16 +264,10 @@ export default {
       this.isLoading = true
       this.exportMembers({ids: this.memberIds}).then(() => {
         if (this.membersResponseData) {
-          let blob = new Blob([this.membersResponseData])
-          let url = window.URL.createObjectURL(blob)
-          const link = document.createElement('a')
-          link.href = url
-          link.setAttribute(
-            'download',
-            'members-' + this.$moment().format('YYYYMMDD') + '.xls'
+          this.common.download(
+            this.membersResponseData,
+            'members-' + this.moment().format('YYYYMMDD') + '.xls'
           )
-          document.body.appendChild(link)
-          link.click()
         }
         this.isLoading = false
       })
@@ -282,16 +276,10 @@ export default {
       this.isLoading = true
       this.exportMembersInfo({ids: this.memberIds}).then(() => {
         if (this.membersResponseData) {
-          let blob = new Blob([this.membersResponseData])
-          let url = window.URL.createObjectURL(blob)
-          const link = document.createElement('a')
-          link.href = url
-          link.setAttribute(
-            'download',
-            'membersInfo-' + this.$moment().format('YYYYMMDD') + '.xls'
+          this.common.download(
+            this.membersResponseData,
+            'membersInfo-' + this.moment().format('YYYYMMDD') + '.xls'
           )
-          document.body.appendChild(link)
-          link.click()
         }
         this.isLoading = false
       })

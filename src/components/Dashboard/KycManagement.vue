@@ -375,16 +375,10 @@ export default {
       this.isLoading = true
       this.exportKyc({ids: this.kycIds}).then(() => {
         if (this.kycResponseData) {
-          let blob = new Blob([this.kycResponseData])
-          let url = window.URL.createObjectURL(blob)
-          const link = document.createElement('a')
-          link.href = url
-          link.setAttribute(
-            'download',
-            'kyc-' + this.$moment().format('YYYYMMDD') + '.xls'
+          this.common.download(
+            this.kycResponseData,
+            'kyc-' + this.moment().format('YYYYMMDD') + '.xls'
           )
-          document.body.appendChild(link)
-          link.click()
         }
         this.isLoading = false
       })
@@ -393,16 +387,10 @@ export default {
       this.isLoading = true
       this.exportKycInfo({ids: this.kycIds}).then(() => {
         if (this.kycResponseData) {
-          let blob = new Blob([this.kycResponseData])
-          let url = window.URL.createObjectURL(blob)
-          const link = document.createElement('a')
-          link.href = url
-          link.setAttribute(
-            'download',
-            'kycInfo-' + this.$moment().format('YYYYMMDD') + '.xls'
+          this.common.download(
+            this.kycResponseData,
+            'kycInfo-' + this.moment().format('YYYYMMDD') + '.xls'
           )
-          document.body.appendChild(link)
-          link.click()
         }
         this.isLoading = false
       })

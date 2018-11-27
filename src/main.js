@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import store from './store'
 import router from './router'
+import common from './common'
 import './filters'
 import VueSession from 'vue-session'
 import VueClipboard from 'vue-clipboard2'
@@ -26,7 +27,9 @@ Vue.use(VueProgressiveImage)
 Vue.use(pagination)
 
 Vue.config.productionTip = false
-Vue.prototype.$moment = moment
+
+Vue.prototype.moment = moment
+Vue.prototype.common = common
 
 /* eslint-disable no-new */
 new Vue({
