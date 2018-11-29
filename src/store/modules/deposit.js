@@ -12,6 +12,7 @@ import {
  */
 const state = {
   deposits: null,
+  depositIds: null,
   responseData: null
 }
 
@@ -47,8 +48,10 @@ const actions = {
 
       if (resp.data.result) {
         context.commit('setDeposits', resp.data.data)
+        context.commit('setDepositIds', resp.data.ids)
       } else {
         context.commit('setDeposits', null)
+        context.commit('setDepositIds', null)
       }
     } catch (error) {
       context.commit('setDeposits', null)
@@ -103,6 +106,15 @@ const mutations = {
      */
   setDeposits: (state, data) => {
     state.deposits = data
+  },
+
+  /**
+   * Set deposit ids state
+   * @param state
+   * @param data
+   */
+  setDepositIds: (state, data) => {
+    state.depositIds = data
   },
 
   /**

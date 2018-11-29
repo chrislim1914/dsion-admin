@@ -140,26 +140,26 @@
       <table class="table">
         <thead>
           <tr>
-          <th scope="col" class="text-center lh-35">
-            <toggle-button
-             :labels="{checked: 'All', unchecked: 'None'}"
-             :width="60"
-             @change="selectToggle"/>
-           </th>
-            <th scope="col" class="text-center lh-35">Row</th>
-            <th scope="col" class="text-center lh-35">Email</th>
-            <th scope="col" class="text-center lh-35">First Name</th>
-            <th scope="col" class="text-center lh-35">Last Name</th>
-            <th scope="col" class="text-center lh-35">Nationality</th>
-            <th scope="col" class="text-center lh-35">Contact Number</th>
-            <th scope="col" class="text-center lh-35">Doc Type</th>
-            <th scope="col" class="text-center lh-35">Doc Front</th>
-            <th scope="col" class="text-center lh-35">Doc Back</th>
-            <th scope="col" class="text-center lh-35">Selfie</th>
-            <th scope="col" class="text-center lh-35">Status</th>
-            <th scope="col" class="text-center lh-35">Eth Address</th>
-            <th scope="col" class="text-center lh-35">Deposit Amount</th>
-            <th scope="col" class="text-center lh-35">Created At</th>
+            <th scope="col" class="text-center lh-35">
+              <toggle-button
+               :labels="{checked: 'All', unchecked: 'None'}"
+               :width="60"
+               @change="selectToggle"/>
+             </th>
+              <th scope="col" class="text-center lh-35">Row</th>
+              <th scope="col" class="text-center lh-35">Email</th>
+              <th scope="col" class="text-center lh-35">First Name</th>
+              <th scope="col" class="text-center lh-35">Last Name</th>
+              <th scope="col" class="text-center lh-35">Nationality</th>
+              <th scope="col" class="text-center lh-35">Contact Number</th>
+              <th scope="col" class="text-center lh-35">Doc Type</th>
+              <th scope="col" class="text-center lh-35">Doc Front</th>
+              <th scope="col" class="text-center lh-35">Doc Back</th>
+              <th scope="col" class="text-center lh-35">Selfie</th>
+              <th scope="col" class="text-center lh-35">Status</th>
+              <th scope="col" class="text-center lh-35">Eth Address</th>
+              <th scope="col" class="text-center lh-35">Deposit Amount</th>
+              <th scope="col" class="text-center lh-35">Created At</th>
           </tr>
         </thead>
         <tbody>

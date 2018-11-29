@@ -108,7 +108,7 @@
       </div>
       <div class="row">
         <div class="col-lg-2">
-          <button class="btn btn-block my-3" @click="showDeleteDepositModal" :disabled="!depositIds.length">
+          <button class="btn btn-block my-3" @click="showDeleteDepositModal" :disabled="!selectedDepositIds.length">
             Delete
           </button>
         </div>
@@ -118,20 +118,25 @@
           <table class="table table-responsive table-borderless">
             <thead>
               <tr>
-                <th scope="col">All</th>
-                <th>Row</th>
-                <th scope="col">KYC ETH Address</th>
-                <th scope="col">Email</th>
-                <th scope="col">Deposit ETH Count</th>
-                <th scope="col">Deposit Sale Status</th>
-                <th scope="col">Deposit Total</th>
-                <th scope="col">Deposit Created</th>
+                <th scope="col" class="text-center lh-35">
+                  <toggle-button
+                   :labels="{checked: 'All', unchecked: 'None'}"
+                   :width="60"
+                   @change="selectToggle"/>
+                 </th>
+                <th scope="col" class="text-center lh-35">Row</th>
+                <th scope="col" class="text-center lh-35">KYC ETH Address</th>
+                <th scope="col" class="text-center lh-35">Email</th>
+                <th scope="col" class="text-center lh-35">Deposit ETH Count</th>
+                <th scope="col" class="text-center lh-35">Deposit Sale Status</th>
+                <th scope="col" class="text-center lh-35">Deposit Total</th>
+                <th scope="col" class="text-center lh-35">Deposit Created</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(deposit, index) in deposits.data" :key="index">
-                <td>
-                  <input type="checkbox" v-model="depositIds" :value="deposit.iddeposit">
+                <td class="text-center">
+                  <input type="checkbox" v-model="selectedDepositIds" :value="deposit.iddeposit">
                 </td>
                 <td>
                   {{ deposits.total - (((deposits.current_page -1) * deposits.per_page) + index ) }}
@@ -202,7 +207,7 @@ export default {
       searchEthAddress: '',
       searchCreatedAt: '',
       filterSaleStatus: '',
-      depositIds: [],
+      selectedDepositIds: [],
       action: '',
       pagination: { currentPage: 1 },
       isLoading: false
@@ -216,6 +221,14 @@ export default {
       'searchDeposits',
       'getDashboard'
     ]),
+    selectToggle (toggle) {
+      if (toggle.value) {
+        this.selectedDepositIds = this.depositIds
+        return
+      }
+
+      this.selectedDepositIds = []
+    },
     getDepositsData () {
       this.isLoading = true
       this.getDeposits({
@@ -262,7 +275,7 @@ export default {
       this.loadDepositsData()
     },
     showDeleteDepositModal () {
-      this.$modal.show('delete-deposit-modal', {depositIds: this.depositIds})
+      this.$modal.show('delete-deposit-modal', {selectedDepositIds: this.selectedDepositIds})
     },
     submit () {
       if (!this.ethAddress) {
@@ -331,6 +344,7 @@ export default {
     ...mapState({
       sales: ({sales}) => sales.sale,
       deposits: ({deposit}) => deposit.deposits,
+      depositIds: ({deposit}) => deposit.depositIds,
       depositResponseData: ({deposit}) => deposit.responseData,
       dashboard: ({dashboard}) => dashboard.dashboard
     })
