@@ -140,26 +140,31 @@
       <table class="table">
         <thead>
           <tr>
-            <th scope="col" class="text-center">All</th>
-            <th>Row</th>
-            <th scope="col" class="text-center">Email</th>
-            <th scope="col" class="text-center">First Name</th>
-            <th scope="col" class="text-center">Last Name</th>
-            <th scope="col" class="text-center">Nationality</th>
-            <th scope="col" class="text-center">Contact Number</th>
-            <th scope="col" class="text-center">Doc Type</th>
-            <th scope="col" class="text-center">Doc Front</th>
-            <th scope="col" class="text-center">Doc Back</th>
-            <th scope="col" class="text-center">Selfie</th>
-            <th scope="col" class="text-center">Status</th>
-            <th scope="col" class="text-center">Eth Address</th>
-            <th scope="col" class="text-center">Deposit Amount</th>
-            <th scope="col" class="text-center">Created At</th>
+          <th scope="col" class="text-center lh-35">
+            <toggle-button
+             :labels="{checked: 'All', unchecked: 'None'}"
+             :width="60"
+             @change="selectToggle"/>
+           </th>
+            <th scope="col" class="text-center lh-35">Row</th>
+            <th scope="col" class="text-center lh-35">Email</th>
+            <th scope="col" class="text-center lh-35">First Name</th>
+            <th scope="col" class="text-center lh-35">Last Name</th>
+            <th scope="col" class="text-center lh-35">Nationality</th>
+            <th scope="col" class="text-center lh-35">Contact Number</th>
+            <th scope="col" class="text-center lh-35">Doc Type</th>
+            <th scope="col" class="text-center lh-35">Doc Front</th>
+            <th scope="col" class="text-center lh-35">Doc Back</th>
+            <th scope="col" class="text-center lh-35">Selfie</th>
+            <th scope="col" class="text-center lh-35">Status</th>
+            <th scope="col" class="text-center lh-35">Eth Address</th>
+            <th scope="col" class="text-center lh-35">Deposit Amount</th>
+            <th scope="col" class="text-center lh-35">Created At</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(kycData, key) in kyc.data" :key="key">
-            <td>
+            <td class="text-center">
               <input type="checkbox" v-model="selectedKycIds" :value="kycData.idkyc">
             </td>
             <td>
@@ -261,6 +266,14 @@ export default {
       'exportKyc',
       'exportKycInfo'
     ]),
+    selectToggle (toggle) {
+      if (toggle.value) {
+        this.selectedKycIds = this.kycIds
+        return
+      }
+
+      this.selectedKycIds = []
+    },
     getKycData () {
       if (this.action === 'searchKycByDeposit') {
         this.searchByDeposit()

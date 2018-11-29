@@ -12,6 +12,7 @@ import VueAWN from 'vue-awesome-notifications'
 import VModal from 'vue-js-modal'
 import VueProgressiveImage from 'vue-progressive-image'
 import pagination from 'vuejs-uib-pagination'
+import ToggleButton from 'vue-js-toggle-button'
 import moment from 'moment'
 import 'vue-loading-overlay/dist/vue-loading.min.css'
 import 'vue-datetime/dist/vue-datetime.css'
@@ -25,6 +26,7 @@ Vue.use(VueAWN)
 Vue.use(VModal)
 Vue.use(VueProgressiveImage)
 Vue.use(pagination)
+Vue.use(ToggleButton)
 
 Vue.config.productionTip = false
 
