@@ -120,9 +120,11 @@
               <tr>
                 <th scope="col" class="text-center lh-35">
                   <toggle-button
+                   :value="isSelectAll"
+                   :sync="true"
                    :labels="{checked: 'All', unchecked: 'None'}"
                    :width="60"
-                   @change="selectToggle"/>
+                   @change="selectToggle(isSelectAll)" />
                  </th>
                 <th scope="col" class="text-center lh-35">Row</th>
                 <th scope="col" class="text-center lh-35">KYC ETH Address</th>
@@ -210,7 +212,8 @@ export default {
       selectedDepositIds: [],
       action: '',
       pagination: { currentPage: 1 },
-      isLoading: false
+      isLoading: false,
+      isSelectAll: false
     }
   },
   methods: {
@@ -221,13 +224,14 @@ export default {
       'searchDeposits',
       'getDashboard'
     ]),
-    selectToggle (toggle) {
-      if (toggle.value) {
-        this.selectedDepositIds = this.depositIds
-        return
-      }
+    selectToggle (value) {
+      this.isSelectAll = !value
 
-      this.selectedDepositIds = []
+      if (this.isSelectAll) {
+        this.selectedDepositIds = this.deposits.data.map(d => d.iddeposit)
+      } else {
+        this.selectedDepositIds = []
+      }
     },
     getDepositsData () {
       this.isLoading = true
@@ -262,6 +266,8 @@ export default {
       })
     },
     loadDepositsData () {
+      this.isSelectAll = false
+      this.selectedDepositIds = []
       if (this.action === 'searchDeposits') {
         this.searchDepositsData()
         return

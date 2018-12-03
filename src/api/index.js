@@ -53,6 +53,7 @@ export const eventApi = {
   getEvents: apiURL + '/admin/Event',
   getEvent: apiURL + '/admin/Event/',
   getComments: apiURL + '/admin/Commentlist/',
+  exportComments: apiURL + '/admin/comment/export',
   createEvent: apiURL + '/admin/Event/create',
   updateEvent: apiURL + '/admin/Event/update'
 }

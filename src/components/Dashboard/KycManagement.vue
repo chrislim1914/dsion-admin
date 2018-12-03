@@ -142,9 +142,11 @@
           <tr>
             <th scope="col" class="text-center lh-35">
               <toggle-button
+               :value="isSelectAll"
+               :sync="true"
                :labels="{checked: 'All', unchecked: 'None'}"
                :width="60"
-               @change="selectToggle"/>
+               @change="selectToggle(isSelectAll)" />
              </th>
               <th scope="col" class="text-center lh-35">Row</th>
               <th scope="col" class="text-center lh-35">Email</th>
@@ -252,7 +254,8 @@ export default {
       selectedKycIds: [],
       action: '',
       pagination: { currentPage: 1 },
-      isLoading: false
+      isLoading: false,
+      isSelectAll: false
     }
   },
   methods: {
@@ -266,15 +269,19 @@ export default {
       'exportKyc',
       'exportKycInfo'
     ]),
-    selectToggle (toggle) {
-      if (toggle.value) {
-        this.selectedKycIds = this.kycIds
-        return
-      }
+    selectToggle (value) {
+      this.isSelectAll = !value
 
-      this.selectedKycIds = []
+      if (this.isSelectAll) {
+        this.selectedKycIds = this.kyc.data.map(k => k.idkyc)
+      } else {
+        this.selectedKycIds = []
+      }
     },
     getKycData () {
+      this.isSelectAll = false
+      this.selectedKycIds = []
+
       if (this.action === 'searchKycByDeposit') {
         this.searchByDeposit()
         return

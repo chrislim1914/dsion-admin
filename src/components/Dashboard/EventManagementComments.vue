@@ -8,11 +8,18 @@
           </h3>
         </div>
       </div>
-      <div class="row p-3">
+      <div class="row p-3 border-bottom">
         <div class="col-12">
-          <h5 class="font-weight-bold mb-3 border-bottom pb-3">
+          <h5 class="font-weight-bold">
             {{ eventTitle }} - Comments
           </h5>
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="col-lg-3 my-3 mb-lg-0">
+          <button type="button" class="btn btn-block" @click="exportComments">
+            Save Comments
+          </button>
         </div>
       </div>
       <div class="row mt-3" v-if="comments">
@@ -23,6 +30,7 @@
                 <th>Row</th>
                 <th scope="col">Email</th>
                 <th scope="col">Content</th>
+                <th scope="col">Phone Number</th>
                 <th scope="col">Created At</th>
               </tr>
             </thead>
@@ -36,6 +44,9 @@
                 </td>
                 <td style="width: 65%;">
                   {{ comment.content }}
+                </td>
+                <td>
+                  {{ comment.phone_number }}
                 </td>
                 <td>
                   {{ comment.created_at }}
@@ -75,6 +86,7 @@
 <script>
 import Loading from 'vue-loading-overlay'
 import {mapState, mapActions} from 'vuex'
+import {eventApi} from '@/api'
 export default {
   name: 'DashboardEventManagement',
   data () {
@@ -103,6 +115,9 @@ export default {
       }).then(() => {
         this.isLoading = false
       })
+    },
+    exportComments () {
+      window.open(eventApi.exportComments, '_blank')
     }
   },
   props: ['id'],
