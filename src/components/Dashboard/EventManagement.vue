@@ -20,8 +20,12 @@
                  <input type="text" class="form-control" id="event-title" v-model="eventTitle">
               </div>
               <div class="col-lg-8">
-                 <label for="event-content">Event Content</label>
-                 <textarea class="col-12" rows="15" id="event-content" v-model="eventContent"></textarea>
+                 <label for="event-content">Event Content (KR)</label>
+                 <textarea class="col-12" rows="15" id="event-content" v-model="eventContentKr"></textarea>
+              </div>
+              <div class="col-lg-8">
+                 <label for="event-content">Event Content (EN)</label>
+                 <textarea class="col-12" rows="15" id="event-content" v-model="eventContentEn"></textarea>
               </div>
               <div class="col-lg-4"></div>
               <div class="col-lg-4">
@@ -104,7 +108,8 @@ export default {
   data () {
     return {
       eventTitle: '',
-      eventContent: '',
+      eventContentKr: '',
+      eventContentEn: '',
       eventStartDate: '',
       eventEndDate: '',
       isLoading: false
@@ -127,7 +132,7 @@ export default {
         return
       }
 
-      if (!this.eventContent) {
+      if (!this.eventContentKr && !this.eventContentEn) {
         this.$awn.alert('Please enter event content')
         return
       }
@@ -151,7 +156,8 @@ export default {
 
       this.createEvent({
         title: this.eventTitle,
-        content: this.eventContent,
+        content: this.eventContentKr,
+        content_en: this.eventContentEn,
         startdate: this.eventStartDate,
         enddate: this.eventEndDate
       }).then(() => {
@@ -166,7 +172,8 @@ export default {
           this.$awn.success('Successfully created event')
           this.getEvents()
           this.eventTitle = ''
-          this.eventContent = ''
+          this.eventContentKr = ''
+          this.eventContentEn = ''
           this.eventStartDate = ''
           this.eventEndDate = ''
         } else {

@@ -20,8 +20,12 @@
                  <input type="text" class="form-control" id="event-title" v-model="eventTitle">
               </div>
               <div class="col-lg-8">
-                 <label for="event-content">Event Content</label>
-                 <textarea class="col-12" rows="15" id="event-content" v-model="eventContent"></textarea>
+                 <label for="event-content">Event Content (KR)</label>
+                 <textarea class="col-12" rows="15" id="event-content" v-model="eventContentKr"></textarea>
+              </div>
+              <div class="col-lg-8">
+                 <label for="event-content">Event Content (EN)</label>
+                 <textarea class="col-12" rows="15" id="event-content" v-model="eventContentEn"></textarea>
               </div>
               <div class="col-lg-4"></div>
               <div class="col-lg-4">
@@ -60,7 +64,8 @@ export default {
   data () {
     return {
       eventTitle: '',
-      eventContent: '',
+      eventContentKr: '',
+      eventContentEn: '',
       eventStartDate: '',
       eventEndDate: '',
       isLoading: false
@@ -83,7 +88,7 @@ export default {
         return
       }
 
-      if (!this.eventContent) {
+      if (!this.eventContentKr && !this.eventContentEn) {
         this.$awn.alert('Please enter event content')
         return
       }
@@ -108,7 +113,8 @@ export default {
       this.updateEvent({
         idevent: this.id,
         title: this.eventTitle,
-        content: this.eventContent,
+        content: this.eventContentKr,
+        content_en: this.eventContentEn,
         startdate: this.eventStartDate,
         enddate: this.eventEndDate
       }).then(() => {
@@ -133,7 +139,8 @@ export default {
     this.getEvent(this.id).then(() => {
       if (this.event) {
         this.eventTitle = this.event.event.title
-        this.eventContent = this.event.event.content
+        this.eventContentKr = this.event.event.content
+        this.eventContentEn = this.event.event.content_en
         this.eventStartDate = this.event.event.startdate.slice(0, 10)
         this.eventEndDate = this.event.event.enddate.slice(0, 10)
       }
