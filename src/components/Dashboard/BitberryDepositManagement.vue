@@ -12,8 +12,8 @@
         <h5 class="font-weight-bold">Balance</h5>
       </div>
       <div class="col-lg-3">
-        <h5 class="font-weight-bold text-danger" v-if="ethInfo">
-          {{ ethInfo.balance }} ETH
+        <h5 class="font-weight-bold text-danger" v-if="wallet">
+          {{ wallet.balance }} ETH
         </h5>
         <h5 v-else>
           0
@@ -24,16 +24,20 @@
     <!-- airdrop start -->
     <div class="row p-3 mb-3">
       <div class="col-lg-2">
-        <button type="button" class="btn btn-block">Send</button>
+        <button type="button" class="btn btn-block" @click="sendAirdrop">
+          Send
+        </button>
       </div>
       <div class="col-lg-3">
-        <input type="number" class="form-control" placeholder="Amount">
+        <input type="number" class="form-control"
+          placeholder="Amount" v-model="amount">
       </div>
       <div class="col-lg-1">
         <h5>To</h5>
       </div>
       <div class="col-lg-3">
-        <input type="number" class="form-control" placeholder="Phone Number">
+        <input type="number" class="form-control"
+          placeholder="Phone Number" v-model="phoneNumber">
       </div>
     </div>
     <!-- airdrop end -->
@@ -135,14 +139,17 @@ export default {
       filterCategory: 'all',
       filterStartAt: '',
       filterEndAt: '',
+      amount: '',
+      phoneNumber: '',
       params: {count: 50, isGetMore: false},
       isLoading: false
     }
   },
   methods: {
     ...mapActions([
-      'getBitberryEthInfo',
-      'getBitberryDeposits'
+      'getBitberryWallet',
+      'getBitberryDeposits',
+      'sendBitberryAirdrop'
     ]),
     getDeposits () {
       this.isLoading = true
@@ -175,6 +182,27 @@ export default {
       this.params.cursor_id = this.deposits.items[this.deposits.items.length - 1].id
       this.params.isGetMore = true
       this.getDeposits()
+    },
+    sendAirdrop () {
+      if (!this.amount) {
+        this.$awn.alert('Please enter amount.')
+        return
+      }
+
+      if (!this.phoneNumber) {
+        this.$awn.alert('Please enter phone number.')
+        return
+      }
+
+      alert('Send function will be available soon!')
+
+      // TODO: Use sendBitberryAirdrop function
+      // this.isLoading = true
+      //
+      // this.sendBitberryAirdrop().then(() => {
+      //   this.$awn.success('Successfully sent!')
+      //   this.isLoading = false
+      // })
     }
   },
   components: {
@@ -194,16 +222,17 @@ export default {
   },
   computed: {
     ...mapState({
-      ethInfo: ({bitberry}) => bitberry.ethInfo,
-      deposits: ({bitberry}) => bitberry.deposits
+      wallet: ({bitberry}) => bitberry.wallet,
+      deposits: ({bitberry}) => bitberry.deposits,
+      responseData: ({bitberry}) => bitberry.responseData
     })
   },
   created () {
     this.isLoading = true
 
     Promise.all([
-      this.getBitberryDeposits(this.params),
-      this.getBitberryEthInfo()
+      this.getBitberryWallet(),
+      this.getBitberryDeposits(this.params)
     ]).then(() => {
       this.isLoading = false
     })

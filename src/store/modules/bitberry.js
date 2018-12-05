@@ -11,7 +11,8 @@ import { bitberryApiToken } from '@/config'
  */
 const state = {
   deposits: null,
-  ethInfo: null
+  wallet: null,
+  responseData: null
 }
 
 /**
@@ -36,7 +37,7 @@ const actions = {
         delete payload.cursor_id
       }
 
-      let resp = await axios.get(bitberryApi.getEthInfo + '/entries', {params: payload})
+      let resp = await axios.get(bitberryApi.getDeposits, {params: payload})
 
       if (isGetMore) {
         context.commit('addDepositItems', resp.data)
@@ -48,19 +49,36 @@ const actions = {
     }
   },
   /**
-   * Get bitberry eth info
+   * Get bitberry wallet
    * @param context
    * @param payload
    * @return {Promise}
    */
-  getBitberryEthInfo: async (context, payload) => {
+  getBitberryWallet: async (context, payload) => {
     try {
       axios.defaults.headers.common['Authorization'] = 'Bearer ' +
         bitberryApiToken
-      let resp = await axios.get(bitberryApi.getEthInfo, {params: payload})
-      context.commit('setEthInfo', resp.data)
+      let resp = await axios.get(bitberryApi.getWallet, {params: payload})
+      context.commit('setWallet', resp.data)
     } catch (error) {
-      context.commit('setEthInfo', null)
+      context.commit('setWallet', null)
+    }
+  },
+
+  /**
+   * Send bitberry airdrop
+   * @param context
+   * @param payload
+   * @return {Promise}
+   */
+  sendBitberryAirdrop: async (context, payload) => {
+    try {
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' +
+        bitberryApiToken
+      let resp = await axios.post(bitberryApi.sendAirdrop, payload)
+      context.commit('setResponseData', resp.data)
+    } catch (e) {
+      context.commit('setResponseData', null)
     }
   }
 }
@@ -90,13 +108,22 @@ const mutations = {
   },
 
   /**
-   * Set eth info
+   * Set wallet
    * @param state
    * @param payload
    * @return
    */
-  setEthInfo: (state, payload) => {
-    state.ethInfo = payload
+  setWallet: (state, payload) => {
+    state.wallet = payload
+  },
+
+  /**
+   * Set response data
+   * @param state
+   * @param payload
+   */
+  setResponseData: (state, payload) => {
+    state.responseData = payload
   }
 }
 
