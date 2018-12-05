@@ -68,7 +68,7 @@
             <td>{{ deposit.currency_code }}</td>
             <td>{{ deposit.amount }}</td>
             <td>{{ deposit.target }}</td>
-            <td>{{ deposit.created_at }}</td>
+            <td>{{ moment(deposit.created_at).format('YYYY-MM-DD') }}</td>
             <td>{{ deposit.from_user_id }}</td>
           </tr>
         </tbody>
