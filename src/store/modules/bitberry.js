@@ -10,7 +10,8 @@ import { bitberryApiToken } from '@/config'
  * @type {object}
  */
 const state = {
-  deposits: null
+  deposits: null,
+  ethInfo: null
 }
 
 /**
@@ -35,7 +36,7 @@ const actions = {
         delete payload.cursor_id
       }
 
-      let resp = await axios.get(bitberryApi.getDeposits, {params: payload})
+      let resp = await axios.get(bitberryApi.getEthInfo + '/entries', {params: payload})
 
       if (isGetMore) {
         context.commit('addDepositItems', resp.data)
@@ -44,6 +45,22 @@ const actions = {
       }
     } catch (error) {
       context.commit('setDeposits', null)
+    }
+  },
+  /**
+   * Get bitberry eth info
+   * @param context
+   * @param payload
+   * @return {Promise}
+   */
+  getBitberryEthInfo: async (context, payload) => {
+    try {
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' +
+        bitberryApiToken
+      let resp = await axios.get(bitberryApi.getEthInfo, {params: payload})
+      context.commit('setEthInfo', resp.data)
+    } catch (error) {
+      context.commit('setEthInfo', null)
     }
   }
 }
@@ -70,6 +87,16 @@ const mutations = {
    */
   addDepositItems: (state, payload) => {
     state.deposits.items = state.deposits.items.concat(payload.items)
+  },
+
+  /**
+   * Set eth info
+   * @param state
+   * @param payload
+   * @return
+   */
+  setEthInfo: (state, payload) => {
+    state.ethInfo = payload
   }
 }
 

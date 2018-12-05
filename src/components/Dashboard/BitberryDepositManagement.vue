@@ -6,6 +6,37 @@
         <h3 class="font-weight-bold">Bitberry Deposit Management</h3>
       </div>
     </div>
+    <!-- balance start -->
+    <div class="row p-3">
+      <div class="col-lg-2">
+        <h5 class="font-weight-bold">Balance</h5>
+      </div>
+      <div class="col-lg-3">
+        <h5 class="font-weight-bold text-danger" v-if="ethInfo">
+          {{ ethInfo.balance }} ETH
+        </h5>
+        <h5 v-else>
+          0
+        </h5>
+      </div>
+    </div>
+    <!-- balance end -->
+    <!-- airdrop start -->
+    <div class="row p-3 mb-3">
+      <div class="col-lg-2">
+        <button type="button" class="btn btn-block">Send</button>
+      </div>
+      <div class="col-lg-3">
+        <input type="number" class="form-control" placeholder="Amount">
+      </div>
+      <div class="col-lg-1">
+        <h5>To</h5>
+      </div>
+      <div class="col-lg-3">
+        <input type="number" class="form-control" placeholder="Phone Number">
+      </div>
+    </div>
+    <!-- airdrop end -->
     <!-- category filter start -->
     <div class="row p-3">
       <div class="col-lg-2">
@@ -110,6 +141,7 @@ export default {
   },
   methods: {
     ...mapActions([
+      'getBitberryEthInfo',
       'getBitberryDeposits'
     ]),
     getDeposits () {
@@ -162,11 +194,19 @@ export default {
   },
   computed: {
     ...mapState({
+      ethInfo: ({bitberry}) => bitberry.ethInfo,
       deposits: ({bitberry}) => bitberry.deposits
     })
   },
   created () {
-    this.getDeposits()
+    this.isLoading = true
+
+    Promise.all([
+      this.getBitberryDeposits(this.params),
+      this.getBitberryEthInfo()
+    ]).then(() => {
+      this.isLoading = false
+    })
   }
 }
 </script>
