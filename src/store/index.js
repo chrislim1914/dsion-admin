@@ -15,6 +15,7 @@ import events from './modules/events'
 import kyc from './modules/kyc'
 import notice from './modules/notice'
 import airdrop from './modules/airdrop'
+import bitberry from './modules/bitberry'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -30,6 +31,7 @@ export default new Vuex.Store({
     events,
     kyc,
     notice,
-    airdrop
+    airdrop,
+    bitberry
   }
 })

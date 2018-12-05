@@ -8,12 +8,12 @@
       </ul>
       <ul class="nav flex-column mt-4">
         <li class="nav-item my-2" :key="index" v-for="(link, index) in links">
-          <router-link class="btn-block px-3" :class="{'active font-weight-bold': hasRoute(link.link), 'text-dark': !hasRoute(link.link)}" :to="{ name: 'Dashboard' + link.path_name  }">
+          <router-link class="btn-block px-2" :class="{'active font-weight-bold': hasRoute(link.link), 'text-dark': !hasRoute(link.link)}" :to="{ name: 'Dashboard' + link.path_name  }">
             {{ link.title }}
           </router-link>
         </li>
         <li class="nav-item my-2">
-          <a href="#" class="btn-block px-3" @click="logout">
+          <a href="#" class="btn-block px-2" @click="logout">
             Logout
           </a>
         </li>

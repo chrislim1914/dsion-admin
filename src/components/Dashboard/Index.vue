@@ -75,6 +75,11 @@ export default {
           title: 'Dsion Airdrop',
           path_name: 'DsionAirdrop',
           link: '/dashboard/dsion-airdrop'
+        },
+        {
+          title: 'Bitberry Deposit Management',
+          path_name: 'BitberryDepositManagement',
+          link: '/dashboard/bitberry-deposit-management'
         }
       ]
     }

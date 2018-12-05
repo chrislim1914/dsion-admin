@@ -23,6 +23,7 @@ import IcoManagement from '@/components/Dashboard/IcoManagement'
 import PromotionManagement from '@/components/Dashboard/PromotionManagement'
 import NoticeManagement from '@/components/Dashboard/NoticeManagement'
 import DsionAirdrop from '@/components/Dashboard/DsionAirdrop'
+import BitberryDepositManagement from '@/components/Dashboard/BitberryDepositManagement'
 
 Vue.use(Router)
 
@@ -105,6 +106,11 @@ export default new Router({
           path: 'dsion-airdrop',
           name: 'DashboardDsionAirdrop',
           component: DsionAirdrop
+        },
+        {
+          path: 'bitberry-deposit-management',
+          name: 'DashboardBitberryDepositManagement',
+          component: BitberryDepositManagement
         }
       ]
     }

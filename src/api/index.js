@@ -2,9 +2,7 @@
  * api routes
  */
 
-import {
-  apiURL
-} from '@/config.js'
+import { apiURL, bitberryApiUrl } from '@/config.js'
 
 export const user = {
   login: apiURL + '/admin/login',
@@ -77,4 +75,8 @@ export const noticeApi = {
 
 export const airdropApi = {
   importAirdrop: apiURL + '/airdrop/import'
+}
+
+export const bitberryApi = {
+  getDeposits: bitberryApiUrl + '/partner_api/v1/wallets/rzg25vn8gk/entries'
 }
