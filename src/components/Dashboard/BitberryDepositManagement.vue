@@ -23,7 +23,7 @@
     <!-- balance end -->
     <!-- airdrop start -->
     <div class="row p-3 mb-3">
-      <div class="col-lg-2">
+      <div class="col-lg-2 mb-3 mb-lg-0">
         <button type="button" class="btn btn-block" @click="sendAirdrop">
           Send
         </button>
@@ -111,7 +111,7 @@
     </div>
     <div class="row mt-2">
       <div class="col-lg-2 mx-auto">
-        <button type="button" class="btn" @click="getMoreDeposits">
+        <button type="button" class="btn btn-block" @click="getMoreDeposits">
           Get more
         </button>
       </div>
@@ -194,15 +194,21 @@ export default {
         return
       }
 
-      alert('Send function will be available soon!')
+      this.isLoading = true
 
-      // TODO: Use sendBitberryAirdrop function
-      // this.isLoading = true
-      //
-      // this.sendBitberryAirdrop().then(() => {
-      //   this.$awn.success('Successfully sent!')
-      //   this.isLoading = false
-      // })
+      this.sendBitberryAirdrop().then(() => {
+        if (
+          !this.responseData ||
+          !this.responseData.hasOwnProperty('status') ||
+          !this.responseData.status === 'success'
+        ) {
+          this.$awn.alert('Sending failed.')
+        } else {
+          this.$awn.success('Successfully sent!')
+        }
+
+        this.isLoading = false
+      })
     }
   },
   components: {
