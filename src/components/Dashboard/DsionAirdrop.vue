@@ -12,6 +12,19 @@
         </div>
         <div class="row p-3">
           <div class="col-lg-3">
+            <h4 class="font-weight-bold">Balance</h4>
+          </div>
+          <div class="col-lg-3">
+            <h4 class="font-weight-bold text-danger" v-if="dsionWallet">
+              {{ dsionWallet.balance }} DSN
+            </h4>
+            <h5 v-else>
+              0
+            </h5>
+          </div>
+        </div>
+        <div class="row p-3">
+          <div class="col-lg-3">
             <h5>Phone number list</h5>
             <small class="text-danger">* Phone numbers limit is 200.</small><br>
             <small class="text-danger">* Please clear formatting before importing excel file.</small>
@@ -63,6 +76,7 @@ export default {
   },
   methods: {
     ...mapActions([
+      'getDsionWallet',
       'importAirdrop'
     ]),
     submit () {
@@ -106,7 +120,14 @@ export default {
   },
   computed: {
     ...mapState({
+      dsionWallet: ({bitberry}) => bitberry.dsionWallet,
       responseData: ({airdrop}) => airdrop.responseData
+    })
+  },
+  created () {
+    this.isLoading = true
+    this.getDsionWallet().then(() => {
+      this.isLoading = false
     })
   }
 }

@@ -79,6 +79,7 @@ export const airdropApi = {
 
 export const bitberryApi = {
   getWallet: bitberryApiUrl + '/partner_api/v1/wallets/rzg25vn8gk',
+  getDsionWallet: bitberryApiUrl + '/partner_api/v1/wallets/dajxd4a8mz',
   getDeposits: bitberryApiUrl + '/partner_api/v1/wallets/rzg25vn8gk/entries',
   sendAirdrop: bitberryApiUrl + '/partner_api/v1/wallets/rzg25vn8gk/airdrop'
 }

@@ -12,6 +12,7 @@ import { bitberryApiToken } from '@/config'
 const state = {
   deposits: null,
   wallet: null,
+  dsionWallet: null,
   responseData: null
 }
 
@@ -66,6 +67,22 @@ const actions = {
   },
 
   /**
+   * Get dsion wallet
+   * @param context
+   * @return {Promise}
+   */
+  getDsionWallet: async (context) => {
+    try {
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' +
+        bitberryApiToken
+      let resp = await axios.get(bitberryApi.getDsionWallet)
+      context.commit('setDsionWallet', resp.data)
+    } catch (error) {
+      context.commit('setDsionWallet', null)
+    }
+  },
+
+  /**
    * Send bitberry airdrop
    * @param context
    * @param payload
@@ -115,6 +132,16 @@ const mutations = {
    */
   setWallet: (state, payload) => {
     state.wallet = payload
+  },
+
+  /**
+   * Set dsion wallet
+   * @param state
+   * @param payload
+   * @return
+   */
+  setDsionWallet: (state, payload) => {
+    state.dsionWallet = payload
   },
 
   /**
