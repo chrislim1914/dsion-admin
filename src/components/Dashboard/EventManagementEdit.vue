@@ -37,9 +37,22 @@
                  <datetime format="yyyy-MM-dd" class="form-control" id="event-end-date" v-model="eventEndDate"></datetime>
               </div>
             </div>
-            <div class="row">
+            <div class="row my-3">
+              <div class="col-lg-2">
+                <label for="use-comment">Use Comment</label>
+              </div>
+              <div class="col-lg-1 text-right lh-35">
+                <toggle-button
+                  :value="useComment"
+                  :sync="true"
+                  :labels="{checked: 'True', unchecked: 'False'}"
+                  :width="65"
+                  @change="selectToggle(useComment)" />
+              </div>
+            </div>
+            <div class="row mt-3">
               <div class="col-lg-3">
-                <button type="submit" class="btn btn-block mt-4">Submit</button>
+                <button type="submit" class="btn btn-block">Submit</button>
               </div>
             </div>
           </form>
@@ -68,7 +81,8 @@ export default {
       eventContentEn: '',
       eventStartDate: '',
       eventEndDate: '',
-      isLoading: false
+      isLoading: false,
+      useComment: false
     }
   },
   computed: {
@@ -82,6 +96,9 @@ export default {
       'getEvent',
       'updateEvent'
     ]),
+    selectToggle (value) {
+      this.useComment = !value
+    },
     submit () {
       if (!this.eventTitle) {
         this.$awn.alert('Please enter event title')
@@ -115,6 +132,7 @@ export default {
         title: this.eventTitle,
         content: this.eventContentKr,
         content_en: this.eventContentEn,
+        use_comment: this.useComment,
         startdate: this.eventStartDate,
         enddate: this.eventEndDate
       }).then(() => {
@@ -143,6 +161,7 @@ export default {
         this.eventContentEn = this.event.event.content_en
         this.eventStartDate = this.event.event.startdate.slice(0, 10)
         this.eventEndDate = this.event.event.enddate.slice(0, 10)
+        this.useComment = this.event.event.use_comment
       }
       this.isLoading = false
     })
