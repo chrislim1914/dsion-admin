@@ -196,7 +196,10 @@ export default {
 
       this.isLoading = true
 
-      this.sendBitberryAirdrop().then(() => {
+      this.sendBitberryAirdrop({
+        amount: this.amount,
+        phone_number: this.phoneNumber
+      }).then(() => {
         if (
           !this.responseData ||
           !this.responseData.hasOwnProperty('status') ||
