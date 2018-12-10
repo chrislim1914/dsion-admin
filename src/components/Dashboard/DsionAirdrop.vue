@@ -15,8 +15,8 @@
             <h4 class="font-weight-bold">Balance</h4>
           </div>
           <div class="col-lg-3">
-            <h4 class="font-weight-bold text-danger" v-if="dsionWallet">
-              {{ dsionWallet.balance }} DSN
+            <h4 class="font-weight-bold text-danger" v-if="wallet">
+              {{ wallet.balance }} DSN
             </h4>
             <h5 v-else>
               0
@@ -120,7 +120,7 @@ export default {
   },
   computed: {
     ...mapState({
-      dsionWallet: ({bitberry}) => bitberry.dsionWallet,
+      wallet: ({bitberry}) => bitberry.dsionWallet,
       responseData: ({airdrop}) => airdrop.responseData
     })
   },

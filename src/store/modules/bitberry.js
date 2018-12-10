@@ -10,8 +10,8 @@ import { bitberryApiToken } from '@/config'
  * @type {object}
  */
 const state = {
-  deposits: null,
-  wallet: null,
+  ethEntries: null,
+  ethWallet: null,
   dsionWallet: null,
   responseData: null
 }
@@ -22,15 +22,13 @@ const state = {
  */
 const actions = {
   /**
-   * Get bitberry deposits
+   * Get eth entries
    * @param context
    * @param payload
    * @return {Promise}
    */
-  getBitberryDeposits: async (context, payload) => {
+  getEthEntries: async (context, payload) => {
     try {
-      axios.defaults.headers.common['Authorization'] = 'Bearer ' +
-        bitberryApiToken
       let isGetMore = payload.isGetMore
       delete payload.isGetMore
 
@@ -38,31 +36,39 @@ const actions = {
         delete payload.cursor_id
       }
 
-      let resp = await axios.get(bitberryApi.getDeposits, {params: payload})
+      let resp = await axios.get(
+        bitberryApi.getEthEntries,
+        {
+          params: payload,
+          headers: {'Authorization': 'Bearer ' + bitberryApiToken}
+        }
+      )
 
       if (isGetMore) {
-        context.commit('addDepositItems', resp.data)
+        context.commit('addEthEntriesItem', resp.data)
       } else {
-        context.commit('setDeposits', resp.data)
+        context.commit('setEthEntries', resp.data)
       }
     } catch (error) {
-      context.commit('setDeposits', null)
+      context.commit('setEthEntries', null)
     }
   },
   /**
-   * Get bitberry wallet
+   * Get eth wallet
    * @param context
-   * @param payload
    * @return {Promise}
    */
-  getBitberryWallet: async (context, payload) => {
+  getEthWallet: async (context) => {
     try {
-      axios.defaults.headers.common['Authorization'] = 'Bearer ' +
-        bitberryApiToken
-      let resp = await axios.get(bitberryApi.getWallet, {params: payload})
-      context.commit('setWallet', resp.data)
+      let resp = await axios.get(
+        bitberryApi.getEthWallet,
+        {
+          headers: {'Authorization': 'Bearer ' + bitberryApiToken}
+        }
+      )
+      context.commit('setEthWallet', resp.data)
     } catch (error) {
-      context.commit('setWallet', null)
+      context.commit('setEthWallet', null)
     }
   },
 
@@ -73,9 +79,12 @@ const actions = {
    */
   getDsionWallet: async (context) => {
     try {
-      axios.defaults.headers.common['Authorization'] = 'Bearer ' +
-        bitberryApiToken
-      let resp = await axios.get(bitberryApi.getDsionWallet)
+      let resp = await axios.get(
+        bitberryApi.getDsionWallet,
+        {
+          headers: {'Authorization': 'Bearer ' + bitberryApiToken}
+        }
+      )
       context.commit('setDsionWallet', resp.data)
     } catch (error) {
       context.commit('setDsionWallet', null)
@@ -83,16 +92,20 @@ const actions = {
   },
 
   /**
-   * Send bitberry airdrop
+   * Send eth airdrop
    * @param context
    * @param payload
    * @return {Promise}
    */
-  sendBitberryAirdrop: async (context, payload) => {
+  sendEthAirdrop: async (context, payload) => {
     try {
-      axios.defaults.headers.common['Authorization'] = 'Bearer ' +
-        bitberryApiToken
-      let resp = await axios.post(bitberryApi.sendAirdrop, payload)
+      let resp = await axios.post(
+        bitberryApi.sendEthAirdrop,
+        payload,
+        {
+          headers: {'Authorization': 'Bearer ' + bitberryApiToken}
+        }
+      )
       context.commit('setResponseData', resp.data)
     } catch (e) {
       context.commit('setResponseData', null)
@@ -106,32 +119,32 @@ const actions = {
  */
 const mutations = {
   /**
-   * Set deposits
+   * Set eth entries
    * @param state
    * @param payload
    */
-  setDeposits: (state, payload) => {
-    state.deposits = payload
+  setEthEntries: (state, payload) => {
+    state.ethEntries = payload
   },
 
   /**
-   * Add deposit items
+   * Add eth entries item
    * @param state
    * @param payload
    * @return
    */
-  addDepositItems: (state, payload) => {
-    state.deposits.items = state.deposits.items.concat(payload.items)
+  addEthEntriesItem: (state, payload) => {
+    state.ethEntries.items = state.ethEntries.items.concat(payload.items)
   },
 
   /**
-   * Set wallet
+   * Set eth wallet
    * @param state
    * @param payload
    * @return
    */
-  setWallet: (state, payload) => {
-    state.wallet = payload
+  setEthWallet: (state, payload) => {
+    state.ethWallet = payload
   },
 
   /**

@@ -72,7 +72,7 @@ export default {
             token: jwtHeader + token
           }).then(() => {
             this.$session.start()
-            this.$session.set('jwt', jwtHeader + token)
+            this.$session.set('jwt', token)
             this.$session.set('admin', this.responseData)
             this.$router.push({ name: 'DashboardMain' })
           })

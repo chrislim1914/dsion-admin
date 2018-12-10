@@ -15,7 +15,7 @@
         <h5 class="font-weight-bold text-danger" v-if="wallet">
           {{ wallet.balance }} ETH
         </h5>
-        <h5 v-else>
+        <h5 class="font-weight-bold text-danger" v-else>
           0
         </h5>
       </div>
@@ -79,7 +79,7 @@
     </div>
     <!-- date filter end -->
     <!-- bitberry deposits table start -->
-    <div class="row mt-4 table-responsive" v-if="deposits">
+    <div class="row mt-4 table-responsive" v-if="entries">
       <table class="table">
         <thead>
           <tr>
@@ -95,23 +95,23 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(deposit, key) in deposits.items" :key="key">
-            <td>{{ deposit.id }}</td>
-            <td>{{ deposit.event_type }}</td>
-            <td>{{ deposit.category }}</td>
-            <td>{{ deposit.status }}</td>
-            <td>{{ deposit.currency_code }}</td>
-            <td>{{ deposit.amount }}</td>
-            <td>{{ deposit.target }}</td>
-            <td>{{ moment(deposit.created_at).format('YYYY-MM-DD') }}</td>
-            <td>{{ deposit.from_user_id }}</td>
+          <tr v-for="(entry, key) in entries.items" :key="key">
+            <td>{{ entry.id }}</td>
+            <td>{{ entry.event_type }}</td>
+            <td>{{ entry.category }}</td>
+            <td>{{ entry.status }}</td>
+            <td>{{ entry.currency_code }}</td>
+            <td>{{ entry.amount }}</td>
+            <td>{{ entry.target }}</td>
+            <td>{{ moment(entry.created_at).format('YYYY-MM-DD') }}</td>
+            <td>{{ entry.from_user_id }}</td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="row mt-2">
       <div class="col-lg-2 mx-auto">
-        <button type="button" class="btn btn-block" @click="getMoreDeposits">
+        <button type="button" class="btn btn-block" @click="getMoreEntries">
           Get more
         </button>
       </div>
@@ -147,18 +147,18 @@ export default {
   },
   methods: {
     ...mapActions([
-      'getBitberryWallet',
-      'getBitberryDeposits',
-      'sendBitberryAirdrop'
+      'getEthWallet',
+      'getEthEntries',
+      'sendEthAirdrop'
     ]),
-    getDeposits () {
+    getEntries () {
       this.isLoading = true
       this.isGetMore = false
-      this.getBitberryDeposits(this.params).then(() => {
+      this.getEthEntries(this.params).then(() => {
         this.isLoading = false
       })
     },
-    filterDeposits () {
+    filterEntries () {
       if (this.filterCategory) {
         this.params.category = this.filterCategory
       }
@@ -173,15 +173,15 @@ export default {
           .format('YYYY-MM-DD') + ' T23:59:59+09:00'
       }
 
-      this.getDeposits()
+      this.getEntries()
     },
-    getMoreDeposits () {
-      if (!this.deposits.items.length) {
+    getMoreEntries () {
+      if (!this.entries.items.length) {
         return
       }
-      this.params.cursor_id = this.deposits.items[this.deposits.items.length - 1].id
+      this.params.cursor_id = this.entries.items[this.entries.items.length - 1].id
       this.params.isGetMore = true
-      this.getDeposits()
+      this.getEntries()
     },
     sendAirdrop () {
       if (!this.amount) {
@@ -196,7 +196,7 @@ export default {
 
       this.isLoading = true
 
-      this.sendBitberryAirdrop({
+      this.sendEthAirdrop({
         amount: this.amount,
         phone_number: this.phoneNumber
       }).then(() => {
@@ -220,19 +220,19 @@ export default {
   },
   watch: {
     filterCategory () {
-      this.filterDeposits()
+      this.filterEntries()
     },
     filterStartAt () {
-      this.filterDeposits()
+      this.filterEntries()
     },
     filterEndAt () {
-      this.filterDeposits()
+      this.filterEntries()
     }
   },
   computed: {
     ...mapState({
-      wallet: ({bitberry}) => bitberry.wallet,
-      deposits: ({bitberry}) => bitberry.deposits,
+      wallet: ({bitberry}) => bitberry.ethWallet,
+      entries: ({bitberry}) => bitberry.ethEntries,
       responseData: ({bitberry}) => bitberry.responseData
     })
   },
@@ -240,8 +240,8 @@ export default {
     this.isLoading = true
 
     Promise.all([
-      this.getBitberryWallet(),
-      this.getBitberryDeposits(this.params)
+      this.getEthWallet(),
+      this.getEthEntries(this.params)
     ]).then(() => {
       this.isLoading = false
     })

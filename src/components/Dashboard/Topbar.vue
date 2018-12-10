@@ -59,7 +59,7 @@ export default {
       this.isLoading = true
 
       this.logoutUser({
-        token: jwtHeader + this.$session.get('jwt').slice(3)
+        token: jwtHeader + this.$session.get('jwt')
       }).then(() => {
         this.isLoading = false
         this.$session.destroy()

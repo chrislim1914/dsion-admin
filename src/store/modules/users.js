@@ -36,7 +36,13 @@ const actions = {
   },
   logoutUser: async (context, payload) => {
     try {
-      var resp = await axios.post(user.logout, payload)
+      var resp = await axios.post(
+        user.logout,
+        null,
+        {
+          headers: {'Authorization': 'Bearer ' + payload.token}
+        }
+      )
       context.commit('updateResponseMessage', resp.data)
     } catch (error) {
       context.commit('updateResponseMessage', 'General Error')
@@ -44,8 +50,13 @@ const actions = {
   },
   fetchUserInfo: async (context, payload) => {
     try {
-      axios.defaults.headers.common['Authorization'] = 'Bearer ' + payload.token
-      var resp = await axios.post(user.getInfo)
+      var resp = await axios.post(
+        user.getInfo,
+        null,
+        {
+          headers: {'Authorization': 'Bearer ' + payload.token}
+        }
+      )
       context.commit('updateResponseMessage', resp.data)
     } catch (error) {
       console.log(error)
