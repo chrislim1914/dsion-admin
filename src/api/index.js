@@ -81,5 +81,6 @@ export const bitberryApi = {
   getEthWallet: bitberryApiUrl + '/partner_api/v1/wallets/rzg25vn8gk',
   getEthEntries: bitberryApiUrl + '/partner_api/v1/wallets/rzg25vn8gk/entries',
   sendEthAirdrop: bitberryApiUrl + '/partner_api/v1/wallets/rzg25vn8gk/airdrop',
-  getDsionWallet: bitberryApiUrl + '/partner_api/v1/wallets/dajxd4a8mz'
+  getDsionWallet: bitberryApiUrl + '/partner_api/v1/wallets/dajxd4a8mz',
+  getDsionEntries: bitberryApiUrl + '/partner_api/v1/wallets/dajxd4a8mz/entries'
 }

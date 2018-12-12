@@ -12,6 +12,7 @@ import { bitberryApiToken } from '@/config'
 const state = {
   ethEntries: null,
   ethWallet: null,
+  dsionEntries: null,
   dsionWallet: null,
   responseData: null
 }
@@ -51,6 +52,38 @@ const actions = {
       }
     } catch (error) {
       context.commit('setEthEntries', null)
+    }
+  },
+  /**
+   * Get dsion entries
+   * @param context
+   * @param payload
+   * @return {Promise}
+   */
+  getDsionEntries: async (context, payload) => {
+    try {
+      let isGetMore = payload.isGetMore
+      delete payload.isGetMore
+
+      if (!isGetMore) {
+        delete payload.cursor_id
+      }
+
+      let resp = await axios.get(
+        bitberryApi.getDsionEntries,
+        {
+          params: payload,
+          headers: {'Authorization': 'Bearer ' + bitberryApiToken}
+        }
+      )
+
+      if (isGetMore) {
+        context.commit('addDsionEntriesItem', resp.data)
+      } else {
+        context.commit('setDsionEntries', resp.data)
+      }
+    } catch (error) {
+      context.commit('setDsionEntries', null)
     }
   },
   /**
@@ -135,6 +168,25 @@ const mutations = {
    */
   addEthEntriesItem: (state, payload) => {
     state.ethEntries.items = state.ethEntries.items.concat(payload.items)
+  },
+
+  /**
+   * Set dsion entries
+   * @param state
+   * @param payload
+   */
+  setDsionEntries: (state, payload) => {
+    state.dsionEntries = payload
+  },
+
+  /**
+   * Add dsion entries item
+   * @param state
+   * @param payload
+   * @return
+   */
+  addDsionEntriesItem: (state, payload) => {
+    state.dsionEntries.items = state.dsionEntries.items.concat(payload.items)
   },
 
   /**

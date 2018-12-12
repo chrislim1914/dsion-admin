@@ -1,5 +1,6 @@
 <template>
 <div id="app-dashboard-bitberry-deposit-management">
+  <!-- .container-fluid start -->
   <div class="container-fluid">
     <div class="row p-3">
       <div class="col-12">
@@ -89,7 +90,7 @@
             <th scope="col">Status</th>
             <th scope="col">Currency Code</th>
             <th scope="col">Amount</th>
-            <th scope="col">Target</th>
+            <th scope="col">Description</th>
             <th scope="col">Created At</th>
             <th scope="col">From User ID</th>
           </tr>
@@ -102,13 +103,15 @@
             <td>{{ entry.status }}</td>
             <td>{{ entry.currency_code }}</td>
             <td>{{ entry.amount }}</td>
-            <td>{{ entry.target }}</td>
+            <td>{{ entry.description }}</td>
             <td>{{ moment(entry.created_at).format('YYYY-MM-DD') }}</td>
             <td>{{ entry.from_user_id }}</td>
           </tr>
         </tbody>
       </table>
     </div>
+    <!-- bitberry deposits table end -->
+    <!-- get more start -->
     <div class="row mt-2">
       <div class="col-lg-2 mx-auto">
         <button type="button" class="btn btn-block" @click="getMoreEntries">
@@ -116,8 +119,9 @@
         </button>
       </div>
     </div>
+    <!-- get more end -->
   </div>
-  <!-- bitberry deposits table end -->
+  <!-- .container-fluid end -->
   <!-- loading start -->
   <loading :active.sync="isLoading" :is-full-page="true">
   </loading>
