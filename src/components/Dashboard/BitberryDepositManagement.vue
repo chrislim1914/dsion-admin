@@ -93,6 +93,7 @@
             <th scope="col">Description</th>
             <th scope="col">Created At</th>
             <th scope="col">From User ID</th>
+            <th scope="col">Phone Number</th>
           </tr>
         </thead>
         <tbody>
@@ -106,6 +107,7 @@
             <td>{{ entry.description }}</td>
             <td>{{ moment(entry.created_at).format('YYYY-MM-DD') }}</td>
             <td>{{ entry.from_user_id }}</td>
+            <td>{{ entry.phone_number }}</td>
           </tr>
         </tbody>
       </table>
