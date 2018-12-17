@@ -15,21 +15,25 @@
               Create Deposit
             </h5>
             <div class="row">
-              <div class="col-lg-3">
+              <div class="col">
                  <label for="eth-address">ETH Address</label>
                  <input type="text" class="form-control" id="eth-address" v-model="ethAddress">
               </div>
-              <div class="col-lg-3">
+              <div class="col">
                  <label for="eth-count">ETH Count</label>
                  <input type="number" class="form-control" id="eth-count" v-model="ethCount">
               </div>
-              <div class="col-lg-3">
+              <div class="col">
+                 <label for="eth-count">Token Rate</label>
+                 <input type="number" class="form-control" id="token-rate" v-model="tokenRate">
+              </div>
+              <div class="col">
                 <label for="sales-status">Sale Status</label>
                 <select class="form-control" id="sale-status" v-model="saleStatusId">
                 <option v-for="(sale, key) in sales" :key="key" :value="sale.idsale_status">{{ sale.name }}</option>
                 </select>
               </div>
-              <div class="col-lg-3">
+              <div class="col">
                 <label for="create-date">Create Date</label>
                 <input type="text" class="form-control" id="create-date" v-model="createDate">
                 <!-- <label for="sales-status">Create Date</label>
@@ -203,6 +207,7 @@ export default {
     return {
       ethAddress: '',
       ethCount: '',
+      tokenRate: '',
       saleStatusId: '',
       createDate: '',
       searchUserEmail: '',
@@ -281,7 +286,7 @@ export default {
       this.loadDepositsData()
     },
     showDeleteDepositModal () {
-      this.$modal.show('delete-deposit-modal', {selectedDepositIds: this.selectedDepositIds})
+      this.$modal.show('delete-deposit-modal', {depositIds: this.selectedDepositIds})
     },
     submit () {
       if (!this.ethAddress) {
@@ -294,8 +299,18 @@ export default {
         return
       }
 
+      if (!this.tokenRate) {
+        this.$awn.alert('Please enter token rate')
+        return
+      }
+
       if (this.ethCount === '0') {
         this.$awn.alert('Eth count must not be equal to 0')
+        return
+      }
+
+      if (this.tokenRate === '0') {
+        this.$awn.alert('Token rate must not be equal to 0')
         return
       }
 
@@ -319,6 +334,7 @@ export default {
       this.createDeposit({
         eth_address: this.ethAddress,
         eth_count: this.ethCount,
+        token_rate: this.tokenRate,
         idsale_status: this.saleStatusId,
         created_at: this.createDate
       }).then(() => {
@@ -334,6 +350,7 @@ export default {
           this.getDepositsData()
           this.ethAddress = ''
           this.ethCount = ''
+          this.tokenRate = ''
           this.saleStatusId = ''
         } else {
           this.$awn.alert(this.depositResponseData.message)
