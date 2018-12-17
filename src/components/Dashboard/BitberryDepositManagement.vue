@@ -105,7 +105,7 @@
             <td>{{ entry.currency_code }}</td>
             <td>{{ entry.amount }}</td>
             <td>{{ entry.description }}</td>
-            <td>{{ moment(entry.created_at).format('YYYY-MM-DD') }}</td>
+            <td>{{ moment(entry.created_at).format('YYYY-MM-DD HH:mm') }}</td>
             <td>{{ entry.from_user_id }}</td>
             <td>{{ entry.phone_number }}</td>
           </tr>
