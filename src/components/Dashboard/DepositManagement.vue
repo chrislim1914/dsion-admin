@@ -15,25 +15,25 @@
               Create Deposit
             </h5>
             <div class="row">
-              <div class="col">
+              <div class="col-lg">
                  <label for="eth-address">ETH Address</label>
                  <input type="text" class="form-control" id="eth-address" v-model="ethAddress">
               </div>
-              <div class="col">
+              <div class="col-lg">
                  <label for="eth-count">ETH Count</label>
                  <input type="number" class="form-control" id="eth-count" v-model="ethCount">
               </div>
-              <div class="col">
+              <div class="col-lg">
                  <label for="eth-count">Token Rate</label>
                  <input type="number" class="form-control" id="token-rate" v-model="tokenRate">
               </div>
-              <div class="col">
+              <div class="col-lg">
                 <label for="sales-status">Sale Status</label>
                 <select class="form-control" id="sale-status" v-model="saleStatusId">
                 <option v-for="(sale, key) in sales" :key="key" :value="sale.idsale_status">{{ sale.name }}</option>
                 </select>
               </div>
-              <div class="col">
+              <div class="col-lg">
                 <label for="create-date">Create Date</label>
                 <input type="text" class="form-control" id="create-date" v-model="createDate">
                 <!-- <label for="sales-status">Create Date</label>
