@@ -47,6 +47,7 @@ const actions = {
 
       if (isGetMore) {
         context.commit('addEthEntriesItem', resp.data)
+        context.commit('setEthEntriesHasMore', resp.data)
       } else {
         context.commit('setEthEntries', resp.data)
       }
@@ -79,6 +80,7 @@ const actions = {
 
       if (isGetMore) {
         context.commit('addDsionEntriesItem', resp.data)
+        context.commit('setDsionEntriesHasMore', resp.data)
       } else {
         context.commit('setDsionEntries', resp.data)
       }
@@ -171,6 +173,16 @@ const mutations = {
   },
 
   /**
+   * Set entries entries has more
+   * @param state
+   * @param payload
+   * @return
+   */
+  setEthEntriesHasMore: (state, payload) => {
+    state.ethEntries.has_more = payload.has_more
+  },
+
+  /**
    * Set dsion entries
    * @param state
    * @param payload
@@ -187,6 +199,16 @@ const mutations = {
    */
   addDsionEntriesItem: (state, payload) => {
     state.dsionEntries.items = state.dsionEntries.items.concat(payload.items)
+  },
+
+  /**
+   * Set dsion entries has more
+   * @param state
+   * @param payload
+   * @return
+   */
+  setDsionEntriesHasMore: (state, payload) => {
+    state.dsionEntries.has_more = payload.has_more
   },
 
   /**

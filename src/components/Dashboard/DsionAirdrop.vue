@@ -127,7 +127,11 @@
       <!-- get more start -->
       <div class="row mt-2">
         <div class="col-lg-2 mx-auto">
-          <button type="button" class="btn btn-block" @click="getMoreEntries">
+          <button
+            type="button" class="btn btn-block"
+            v-if="entries" @click="getMoreEntries"
+            :disabled="!entries.has_more"
+          >
             Get more
           </button>
         </div>
@@ -154,7 +158,7 @@ export default {
       filterCategory: 'all',
       filterStartAt: '',
       filterEndAt: '',
-      params: {count: 50, isGetMore: false},
+      params: {isGetMore: false},
       isLoading: false
     }
   },
