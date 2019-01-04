@@ -158,7 +158,7 @@ export default {
       filterCategory: 'all',
       filterStartAt: '',
       filterEndAt: '',
-      params: {isGetMore: false},
+      params: {isGetMore: false, count: 50},
       isLoading: false
     }
   },
