@@ -97,10 +97,11 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">ID</th>
+              <th scope="col">TXID</th>
               <th scope="col">Event Type</th>
               <th scope="col">Category</th>
               <th scope="col">Status</th>
+              <th scope="col">To User ID</th>
               <th scope="col">Currency Code</th>
               <th scope="col">Amount</th>
               <th scope="col">Description</th>
@@ -114,6 +115,7 @@
               <td>{{ entry.event_type }}</td>
               <td>{{ entry.category }}</td>
               <td>{{ entry.status }}</td>
+              <td>{{ entry.to_user_id }}</td>
               <td>{{ entry.currency_code }}</td>
               <td>{{ entry.amount }}</td>
               <td>{{ entry.description }}</td>
