@@ -15,9 +15,13 @@
               Create Event
             </h5>
             <div class="row">
-              <div class="col-lg-8">
+              <div class="col-lg-4">
                  <label for="event-title">Event Title</label>
                  <input type="text" class="form-control" id="event-title" v-model="eventTitle">
+              </div>
+              <div class="col-lg-4">
+                 <label for="event-url">Event Url</label>
+                 <input type="text" class="form-control" id="event-url" v-model="eventLink" required>
               </div>
               <div class="col-lg-8">
                  <label for="event-content">Event Content (KR)</label>
@@ -121,6 +125,7 @@ export default {
   data () {
     return {
       eventTitle: '',
+      eventLink: '',
       eventContentKr: '',
       eventContentEn: '',
       eventStartDate: '',
@@ -149,6 +154,11 @@ export default {
         return
       }
 
+      if (!this.eventLink) {
+        this.$awn.alert('Please enter event url')
+        return
+      }
+
       if (!this.eventContentKr && !this.eventContentEn) {
         this.$awn.alert('Please enter event content')
         return
@@ -173,6 +183,7 @@ export default {
 
       this.createEvent({
         title: this.eventTitle,
+        url: this.eventLink,
         content: this.eventContentKr,
         content_en: this.eventContentEn,
         use_comment: this.useComment,
@@ -190,6 +201,7 @@ export default {
           this.$awn.success('Successfully created event')
           this.getEvents()
           this.eventTitle = ''
+          this.eventLink = ''
           this.eventContentKr = ''
           this.eventContentEn = ''
           this.eventStartDate = ''
