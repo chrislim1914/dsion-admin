@@ -15,9 +15,13 @@
               Edit Event
             </h5>
             <div class="row">
-              <div class="col-lg-8">
+              <div class="col-lg-4">
                  <label for="event-title">Event Title</label>
                  <input type="text" class="form-control" id="event-title" v-model="eventTitle">
+              </div>
+              <div class="col-lg-4">
+                 <label for="event-url">Event Url</label>
+                 <input type="text" class="form-control" id="event-url" v-model="eventLink" required>
               </div>
               <div class="col-lg-8">
                  <label for="event-content">Event Content (KR)</label>
@@ -77,6 +81,7 @@ export default {
   data () {
     return {
       eventTitle: '',
+      eventLink: '',
       eventContentKr: '',
       eventContentEn: '',
       eventStartDate: '',
@@ -105,6 +110,11 @@ export default {
         return
       }
 
+      if (!this.eventLink) {
+        this.$awn.alert('Please enter event url')
+        return
+      }
+
       if (!this.eventContentKr && !this.eventContentEn) {
         this.$awn.alert('Please enter event content')
         return
@@ -129,6 +139,7 @@ export default {
 
       this.updateEvent({
         idevent: this.id,
+        url: this.eventLink,
         title: this.eventTitle,
         content: this.eventContentKr,
         content_en: this.eventContentEn,
@@ -157,6 +168,7 @@ export default {
     this.getEvent(this.id).then(() => {
       if (this.event) {
         this.eventTitle = this.event.event.title
+        this.eventLink = this.event.event.url
         this.eventContentKr = this.event.event.content
         this.eventContentEn = this.event.event.content_en
         this.eventStartDate = this.event.event.startdate.slice(0, 10)
